@@ -258,7 +258,7 @@ library Solvency {
         if (balance == 0) return 0;
 
         uint256 totalBorrowAmountCached = totalBorrowAmountWithInterest(_assetStates.totalBorrowAmount, _rcomp);
-        return balance.toAmount(totalBorrowAmountCached, _assetStates.debtToken.totalSupply());
+        return balance.toAmountRoundUp(totalBorrowAmountCached, _assetStates.debtToken.totalSupply());
     }
 
     /// @notice Get compounded interest rate from the model

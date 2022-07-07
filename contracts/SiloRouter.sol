@@ -212,6 +212,6 @@ contract SiloRouter is ReentrancyGuard {
         uint256 repayShare = _assetStorage.debtToken.balanceOf(_borrower);
         uint256 debtTokenTotalSupply = _assetStorage.debtToken.totalSupply();
         uint256 totalBorrowed = _assetStorage.totalBorrowAmount;
-        return repayShare.toAmount(totalBorrowed, debtTokenTotalSupply);
+        return repayShare.toAmountRoundUp(totalBorrowed, debtTokenTotalSupply);
     }
 }

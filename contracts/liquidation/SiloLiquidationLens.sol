@@ -155,7 +155,7 @@ contract SiloLiquidationLens {
         repayShare = _assetStorage.debtToken.balanceOf(_borrower);
         uint256 debtTokenTotalSupply = _assetStorage.debtToken.totalSupply();
         uint256 totalBorrowed = _assetStorage.totalBorrowAmount;
-        amount = repayShare.toAmount(totalBorrowed, debtTokenTotalSupply);
+        amount = repayShare.toAmountRoundUp(totalBorrowed, debtTokenTotalSupply);
     }
 
     function _calculateWithdrawAssetAmount(

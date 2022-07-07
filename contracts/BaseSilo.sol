@@ -408,7 +408,7 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         uint256 totalBorrowAmount = _state.totalBorrowAmount;
         uint256 entryFee = siloRepository.entryFee();
         uint256 fee = entryFee == 0 ? 0 : _amount * entryFee / Solvency._PRECISION_DECIMALS;
-        debtShare = (_amount + fee).toShare(totalBorrowAmount, _state.debtToken.totalSupply());
+        debtShare = (_amount + fee).toShareRoundUp(totalBorrowAmount, _state.debtToken.totalSupply());
         debtAmount = _amount;
 
         _state.totalBorrowAmount = totalBorrowAmount + _amount + fee;
@@ -566,7 +566,7 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
             burnedShare = shareToken.balanceOf(_depositor);
             withdrawnAmount = burnedShare.toAmount(assetTotalDeposits, shareToken.totalSupply());
         } else {
-            burnedShare = _assetAmount.toShare(assetTotalDeposits, shareToken.totalSupply());
+            burnedShare = _assetAmount.toShareRoundUp(assetTotalDeposits, shareToken.totalSupply());
             withdrawnAmount = _assetAmount;
         }
 
@@ -730,7 +730,7 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         uint256 borrowerDebtShare = _state.debtToken.balanceOf(_borrower);
         uint256 debtTokenTotalSupply = _state.debtToken.totalSupply();
         uint256 totalBorrowed = _state.totalBorrowAmount;
-        uint256 maxAmount = borrowerDebtShare.toAmount(totalBorrowed, debtTokenTotalSupply);
+        uint256 maxAmount = borrowerDebtShare.toAmountRoundUp(totalBorrowed, debtTokenTotalSupply);
 
         if (_amount >= maxAmount) {
             amount = maxAmount;

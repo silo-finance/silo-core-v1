@@ -20,6 +20,22 @@ library EasyMath {
         return result;
     }
 
+    function toShareRoundUp(uint256 amount, uint256 totalAmount, uint256 totalShares) internal pure returns (uint256) {
+        if (totalShares == 0 || totalAmount == 0) {
+            return amount;
+        }
+
+        uint256 numerator = amount * totalShares;
+        uint256 result = numerator / totalAmount;
+        
+        // Round up
+        if (numerator % totalAmount != 0) {
+            result += 1;
+        }
+
+        return result;
+    }
+
     function toAmount(uint256 share, uint256 totalAmount, uint256 totalShares) internal pure returns (uint256) {
         if (totalShares == 0 || totalAmount == 0) {
             return 0;
@@ -30,6 +46,22 @@ library EasyMath {
         // Prevent rounding error
         if (result == 0 && share != 0) {
             revert ZeroAssets();
+        }
+
+        return result;
+    }
+
+    function toAmountRoundUp(uint256 share, uint256 totalAmount, uint256 totalShares) internal pure returns (uint256) {
+        if (totalShares == 0 || totalAmount == 0) {
+            return 0;
+        }
+
+        uint256 numerator = share * totalAmount;
+        uint256 result = numerator / totalShares;
+        
+        // Round up
+        if (numerator % totalShares != 0) {
+            result += 1;
         }
 
         return result;

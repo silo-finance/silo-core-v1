@@ -13,6 +13,8 @@ library TokenHelper {
     function assertAndGetDecimals(address _token) internal view returns (uint256) {
         (bool hasMetadata, bytes memory data) = _tokenMetadataCall(_token, abi.encodeCall(IERC20Metadata.decimals,()));
 
+        // decimals() is optional in the ERC20 standard, so if metadata is not accessible
+        // we assume there are no decimals and use 0.
         if (!hasMetadata) {
             return 0;
         }
