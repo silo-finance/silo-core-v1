@@ -689,7 +689,8 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         uint256 protocolShareFee = siloRepository.protocolShareFee();
 
         uint256 totalBorrowAmountCached = _state.totalBorrowAmount;
-
+        uint256 protocolFeesCached = _assetInterestData.protocolFees;
+        uint256 newProtocolFees;
         uint256 protocolShare;
         uint256 depositorsShare;
 
@@ -698,13 +699,20 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         unchecked {
             // If we overflow on multiplication it should not revert tx, we will get lower fees
             protocolShare = accruedInterest * protocolShareFee / Solvency._PRECISION_DECIMALS;
+            newProtocolFees = protocolFeesCached + protocolShare;
+
+            if (newProtocolFees < protocolFeesCached) {
+                protocolShare = type(uint256).max - protocolFeesCached;
+                newProtocolFees = type(uint256).max;
+            }
+    
             depositorsShare = accruedInterest - protocolShare;
         }
 
         // update contract state
         _state.totalBorrowAmount = totalBorrowAmountCached + accruedInterest;
         _state.totalDeposits = _state.totalDeposits + depositorsShare;
-        _assetInterestData.protocolFees = _assetInterestData.protocolFees + protocolShare;
+        _assetInterestData.protocolFees = newProtocolFees;
         _assetInterestData.interestRateTimestamp = uint64(block.timestamp);
     }
 

@@ -27,7 +27,7 @@ interface IInterestRateModel {
     }
     /* solhint-enable */
 
-    /// @dev Set dedicated config for giver asset in a Silo. Config is per asset per Silo so different assets
+    /// @dev Set dedicated config for given asset in a Silo. Config is per asset per Silo so different assets
     /// in different Silo can have different configs.
     /// @param _silo Silo address for which config should be set
     /// @param _asset asset address for which config should be set
@@ -42,7 +42,7 @@ interface IInterestRateModel {
         uint256 _blockTimestamp
     ) external returns (uint256 rcomp);
 
-    /// @dev Get config for giver asset in a Silo. If dedicated config is not set, default one will be returned.
+    /// @dev Get config for given asset in a Silo. If dedicated config is not set, default one will be returned.
     /// @param _silo Silo address for which config should be set
     /// @param _asset asset address for which config should be set
     /// @return Config struct for asset in Silo
@@ -70,22 +70,56 @@ interface IInterestRateModel {
         uint256 _blockTimestamp
     ) external view returns (uint256 rcur);
 
+    /// @notice get the flag to detect rcomp restriction (zero current interest) due to overflow
+    /// overflow boolean flag to detect rcomp restriction
+    function overflowDetected(
+        address _silo,
+        address _asset,
+        uint256 _blockTimestamp
+    ) external view returns (bool overflow);
+
     /// @dev pure function that calculates current annual interest rate
     /// @param _c configuration object, InterestRateModel.Config
-    /// @param _u asset utilization (1e18 == 100%)
+    /// @param _totalBorrowAmount current total borrows for asset
+    /// @param _totalDeposits current total deposits for asset
     /// @param _interestRateTimestamp timestamp of last interest rate update
     /// @param _blockTimestamp current block timestamp
     /// @return rcur current annual interest rate (1e18 == 100%)
     function calculateCurrentInterestRate(
         Config memory _c,
-        int256 _u,
+        uint256 _totalDeposits,
+        uint256 _totalBorrowAmount,
         uint256 _interestRateTimestamp,
         uint256 _blockTimestamp
     ) external pure returns (uint256 rcur);
 
     /// @dev pure function that calculates interest rate based on raw input data
     /// @param _c configuration object, InterestRateModel.Config
-    /// @param _u asset utilization (1e18 == 100%)
+    /// @param _totalBorrowAmount current total borrows for asset
+    /// @param _totalDeposits current total deposits for asset
+    /// @param _interestRateTimestamp timestamp of last interest rate update
+    /// @param _blockTimestamp current block timestamp
+    /// @return rcomp compounded interest rate from last update until now (1e18 == 100%)
+    /// @return ri current integral part of the rate
+    /// @return Tcrit time during which the utilization exceeds the critical value
+    /// @return overflow boolean flag to detect rcomp restriction
+    function calculateCompoundInterestRateWithOverflowDetection(
+        Config memory _c,
+        uint256 _totalDeposits,
+        uint256 _totalBorrowAmount,
+        uint256 _interestRateTimestamp,
+        uint256 _blockTimestamp
+    ) external pure returns (
+        uint256 rcomp,
+        int256 ri,
+        int256 Tcrit, // solhint-disable-line var-name-mixedcase
+        bool overflow
+    );
+
+    /// @dev pure function that calculates interest rate based on raw input data
+    /// @param _c configuration object, InterestRateModel.Config
+    /// @param _totalBorrowAmount current total borrows for asset
+    /// @param _totalDeposits current total deposits for asset
     /// @param _interestRateTimestamp timestamp of last interest rate update
     /// @param _blockTimestamp current block timestamp
     /// @return rcomp compounded interest rate from last update until now (1e18 == 100%)
@@ -93,7 +127,8 @@ interface IInterestRateModel {
     /// @return Tcrit time during which the utilization exceeds the critical value
     function calculateCompoundInterestRate(
         Config memory _c,
-        int256 _u,
+        uint256 _totalDeposits,
+        uint256 _totalBorrowAmount,
         uint256 _interestRateTimestamp,
         uint256 _blockTimestamp
     ) external pure returns (
