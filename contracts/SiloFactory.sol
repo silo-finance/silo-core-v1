@@ -11,7 +11,9 @@ import "./interfaces/ISiloFactory.sol";
 /// registered with the Repository contract.
 /// @custom:security-contact security@silo.finance
 contract SiloFactory is ISiloFactory {
-    address private _siloRepository;
+    address public siloRepository;
+
+    event InitSiloRepository();
 
     error OnlyRepository();
     error RepositoryAlreadySet();
@@ -19,15 +21,16 @@ contract SiloFactory is ISiloFactory {
     /// @inheritdoc ISiloFactory
     function initRepository(address _repository) external {
         // We don't perform a ping to the repository because this is meant to be called in its constructor
-        if (_siloRepository != address(0)) revert RepositoryAlreadySet();
+        if (siloRepository != address(0)) revert RepositoryAlreadySet();
 
-        _siloRepository = _repository;
+        siloRepository = _repository;
+        emit InitSiloRepository();
     }
 
     /// @inheritdoc ISiloFactory
     function createSilo(address _siloAsset, uint128 _version, bytes memory) external override returns (address silo) {
         // Only allow silo repository
-        if (msg.sender != _siloRepository) revert OnlyRepository();
+        if (msg.sender != siloRepository) revert OnlyRepository();
 
         silo = address(new Silo(ISiloRepository(msg.sender), _siloAsset, _version));
         emit NewSiloCreated(silo, _siloAsset, _version);

@@ -9,22 +9,25 @@ import "./interfaces/ITokensFactory.sol";
 /// @notice Deploys debt and collateral tokens for each Silo
 /// @custom:security-contact security@silo.finance
 contract TokensFactory is ITokensFactory {
-    ISiloRepository private _siloRepository;
+    ISiloRepository public siloRepository;
+
+    event InitSiloRepository();
 
     error OnlySilo();
     error SiloRepositoryAlreadySet();
 
     modifier onlySilo() {
-        if (!_siloRepository.isSilo(msg.sender)) revert OnlySilo();
+        if (!siloRepository.isSilo(msg.sender)) revert OnlySilo();
         _;
     }
 
     /// @inheritdoc ITokensFactory
     function initRepository(address _repository) external {
         // We don't perform a ping to the repository because this is meant to be called in its constructor
-        if (address(_siloRepository) != address(0)) revert SiloRepositoryAlreadySet();
+        if (address(siloRepository) != address(0)) revert SiloRepositoryAlreadySet();
 
-        _siloRepository = ISiloRepository(_repository);
+        siloRepository = ISiloRepository(_repository);
+        emit InitSiloRepository();
     }
 
     /// @inheritdoc ITokensFactory

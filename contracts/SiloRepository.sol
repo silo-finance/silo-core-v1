@@ -130,7 +130,6 @@ contract SiloRepository is ISiloRepository, GuardedLaunch {
         _;
     }
 
-
     /// @param _siloFactory address of SiloFactory contract that deploys Silos
     /// @param _tokensFactory address of TokensFactory contract that deploys debt and collateral tokens
     /// for each Silo asset
@@ -143,7 +142,9 @@ contract SiloRepository is ISiloRepository, GuardedLaunch {
         uint64 _defaultMaxLTV,
         uint64 _defaultLiquidationThreshold,
         address[] memory _initialBridgeAssets
-    ) ensureValidLiquidationThreshold(_defaultMaxLTV, _defaultLiquidationThreshold) GuardedLaunch() {
+    )
+        ensureValidLiquidationThreshold(_defaultMaxLTV, _defaultLiquidationThreshold) GuardedLaunch()
+    {
         if (!Ping.pong(ISiloFactory(_siloFactory).siloFactoryPing)) {
             revert InvalidSiloFactory();
         }
@@ -174,7 +175,6 @@ contract SiloRepository is ISiloRepository, GuardedLaunch {
 
         defaultAssetConfig.maxLoanToValue = _defaultMaxLTV;
         defaultAssetConfig.liquidationThreshold = _defaultLiquidationThreshold;
-
     }
 
     /// @inheritdoc ISiloRepository

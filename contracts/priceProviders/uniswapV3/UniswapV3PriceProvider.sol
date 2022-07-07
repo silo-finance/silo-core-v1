@@ -181,6 +181,21 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
         return address(pools[_asset]) != address(0) || _asset == quoteToken;
     }
 
+    /// @notice This method can provide TWAP quote token price denominated in any other token
+    /// it does NOT validate input pool, so you must be sure you providing correct one
+    /// otherwise result will be wrong or function will throw.
+    /// If pool is correct and it still throwing, please check `hasEnoughObservations(_pool)`.
+    /// @param _pool UniswapV3Pool address that can provide TWAP price and one of the tokens is native (quote) token
+    function quotePrice(IUniswapV3Pool _pool) external view returns (uint256 price) {
+        address base = quoteToken;
+        address token0 = _pool.token0();
+        address quote = base == token0 ? _pool.token1() : token0;
+        uint128 baseAmount = uint128(10 ** _QUOTE_TOKEN_DECIMALS);
+
+        int24 timeWeightedAverageTick = OracleLibrary.consult(address(_pool), priceCalculationData.periodForAvgPrice);
+        price = OracleLibrary.getQuoteAtTick(timeWeightedAverageTick, baseAmount, base, quote);
+    }
+
     /// @dev It verifies, if provider pool for asset (and quote token) is valid.
     /// Throws when there is no pool or pool is empty (zero liquidity).
     /// @param _asset asset for which prices are going to be calculated
