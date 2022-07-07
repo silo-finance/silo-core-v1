@@ -55,6 +55,7 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
     error InvalidSiloVersion();
     error MaximumLTVReached();
     error NotEnoughLiquidity();
+    error NotEnoughDeposits();
     error NotSolvent();
     error OnlyRouter();
     error Paused();
@@ -558,9 +559,8 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         internal
         returns (uint256 withdrawnAmount, uint256 burnedShare)
     {
-        AssetStorage storage _state = _assetStorage[_asset];
-        uint256 assetTotalDeposits = _collateralOnly ? _state.collateralOnlyDeposits : liquidity(_asset);
-        IShareToken shareToken = _collateralOnly ? _state.collateralOnlyToken : _state.collateralToken;
+        (uint256 assetTotalDeposits, IShareToken shareToken, uint256 availableLiquidity) =
+            _getWithdrawAssetData(_asset, _collateralOnly);
 
         if (_assetAmount == type(uint256).max) {
             burnedShare = shareToken.balanceOf(_depositor);
@@ -575,16 +575,18 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
             return (0, 0);
         }
 
-        if (_protocolLiquidationFee != 0) {
-            withdrawnAmount = _applyLiquidationFee(_asset, withdrawnAmount, _protocolLiquidationFee);
-        }
-
-        if (withdrawnAmount > assetTotalDeposits) revert NotEnoughLiquidity();
+        if (assetTotalDeposits < withdrawnAmount) revert NotEnoughDeposits();
 
         unchecked {
-            // can be unchecked as we did verification in the `if` above
-            assetTotalDeposits =  assetTotalDeposits - withdrawnAmount;
+            // can be unchecked because of the `if` above
+            assetTotalDeposits -=  withdrawnAmount;
         }
+
+        uint256 amountToTransfer = _applyLiquidationFee(_asset, withdrawnAmount, _protocolLiquidationFee);
+
+        if (availableLiquidity < amountToTransfer) revert NotEnoughLiquidity();
+
+        AssetStorage storage _state = _assetStorage[_asset];
 
         if (_collateralOnly) {
             _state.collateralOnlyDeposits = assetTotalDeposits;
@@ -594,7 +596,7 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
 
         shareToken.burn(_depositor, burnedShare);
         // in case token sent in fee-on-transfer type of token we do not care when withdrawing
-        ERC20(_asset).safeTransfer(_receiver, withdrawnAmount);
+        ERC20(_asset).safeTransfer(_receiver, amountToTransfer);
     }
 
     /// @notice Calculates liquidations fee and returns amount of asset transferred to liquidator
@@ -606,6 +608,10 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         internal
         returns (uint256 change)
     {
+        if (_protocolLiquidationFee == 0) {
+            return _amount;
+        }
+
         uint256 liquidationFeeAmount;
 
         (
@@ -751,5 +757,23 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
         );
 
         if (userLTV > maximumAllowedLTV) revert MaximumLTVReached();
+    }
+
+    function _getWithdrawAssetData(address _asset, bool _collateralOnly)
+        private
+        view
+        returns(uint256 assetTotalDeposits, IShareToken shareToken, uint256 availableLiquidity)
+    {
+        AssetStorage storage _state = _assetStorage[_asset];
+
+        if (_collateralOnly) {
+            assetTotalDeposits = _state.collateralOnlyDeposits;
+            shareToken = _state.collateralOnlyToken;
+            availableLiquidity = assetTotalDeposits;
+        } else {
+            assetTotalDeposits = _state.totalDeposits;
+            shareToken = _state.collateralToken;
+            availableLiquidity = liquidity(_asset);
+        }
     }
 }

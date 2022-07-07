@@ -12,8 +12,8 @@ contract MockERC20 is ERC20 {
         _mint(_holder, _amount);
     }
 
-    function burn(address _holder) external {
-        _burn(_holder, balanceOf(_holder));
+    function burn(address _holder, uint256 amount) public {
+        _burn(_holder, amount);
     }
 
     /// @dev our goal is not test ERC20, so let's make our life a bit easier
