@@ -448,7 +448,7 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
 
         ERC20(_asset).safeTransferFrom(_repayer, address(this), repaidAmount);
 
-        // we are not using reentrancy, so just in case change debt state after token transfer
+        // change debt state after token transfer (having debt is bad while trying to re-enter)
         _state.debtToken.burn(_borrower, repaidShare);
         _state.totalBorrowAmount -= repaidAmount;
     }
