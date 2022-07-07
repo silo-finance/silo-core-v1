@@ -11,6 +11,7 @@ import "./interfaces/ISiloRepository.sol";
 
 import "./lib/Ping.sol";
 import "./lib/TokenHelper.sol";
+import "./lib/EasyMath.sol";
 
 /// @title SiloRouter
 /// @notice Silo Router is a utility contract that aims to improve UX. It can batch any number or combination
@@ -19,6 +20,7 @@ import "./lib/TokenHelper.sol";
 /// @custom:security-contact security@silo.finance
 contract SiloRouter is ReentrancyGuard {
     using SafeERC20 for IERC20;
+    using EasyMath for uint256;
 
     // @notice Action types that are supported
     enum ActionType { Deposit, Withdraw, Borrow, Repay }
@@ -119,9 +121,18 @@ contract SiloRouter is ReentrancyGuard {
         } else if (_action.actionType == ActionType.Borrow) {
             _action.silo.borrowFor(address(_action.asset), msg.sender, address(this), _action.amount);
         } else if (_action.actionType == ActionType.Repay) {
-            _pullAssetIfNeeded(_action.asset, _action.amount);
-            _approveIfNeeded(_action.asset, address(_action.silo), _action.amount);
-            _action.silo.repayFor(address(_action.asset), msg.sender, _action.amount);
+            uint256 repayAmount; 
+
+            if (_action.amount == type(uint256).max) {
+                _action.silo.accrueInterest(address(_action.asset));
+                repayAmount = _getRepayAmount(_action.silo, _action.asset, msg.sender);
+            } else {
+                repayAmount = _action.amount;
+            }
+
+            _pullAssetIfNeeded(_action.asset, repayAmount);
+            _approveIfNeeded(_action.asset, address(_action.silo), repayAmount);
+            _action.silo.repayFor(address(_action.asset), msg.sender, repayAmount);
         } else {
             revert UnsupportedAction();
         }
@@ -186,5 +197,21 @@ contract SiloRouter is ReentrancyGuard {
         } else {
             _asset.safeTransfer(msg.sender, _amount);
         }
+    }
+
+    /// @dev Helper that calculates the maximum amount to repay if type(uint256).max is passed
+    /// @param _silo silo for which the debt will be repaid
+    /// @param _asset asset being repaid
+    /// @param _borrower user for which the debt being repaid
+    function _getRepayAmount(ISilo _silo, IERC20 _asset, address _borrower)
+        internal
+        view
+        returns(uint256)
+    {
+        ISilo.AssetStorage memory _assetStorage = _silo.assetStorage(address(_asset));
+        uint256 repayShare = _assetStorage.debtToken.balanceOf(_borrower);
+        uint256 debtTokenTotalSupply = _assetStorage.debtToken.totalSupply();
+        uint256 totalBorrowed = _assetStorage.totalBorrowAmount;
+        return repayShare.toAmount(totalBorrowed, debtTokenTotalSupply);
     }
 }
