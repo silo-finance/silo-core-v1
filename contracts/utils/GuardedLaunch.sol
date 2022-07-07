@@ -3,13 +3,14 @@ pragma solidity 0.8.13;
 
 import "../interfaces/IGuardedLaunch.sol";
 import "./TwoStepOwnable.sol";
+import "./Manageable.sol";
 
 /// @title GuardedLaunch
 /// @notice Implements security and risk averse functions for Silo
 /// @dev This contract is meant to limit Silo functionality for Beta Release in order to minimize any damage
 /// of potential critical vulnerability.
 /// @custom:security-contact security@silo.finance
-contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
+contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable, Manageable {
     uint256 private constant _INFINITY = type(uint256).max;
 
     /// @dev Initial value for defaultMaxLiquidity is 250 quote tokens
@@ -27,14 +28,14 @@ contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
     error SiloMaxLiquidityDidNotChange();
     error SiloPauseDidNotChange();
 
-    constructor() {
+    constructor() Manageable(msg.sender) {
         maxLiquidity.globalLimit = true;
 
         maxLiquidity.defaultMaxLiquidity = _INITIAL_MAX_LIQUIDITY;
     }
 
     /// @inheritdoc IGuardedLaunch
-    function setLimitedMaxLiquidity(bool _globalLimit) external onlyOwner override {
+    function setLimitedMaxLiquidity(bool _globalLimit) external onlyManager override {
         if (maxLiquidity.globalLimit == _globalLimit) revert GlobalLimitDidNotChange();
 
         maxLiquidity.globalLimit = _globalLimit;
@@ -42,7 +43,7 @@ contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
     }
 
     /// @inheritdoc IGuardedLaunch
-    function setDefaultSiloMaxDepositsLimit(uint256 _maxDeposits) external onlyOwner override {
+    function setDefaultSiloMaxDepositsLimit(uint256 _maxDeposits) external onlyManager override {
         if (maxLiquidity.defaultMaxLiquidity == _maxDeposits) {
             revert MaxLiquidityDidNotChange();
         }
@@ -56,7 +57,7 @@ contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
         address _silo,
         address _asset,
         uint256 _maxDeposits
-    ) external onlyOwner override {
+    ) external onlyManager override {
         if (maxLiquidity.siloMaxLiquidity[_silo][_asset] == _maxDeposits) {
             revert SiloMaxLiquidityDidNotChange();
         }
@@ -66,7 +67,7 @@ contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
     }
 
     /// @inheritdoc IGuardedLaunch
-    function setGlobalPause(bool _globalPause) external onlyOwner override {
+    function setGlobalPause(bool _globalPause) external onlyManager override {
         if (isPaused.globalPause == _globalPause) revert GlobalPauseDidNotChange();
 
         isPaused.globalPause = _globalPause;
@@ -74,7 +75,7 @@ contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
     }
 
     /// @inheritdoc IGuardedLaunch
-    function setSiloPause(address _silo, address _asset, bool _pauseValue) external onlyOwner override {
+    function setSiloPause(address _silo, address _asset, bool _pauseValue) external onlyManager override {
         if (isPaused.siloPause[_silo][_asset] == _pauseValue) {
             revert SiloPauseDidNotChange();
         }
@@ -98,5 +99,10 @@ contract GuardedLaunch is IGuardedLaunch, TwoStepOwnable {
             return maxLiquidity.defaultMaxLiquidity;
         }
         return _INFINITY;
+    }
+
+    /// @dev Returns the address of the current owner.
+    function owner() public view override(TwoStepOwnable, Manageable) virtual returns (address) {
+        return TwoStepOwnable.owner();
     }
 }

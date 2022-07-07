@@ -554,8 +554,8 @@ contract SiloRepository is ISiloRepository, GuardedLaunch {
     }
 
     /// @inheritdoc ISiloRepository
-    function owner() public view override(ISiloRepository, TwoStepOwnable) returns (address) {
-        return super.owner();
+    function owner() public view override(ISiloRepository, GuardedLaunch) returns (address) {
+        return GuardedLaunch.owner();
     }
 
     /// @dev Deploys Silo

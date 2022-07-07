@@ -12,7 +12,20 @@ contract InterestRateDataResolver {
 
     error InvalidSiloLens();
     error InvalidSiloRepository();
-    error DifferentArrayLength();
+    error EmptySilos();
+
+    struct AssetData {
+        address asset;
+        IInterestRateModel.Config modelConfig;
+        uint256 currentInterestRate;
+        uint256 siloUtilization;
+        uint256 totalDepositsWithInterest;
+    }
+
+    struct SiloAssetsData {
+        ISilo silo;
+        AssetData[] assetData;
+    }
 
     constructor (ISiloRepository _siloRepo, SiloLens _lens) {
         if (!Ping.pong(_siloRepo.siloRepositoryPing)) revert InvalidSiloRepository();
@@ -22,35 +35,30 @@ contract InterestRateDataResolver {
         lens = _lens;
     }
 
-
     /// @dev batch method for `getData()`
-    function getDataBatch(ISilo[] calldata _silos, address[] calldata _assets)
+    function getDataBatch(ISilo[] calldata _silos)
         external
         view
-        returns (
-            IInterestRateModel.Config[] memory modelConfigs,
-            uint256[] memory currentInterestRates,
-            uint256[] memory siloUtilizations,
-            uint256[] memory totalDepositsWithInterest
-        )
+        returns (SiloAssetsData[] memory siloAssetsData, uint256 timestamp)
     {
-        if (_silos.length != _assets.length) revert DifferentArrayLength();
+        if (_silos.length == 0) revert EmptySilos();
 
-        modelConfigs = new IInterestRateModel.Config[](_silos.length);
-        currentInterestRates = new uint256[](_silos.length);
-        siloUtilizations = new uint256[](_silos.length);
-        totalDepositsWithInterest = new uint256[](_silos.length);
+        siloAssetsData = new SiloAssetsData[](_silos.length);
 
         unchecked {
             for(uint256 i; i < _silos.length; i++) {
-                (
-                modelConfigs[i],
-                currentInterestRates[i],
-                siloUtilizations[i],
-                totalDepositsWithInterest[i]
-                ) = getData(_silos[i], _assets[i]);
+                address[] memory assets = _silos[i].getAssets();
+
+                siloAssetsData[i].silo = _silos[i];
+                siloAssetsData[i].assetData = new AssetData[](assets.length);
+
+                for (uint256 j; j < assets.length; j++) {
+                    (siloAssetsData[i].assetData[j],) = getData(_silos[i], assets[j]);
+                }
             }
         }
+
+        timestamp = block.timestamp;
     }
 
     function getModel(ISilo _silo, address _asset) public view returns (IInterestRateModel) {
@@ -61,18 +69,16 @@ contract InterestRateDataResolver {
     function getData(ISilo _silo, address _asset)
         public
         view
-        returns (
-            IInterestRateModel.Config memory modelConfig,
-            uint256 currentInterestRate,
-            uint256 siloUtilization,
-            uint256 totalDepositsWithInterest
-        )
+        returns (AssetData memory assetData, uint256 timestamp)
     {
         IInterestRateModel model = getModel(_silo, _asset);
 
-        modelConfig = model.getConfig(address(_silo), _asset);
-        currentInterestRate = model.getCurrentInterestRate(address(_silo), _asset, block.timestamp);
-        siloUtilization = lens.getUtilization(_silo, _asset);
-        totalDepositsWithInterest = lens.totalDepositsWithInterest(_silo, _asset);
+        assetData.asset = _asset;
+        assetData.modelConfig = model.getConfig(address(_silo), _asset);
+        assetData.currentInterestRate = model.getCurrentInterestRate(address(_silo), _asset, block.timestamp);
+        assetData.siloUtilization = lens.getUtilization(_silo, _asset);
+        assetData.totalDepositsWithInterest = lens.totalDepositsWithInterest(_silo, _asset);
+
+        timestamp = block.timestamp;
     }
 }
