@@ -4,7 +4,6 @@ pragma abicoder v2;
 
 import "@uniswap/v3-periphery/contracts/libraries/OracleLibrary.sol";
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
-import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
 import "../../utils/TwoStepOwnable.sol";
 import "../PriceProvider.sol";
@@ -20,6 +19,8 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
         // Estimated blockchain block time
         uint8 blockTime;
     }
+
+    bytes32 private constant _OLD_ERROR_HASH = keccak256(abi.encodeWithSignature("Error(string)", "OLD"));
 
     /// @dev this is basically `PriceProvider.quoteToken.decimals()`
     uint256 private immutable _QUOTE_TOKEN_DECIMALS; // solhint-disable-line var-name-mixedcase
@@ -102,10 +103,10 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
     }
 
     /// @notice Change period for which to calculated TWAP prices
-    /// @dev WARNING: There is a possibility that when we change this period, UniV3 pool that is already initialized
-    /// and set as oracle for asset, can throw. This can happen when it will not be able calculate TWAP for new period
-    /// and it can potentially lock the Silo until we have necessary observations. If UniV3 is NOT only available
-    /// oracle for asset, we can change the oracle and Silo will be unlocked.
+    /// @dev WARNING: when we increase this period, then UniV3 pool that is already initialized
+    /// and set as oracle for asset, will not immediately adjust to new time window.
+    /// We need to call `adjustOracleCardinality` and then wait for buffer to filled up.
+    /// Until that happen, TWAP price will be fetched for shorter period (because of time window adjustment feature).
     /// @param _period new period in seconds, ie. 1800 means 30 min
     function changePeriodForAvgPrice(uint32 _period) external onlyManager {
         // `_period < block.timestamp` is because we making sure we do not underflow
@@ -139,41 +140,27 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
     }
 
     /// @notice Adjust UniV3 pool cardinality to Silo's requirements.
-    /// Call `hasEnoughObservations` to see if you have to execute this method.
-    /// @dev This can be used to prepare pool for setup for price provider. In order to run `setupAsset` for asset,
+    /// Call `observationsStatus` to see, if you need to execute this method.
+    /// This method prepares pool for setup for price provider. In order to run `setupAsset` for asset,
     /// pool must have buffer to provide TWAP price. By calling this adjustment (and waiting necessary amount of time)
     /// pool will be ready for setup. It will collect valid number of observations, so the pool can be used
     /// once price data is ready.
+    /// @dev Increases observation cardinality for univ3 oracle pool if needed, see getPrice desc for details.
+    /// We should call it on init and when we are changing the pool (univ3 can have multiple pools for the same tokens)
     /// @param _pool UniV3 pool address
     function adjustOracleCardinality(IUniswapV3Pool _pool) external {
-        _adjustOracleCardinality(_pool);
-    }
+        (,,,, uint16 cardinalityNext,,) = _pool.slot0();
+        PriceCalculationData memory data = priceCalculationData;
 
-    /// @notice Check if UniV3 pool has enough cardinality to meet Silo's requirements
-    /// If it does not have, please execute `adjustOracleCardinality`.
-    /// @param _pool UniV3 pool address
-    /// @return TRUE if has enough observations
-    /// @return oldestObservationTimestamp timestamp of the oldest observation
-    function hasEnoughObservations(address _pool) external view returns (bool, uint32 oldestObservationTimestamp) {
-        (,, uint16 observationIndex, uint16 observationCardinality,,,) = IUniswapV3Pool(_pool).slot0();
+        // ideally we want to have data at every block during periodForAvgPrice
+        // If we want to get TWAP for 5 minutes and assuming we have tx in every block, and block time is 15 sec,
+        // then for 5 minutes we will have 20 blocks, that means our requiredCardinality is 20.
+        uint256 requiredCardinality = data.periodForAvgPrice / data.blockTime;
 
-        bool initialized;
+        if (cardinalityNext >= requiredCardinality) revert("NotNecessary");
 
-        (
-            oldestObservationTimestamp,,,
-            initialized
-        ) = IUniswapV3Pool(_pool).observations((observationIndex + 1) % observationCardinality);
-
-        // if not initialized, we just check id#0 as this will be the oldest
-        if (!initialized) (oldestObservationTimestamp,,,) = IUniswapV3Pool(_pool).observations(0);
-
-        if (oldestObservationTimestamp == 0) return (false, oldestObservationTimestamp);
-
-        return (
-            // it will not underflow, because when we setting up we check `_period < block.timestamp`
-            (block.timestamp - priceCalculationData.periodForAvgPrice) >= oldestObservationTimestamp,
-            oldestObservationTimestamp
-        );
+        // initialize required amount of slots, it will cost!
+        _pool.increaseObservationCardinalityNext(uint16(requiredCardinality));
     }
 
     /// @inheritdoc IPriceProvider
@@ -184,7 +171,7 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
     /// @notice This method can provide TWAP quote token price denominated in any other token
     /// it does NOT validate input pool, so you must be sure you providing correct one
     /// otherwise result will be wrong or function will throw.
-    /// If pool is correct and it still throwing, please check `hasEnoughObservations(_pool)`.
+    /// If pool is correct and it still throwing, please check `observationsStatus(_pool)`.
     /// @param _pool UniswapV3Pool address that can provide TWAP price and one of the tokens is native (quote) token
     function quotePrice(IUniswapV3Pool _pool) external view returns (uint256 price) {
         address base = quoteToken;
@@ -192,12 +179,47 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
         address quote = base == token0 ? _pool.token1() : token0;
         uint128 baseAmount = uint128(10 ** _QUOTE_TOKEN_DECIMALS);
 
-        int24 timeWeightedAverageTick = OracleLibrary.consult(address(_pool), priceCalculationData.periodForAvgPrice);
+        int24 timeWeightedAverageTick = _consult(_pool);
         price = OracleLibrary.getQuoteAtTick(timeWeightedAverageTick, baseAmount, base, quote);
     }
 
+    function assetOldestTimestamp(address _asset) external view returns (uint32 oldestTimestamp) {
+        IUniswapV3Pool pool = pools[_asset];
+        (,, uint16 observationIndex, uint16 currentObservationCardinality,,,) = pool.slot0();
+        oldestTimestamp = resolveOldestObservationTimestamp(pool, observationIndex, currentObservationCardinality);
+    }
+
+    /// @notice Check if UniV3 pool has enough cardinality to meet Silo's requirements
+    /// If it does not have, please execute `adjustOracleCardinality`.
+    /// @param _pool UniV3 pool address
+    /// @return bufferFull TRUE if buffer is ready to provide TWAP price rof required period
+    /// @return enoughObservations TRUE if buffer has enough observations spots (they don't have to be filled up yet)
+    function observationsStatus(IUniswapV3Pool _pool)
+        public
+        view
+        returns (
+            bool bufferFull,
+            bool enoughObservations,
+            uint16 currentCardinality
+        )
+    {
+        PriceCalculationData memory data = priceCalculationData;
+
+        (
+            ,,, uint16 currentObservationCardinality,
+            uint16 observationCardinalityNext,,
+        ) = _pool.slot0();
+
+        // ideally we want to have data at every block during periodForAvgPrice
+        uint256 requiredCardinality = data.periodForAvgPrice / data.blockTime;
+
+        bufferFull = currentObservationCardinality >= requiredCardinality;
+        enoughObservations = observationCardinalityNext >= requiredCardinality;
+        currentCardinality = currentObservationCardinality;
+     }
+
     /// @dev It verifies, if provider pool for asset (and quote token) is valid.
-    /// Throws when there is no pool or pool is empty (zero liquidity).
+    /// Throws when there is no pool or pool is empty (zero liquidity) or not ready for price
     /// @param _asset asset for which prices are going to be calculated
     /// @param _pool UniV3 pool address
     /// @return true if verification successful, otherwise throws
@@ -212,6 +234,9 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
 
         uint256 liquidity = IERC20Like(quote).balanceOf(address(_pool));
         if (liquidity == 0) revert("EmptyPool");
+
+        (bool bufferFull,,) = observationsStatus(_pool);
+        if (!bufferFull) revert("BufferNotFull");
 
         return true;
     }
@@ -268,33 +293,98 @@ contract UniswapV3PriceProvider is PriceProvider, TwoStepOwnable {
         IUniswapV3Pool pool = pools[_asset];
         if (address(pool) == address(0)) revert("PoolNotSet");
 
-        // Number of seconds in the past to start calculating time-weighted average
-        // UniV3 recommends to use `observe` and `OracleLibrary.consult` uses it.
-        // `observe` reverts, if `secondsAgo` < oldest observation, means, if we asking for OLD price
-        int24 timeWeightedAverageTick = OracleLibrary.consult(address(pool), priceCalculationData.periodForAvgPrice);
+        int24 timeWeightedAverageTick = _consult(pool);
         price = OracleLibrary.getQuoteAtTick(timeWeightedAverageTick, uint128(baseAmount), _asset, quote);
     }
 
-    /// @dev Increases observation cardinality for univ3 oracle pool if needed, see getPrice desc for details.
-    /// We should call it on init and when we are changing the pool (univ3 can have multiple pools for the same tokens)
-    /// WARNING: when asking for price, oracle will throw if it won't have enough observations,
-    /// hence it is possible to lock silo if we choose to use UniV3 with not enough observations.
-    /// @notice if we want to get TWAP for 5 minutes and assuming we have tx in every block, and block time is 15 sec,
-    /// then for 5 minutes we will have 20 blocks, that means our requiredCardinality is 20.
-    /// @param _pool UniV3 pool address
-    function _adjustOracleCardinality(IUniswapV3Pool _pool) internal {
-        (,,,, uint16 cardinalityNext,,) = _pool.slot0();
-        PriceCalculationData memory data = priceCalculationData;
+    /// @param _pool uniswap V3 pool address
+    /// @param _currentObservationIndex the most-recently updated index of the observations array
+    /// @param _currentObservationCardinality the current maximum number of observations that are being stored
+    /// @return oldestTimestamp last observation timestamp
+    function resolveOldestObservationTimestamp(
+        IUniswapV3Pool _pool,
+        uint16 _currentObservationIndex,
+        uint16 _currentObservationCardinality
+    )
+        public
+        view
+        returns (uint32 oldestTimestamp)
+    {
+        bool initialized;
 
-        // ideally we want to have data at every block during periodForAvgPrice
-        uint256 requiredCardinality = data.periodForAvgPrice / data.blockTime;
+        (
+            oldestTimestamp,,,
+            initialized
+        ) = _pool.observations((_currentObservationIndex + 1) % _currentObservationCardinality);
 
-        if (cardinalityNext >= requiredCardinality) {
-            return;
+        // if not initialized, we just check id#0 as this will be the oldest
+        if (!initialized) {
+            (oldestTimestamp,,,) = _pool.observations(0);
         }
+    }
 
-        // initialize required amount of slots, it will cost!
-        _pool.increaseObservationCardinalityNext(uint16(requiredCardinality));
+    /// @notice Fetches time-weighted average tick using Uniswap V3 oracle
+    /// @dev this is based on `OracleLibrary.consult`, we adjusted it to handle `OLD` error, time window will adjust
+    /// to available pool observations
+    /// @param _pool Address of Uniswap V3 pool that we want to observe
+    /// @return timeWeightedAverageTick time-weighted average tick from (block.timestamp - period) to block.timestamp
+    function _consult(IUniswapV3Pool _pool) internal view returns (int24 timeWeightedAverageTick) {
+        (uint32 period, int56[] memory tickCumulatives) = _calculatePeriodAndTicks(_pool);
+        int56 tickCumulativesDelta = tickCumulatives[1] - tickCumulatives[0];
+
+        timeWeightedAverageTick = int24(tickCumulativesDelta / period);
+
+        // Always round to negative infinity
+        if (tickCumulativesDelta < 0 && (tickCumulativesDelta % period != 0)) timeWeightedAverageTick--;
+    }
+
+    /// @param _pool Address of Uniswap V3 pool
+    /// @return period Number of seconds in the past to start calculating time-weighted average
+    /// @return tickCumulatives Cumulative tick values as of each secondsAgos from the current block timestamp
+    function _calculatePeriodAndTicks(IUniswapV3Pool _pool)
+        internal
+        view
+        returns (uint32 period, int56[] memory tickCumulatives)
+    {
+        period = priceCalculationData.periodForAvgPrice;
+        bool old;
+
+        (tickCumulatives, old) = _observe(_pool, period);
+
+        if (old) {
+            (,, uint16 observationIndex, uint16 currentObservationCardinality,,,) = _pool.slot0();
+
+            uint32 latestTimestamp =
+                resolveOldestObservationTimestamp(_pool, observationIndex, currentObservationCardinality);
+
+            period = uint32(block.timestamp - latestTimestamp);
+
+            (tickCumulatives, old) = _observe(_pool, period);
+            if (old) revert("STILL OLD");
+        }
+    }
+
+    /// @param _pool UniV3 pool address
+    /// @param _period Number of seconds in the past to start calculating time-weighted average
+    function _observe(IUniswapV3Pool _pool, uint32 _period)
+        internal
+        view
+        returns (int56[] memory tickCumulatives, bool old)
+    {
+        uint32[] memory secondAgos = new uint32[](2);
+        secondAgos[0] = _period;
+        // secondAgos[1] = 0; // default is 0
+
+        try _pool.observe(secondAgos)
+            returns (int56[] memory ticks, uint160[] memory)
+        {
+            tickCumulatives = ticks;
+            old = false;
+        }
+        catch (bytes memory reason) {
+            if (keccak256(reason) != _OLD_ERROR_HASH) _revertBytes(reason, "_observe");
+            old = true;
+        }
     }
 
     function _validatePriceCalculationData(uint32 _periodForAvgPrice, uint8 _blockTime) private pure {

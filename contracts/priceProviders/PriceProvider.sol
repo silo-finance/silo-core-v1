@@ -38,4 +38,14 @@ abstract contract PriceProvider is IPriceProvider {
     function priceProviderPing() external pure override returns (bytes4) {
         return this.priceProviderPing.selector;
     }
+
+    function _revertBytes(bytes memory _errMsg, string memory _customErr) internal pure {
+        if (_errMsg.length > 0) {
+            assembly { // solhint-disable-line no-inline-assembly
+                revert(add(32, _errMsg), mload(_errMsg))
+            }
+        }
+
+        revert(_customErr);
+    }
 }

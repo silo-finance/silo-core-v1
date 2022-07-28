@@ -321,6 +321,7 @@ library Solvency {
 
             if (_protocolEarnedFees > type(uint256).max - liquidationFeeAmount) {
                 newProtocolEarnedFees = type(uint256).max;
+                liquidationFeeAmount = type(uint256).max - _protocolEarnedFees;
             } else {
                 newProtocolEarnedFees = _protocolEarnedFees + liquidationFeeAmount;
             }

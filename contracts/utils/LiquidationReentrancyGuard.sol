@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.13;
 
 /// @dev This is cloned solution of @openzeppelin/contracts/security/ReentrancyGuard.sol

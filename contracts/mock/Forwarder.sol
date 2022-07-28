@@ -26,15 +26,19 @@ contract Forwarder {
         );
     }
 
-    function repayFor(address, address, uint256 _amount) external returns (uint256 repaidAmount, uint256 burnedShare) {
-        return (_amount, _amount);
-    }
-
     function setDebtToken(address _debtToken) external {
         debtToken = _debtToken;
     }
 
     function assetStorage(address) external view returns (ISilo.AssetStorage memory siloAssetStorage) {
         siloAssetStorage.debtToken = IShareToken(debtToken);
+    }
+
+    function repayFor(address, address, uint256 _amount)
+        external
+        pure
+        returns (uint256 repaidAmount, uint256 burnedShare)
+    {
+        return (_amount, _amount);
     }
 }
