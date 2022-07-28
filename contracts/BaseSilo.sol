@@ -105,12 +105,12 @@ abstract contract BaseSilo is IBaseSilo, ReentrancyGuard, LiquidationReentrancyG
     }
 
     /// @dev this is exposed only for test purposes, but it is safe to leave it like that
-    function initAssetsTokens() external {
+    function initAssetsTokens() external nonReentrant {
         _initAssetsTokens();
     }
 
     /// @inheritdoc IBaseSilo
-    function syncBridgeAssets() external override {
+    function syncBridgeAssets() external override nonReentrant {
         // sync removed assets
         address[] memory removedBridgeAssets = siloRepository.getRemovedBridgeAssets();
 
