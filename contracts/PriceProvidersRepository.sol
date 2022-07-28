@@ -115,7 +115,7 @@ contract PriceProvidersRepository is IPriceProvidersRepository, Manageable, TwoS
 
     /// @inheritdoc IPriceProvidersRepository
     function providersReadyForAsset(address _asset) external view override returns (bool) {
-        // quote token is supported by default because getPrice() returns _ONE as its price by deafult
+        // quote token is supported by default because getPrice() returns _ONE as its price by default
         if (_asset == quoteToken) return true;
 
         IPriceProvider priceProvider = priceProviders[_asset];

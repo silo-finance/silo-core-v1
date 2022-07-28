@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -35,7 +35,7 @@ contract SiloSnapshotWrapper is ERC20 {
     }
 
     /// @notice Calculates amount of token that are vesting for account
-    /// @param _account address of account for which to calcualte amount of tokens
+    /// @param _account address of account for which to calculate amount of tokens
     /// @return userBalance amount of tokens vesting
     function getVestingBalance(address _account) public view returns (uint256 userBalance) {
         for (uint256 i = 0; i < vestingContracts.length; i++) {
@@ -46,7 +46,7 @@ contract SiloSnapshotWrapper is ERC20 {
     }
 
     /// @notice Current token balance of account
-    /// @param _account address of account for which to calcualte current balance
+    /// @param _account address of account for which to calculate current balance
     /// @return current balance
     function getCurrentBalance(address _account) public view returns (uint256) {
         return siloToken.balanceOf(_account);

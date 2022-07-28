@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -8,13 +8,13 @@ interface IToken {
     function balanceOf(address account) external view returns (uint256);
 }
 
-/// @notice Vesting contract for Silo token allocaitons
+/// @notice Vesting contract for Silo token allocations
 /// @dev Forked from https://github.com/Uniswap/governance/blob/master/contracts/TreasuryVester.sol
 /// @custom:security-contact security@silo.finance
 contract TreasuryVester is Ownable {
     /// @notice silo token address
     address public immutable siloToken;
-    /// @notice wallet address that is vesting token allcoation
+    /// @notice wallet address that is vesting token allocation
     address public recipient;
 
     /// @notice amount of token that is being allocated for vesting
@@ -34,7 +34,7 @@ contract TreasuryVester is Ownable {
     bool public revoked;
 
     /// @param _siloToken silo token address
-    /// @param _recipient wallet address that is vesting token allcoation
+    /// @param _recipient wallet address that is vesting token allocation
     /// @param _vestingAmount amount of token that is being allocated for vesting
     /// @param _vestingBegin timestamp of vesting start date
     /// @param _vestingCliff timestamp of vesting cliff, aka. the time before which token cannot be claimed
@@ -67,7 +67,7 @@ contract TreasuryVester is Ownable {
     }
 
     /// @notice allows current recipient to update vesting wallet
-    /// @param _recipient new wallet address that is going to vest token allcoation
+    /// @param _recipient new wallet address that is going to vest token allocation
     function setRecipient(address _recipient) external {
         require(msg.sender == recipient, "TreasuryVester::setRecipient: unauthorized");
         recipient = _recipient;

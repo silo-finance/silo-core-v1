@@ -12,7 +12,7 @@ interface IPriceProvider {
     function getPrice(address _asset) external view returns (uint256 price);
 
     /// @dev Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away.
-    /// Some providers implementations need time to "build" buffor for TWAP price,
+    /// Some providers implementations need time to "build" buffer for TWAP price,
     /// so price may not be available yet but this method will return true.
     /// @param _asset asset in question
     /// @return TRUE if asset has been setup, otherwise false

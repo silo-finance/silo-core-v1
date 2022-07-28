@@ -59,15 +59,15 @@ interface IPriceProvidersRepository {
     /// @return true if address is a registered price provider, otherwise false
     function isPriceProvider(IPriceProvider _provider) external view returns (bool);
 
-    /// @notice Gets number of pice providers registerd
-    /// @return number of pice providers registerd
+    /// @notice Gets number of price providers registered
+    /// @return number of price providers registered
     function providersCount() external view returns (uint256);
 
     /// @notice Gets an array of price providers
     /// @return array of price providers
     function providerList() external view returns (address[] memory);
 
-    /// @notice Sanity check funciton
+    /// @notice Sanity check function
     /// @return returns always TRUE
     function priceProvidersRepositoryPing() external pure returns (bytes4);
 }

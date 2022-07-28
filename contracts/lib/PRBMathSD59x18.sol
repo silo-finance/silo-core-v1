@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.13;
 
 import "./PRBMathCommon.sol";

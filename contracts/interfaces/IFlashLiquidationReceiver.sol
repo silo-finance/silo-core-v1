@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
 /// @dev when performing Silo flash liquidation, FlashReceiver contract will receive all collaterals

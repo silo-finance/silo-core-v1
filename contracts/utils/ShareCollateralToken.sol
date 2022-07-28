@@ -5,7 +5,7 @@ import "./ShareToken.sol";
 import "../interfaces/ISilo.sol";
 
 /// @title ShareCollateralToken
-/// @notice ERC20 compatible token represennting collateral position in Silo
+/// @notice ERC20 compatible token representing collateral position in Silo
 /// @custom:security-contact security@silo.finance
 contract ShareCollateralToken is ShareToken {
 
