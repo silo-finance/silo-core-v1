@@ -63,6 +63,10 @@ contract InterestRateModel is IInterestRateModel, TwoStepOwnable {
 
     /// @inheritdoc IInterestRateModel
     function setConfig(address _silo, address _asset, Config calldata _config) external override onlyOwner {
+        // we do not care, if accrueInterest call will be successful
+        // solhint-disable-next-line avoid-low-level-calls
+        _silo.call(abi.encodeCall(ISilo.accrueInterest, _asset));
+
         _setConfig(_silo, _asset, _config);
     }
 

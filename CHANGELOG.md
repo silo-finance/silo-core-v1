@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2022-08-09
+### Added
+- mainnet deployments
+
+### Changed
+- when setting up model config, call `silo.accrueInterest` before new config is saved
+- fix non-checksum address comparison in deployment scripts
+- license update for PRBMathSD59x18 and PRBMathCommon
+
 ## [1.2.4] - 2022-07-28
 ### Changed
 - betaConfig with receipts

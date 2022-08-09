@@ -29,6 +29,8 @@ interface IInterestRateModel {
 
     /// @dev Set dedicated config for given asset in a Silo. Config is per asset per Silo so different assets
     /// in different Silo can have different configs.
+    /// It will try to call `_silo.accrueInterest(_asset)` before updating config, but it is not guaranteed,
+    /// that this call will be successful, if it fail config will be set anyway.
     /// @param _silo Silo address for which config should be set
     /// @param _asset asset address for which config should be set
     function setConfig(address _silo, address _asset, Config calldata _config) external;

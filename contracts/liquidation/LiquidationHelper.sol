@@ -10,13 +10,10 @@ import "../interfaces/IPriceProvider.sol";
 import "../interfaces/ISwapper.sol";
 import "../interfaces/ISiloRepository.sol";
 import "../interfaces/IPriceProvidersRepository.sol";
+import "../interfaces/IWrappedNativeToken.sol";
 
 import "../lib/Ping.sol";
 
-interface IWrappedNativeToken is IERC20 {
-    function deposit() external payable;
-    function withdraw(uint256 amount) external;
-}
 
 /// @notice LiquidationHelper IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.
 /// see https://github.com/silo-finance/liquidation#readme for details how liquidation process should look like
@@ -81,21 +78,24 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
         _baseTxCost = _baseCost;
     }
 
-    function withdraw() external {
-        uint256 amount = earnings[msg.sender];
-        if (amount == 0) return;
+    receive() external payable {
+        // we accepting ETH receive, so we can unwrap WETH
+    }
 
-        earnings[msg.sender] = 0;
-        quoteToken.transfer(msg.sender, amount);
+    function withdraw() external {
+        _withdraw(msg.sender);
+    }
+
+    function withdrawFor(address _account) external {
+        _withdraw(_account);
     }
 
     function withdrawEth() external {
-        uint256 amount = earnings[msg.sender];
-        if (amount == 0) return;
+        _withdrawEth(msg.sender);
+    }
 
-        earnings[msg.sender] = 0;
-        IWrappedNativeToken(address(quoteToken)).withdraw(amount);
-        payable(msg.sender).transfer(amount);
+    function withdrawEthFor(address _account) external {
+        _withdrawEth(_account);
     }
 
     /// @param _swapper address of swapper contract, must follow ISwapper interface.
@@ -285,5 +285,22 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
 
         IPriceProvider priceProvider = findPriceProvider(_asset);
         return swappers[priceProvider];
+    }
+
+    function _withdraw(address _account) internal {
+        uint256 amount = earnings[_account];
+        if (amount == 0) return;
+
+        earnings[_account] = 0;
+        quoteToken.transfer(_account, amount);
+    }
+
+    function _withdrawEth(address _account) internal {
+        uint256 amount = earnings[_account];
+        if (amount == 0) return;
+
+        earnings[_account] = 0;
+        IWrappedNativeToken(address(quoteToken)).withdraw(amount);
+        payable(_account).transfer(amount);
     }
 }
