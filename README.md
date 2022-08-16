@@ -1,5 +1,9 @@
 # Silo Finance - Silo Contracts
 
+## Maintenance
+
+- **How to create a Silo**: details in [HOW TO CREATE A SILO](docs/HOW_TO_CREATE_SILO.md).
+
 ## Licensing
 The primary license for Silo Protocol is the Business Source License 1.1 (`BUSL-1.1`), see [`LICENSE`](./LICENSE).
 ### Exceptions
