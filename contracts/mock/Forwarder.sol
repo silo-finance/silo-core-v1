@@ -9,6 +9,10 @@ import "../interfaces/IShareToken.sol";
 contract Forwarder {
     address public debtToken;
 
+    receive() external payable {
+        // we accept ETH so the liquidation callback works
+    }
+
     function siloLiquidationCallback(
         IFlashLiquidationReceiver _destination,
         address _user,

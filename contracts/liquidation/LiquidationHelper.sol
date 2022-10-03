@@ -2,7 +2,9 @@
 pragma solidity 0.8.13;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import "../SiloLens.sol";
 import "../interfaces/ISiloFactory.sol";
@@ -11,6 +13,7 @@ import "../interfaces/ISwapper.sol";
 import "../interfaces/ISiloRepository.sol";
 import "../interfaces/IPriceProvidersRepository.sol";
 import "../interfaces/IWrappedNativeToken.sol";
+import "../priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol";
 
 import "../lib/Ping.sol";
 import "../lib/RevertBytes.sol";
@@ -20,22 +23,17 @@ import "../lib/RevertBytes.sol";
 /// see https://github.com/silo-finance/liquidation#readme for details how liquidation process should look like
 contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
     using RevertBytes for bytes;
-
-    bytes4 constant private _SWAP_AMOUNT_IN_SELECTOR =
-        bytes4(keccak256("swapAmountIn(address,address,uint256,address,address)"));
-
-    bytes4 constant private _SWAP_AMOUNT_OUT_SELECTOR =
-        bytes4(keccak256("swapAmountOut(address,address,uint256,address,address)"));
+    using SafeERC20 for IERC20;
+    using Address for address payable;
 
     uint256 immutable private _baseTxCost;
     ISiloRepository public immutable siloRepository;
+    IPriceProvidersRepository public immutable priceProvidersRepository;
     SiloLens public immutable lens;
     IERC20 public immutable quoteToken;
+    ChainlinkV3PriceProvider public immutable chainlinkPriceProvider;
 
-    mapping(address => uint256) public earnings;
     mapping(IPriceProvider => ISwapper) public swappers;
-
-    IPriceProvider[] public priceProvidersWithSwapOption;
 
     event LiquidationBalance(address user, uint256 quoteAmountFromCollaterals, uint256 quoteLeftAfterRepay);
 
@@ -44,14 +42,17 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
     error LiquidationNotProfitable(uint256 inTheRed);
     error NotSilo();
     error PriceProviderNotFound();
+    error SwapperNotFound();
     error RepayFailed();
     error SwapAmountInFailed();
     error SwapAmountOutFailed();
     error SwappersMustMatchProviders();
     error UsersMustMatchSilos();
+    error ApprovalFailed();
 
     constructor (
         address _repository,
+        address _chainlinkPriceProvider,
         address _lens,
         IPriceProvider[] memory _priceProvidersWithSwapOption,
         ISwapper[] memory _swappers,
@@ -74,39 +75,21 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
             swappers[_priceProvidersWithSwapOption[i]] = _swappers[i];
         }
 
-        priceProvidersWithSwapOption = _priceProvidersWithSwapOption;
+        priceProvidersRepository = ISiloRepository(_repository).priceProvidersRepository();
 
-        IPriceProvidersRepository priceProviderRepo = ISiloRepository(_repository).priceProvidersRepository();
-        quoteToken = IERC20(priceProviderRepo.quoteToken());
+        chainlinkPriceProvider = ChainlinkV3PriceProvider(_chainlinkPriceProvider);
+
+        quoteToken = IERC20(priceProvidersRepository.quoteToken());
         _baseTxCost = _baseCost;
     }
 
     receive() external payable {
-        // we accepting ETH receive, so we can unwrap WETH
+        // we accept ETH so we can unwrap WETH
     }
 
-    function withdraw() external {
-        _withdraw(msg.sender);
-    }
-
-    function withdrawFor(address _account) external {
-        _withdraw(_account);
-    }
-
-    function withdrawEth() external {
-        _withdrawEth(msg.sender);
-    }
-
-    function withdrawEthFor(address _account) external {
-        _withdrawEth(_account);
-    }
-
-    /// @param _swapper address of swapper contract, must follow ISwapper interface.
-    /// If provided, it will be used for all users and all assets.
-    /// If empty swapper will be chosen automatically for every asset based on registered swappers.
-    function executeLiquidation(address[] calldata _users, ISilo _silo, address _swapper) external {
+    function executeLiquidation(address[] calldata _users, ISilo _silo, address /* _swapper */) external {
         uint256 gasStart = gasleft();
-        _silo.flashLiquidate(_users, abi.encode(gasStart, _swapper));
+        _silo.flashLiquidate(_users, abi.encode(gasStart));
     }
 
     function setSwapper(IPriceProvider _oracle, ISwapper _swapper) external onlyOwner {
@@ -124,27 +107,24 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
         uint256[] calldata _shareAmountsToRepaid,
         bytes memory _flashReceiverData
     ) external override {
-        (uint256 gasStart, address swapperAddr) = abi.decode(_flashReceiverData, (uint256, address));
+        (uint256 gasStart) = abi.decode(_flashReceiverData, (uint256));
 
-        uint256 quoteAmountFromCollaterals = _swapAllForQuote(_assets, _receivedCollaterals, swapperAddr);
-        uint256 quoteSpentOnRepay = _repay(ISilo(msg.sender), _user, _assets, _shareAmountsToRepaid, swapperAddr);
-        uint256 gasSpend = gasStart - gasleft() - _baseTxCost;
+        uint256 quoteAmountFromCollaterals = _swapAllForQuote(_assets, _receivedCollaterals);
+        uint256 quoteSpentOnRepay = _repay(ISilo(msg.sender), _user, _assets, _shareAmountsToRepaid);
+        uint256 gasSpent = gasStart - gasleft() - _baseTxCost;
 
-        if (quoteSpentOnRepay + gasSpend > quoteAmountFromCollaterals) {
-            revert LiquidationNotProfitable(quoteSpentOnRepay + gasSpend - quoteAmountFromCollaterals);
+        if (quoteSpentOnRepay + gasSpent > quoteAmountFromCollaterals) {
+            revert LiquidationNotProfitable(quoteSpentOnRepay + gasSpent - quoteAmountFromCollaterals);
         }
 
         uint256 quoteLeftAfterRepay = quoteAmountFromCollaterals - quoteSpentOnRepay;
 
-        // we do not subtract gas, because this is amount of tokens to withdraw
-        // net earnings = earnings - gas used
-        earnings[owner()] += quoteLeftAfterRepay;
+        // We assume that quoteToken is wrapped native token
+        IWrappedNativeToken(address(quoteToken)).withdraw(quoteLeftAfterRepay);
+
+        payable(owner()).sendValue(quoteLeftAfterRepay);
 
         emit LiquidationBalance(_user, quoteAmountFromCollaterals, quoteLeftAfterRepay);
-    }
-
-    function priceProvidersWithSwapOptionCount() external view returns (uint256) {
-        return priceProvidersWithSwapOption.length;
     }
 
     function checkSolvency(address[] memory _users, ISilo[] memory _silos) external view returns (bool[] memory) {
@@ -170,20 +150,22 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
     }
 
     function findPriceProvider(address _asset) public view returns (IPriceProvider) {
-        IPriceProvider[] memory providers = priceProvidersWithSwapOption;
+        IPriceProvider priceProvider = priceProvidersRepository.priceProviders(_asset);
 
-        for (uint256 i = 0; i < providers.length; i++) {
-            IPriceProvider provider = providers[i];
-            if (provider.assetSupported(_asset)) return provider;
+        if (priceProvider == chainlinkPriceProvider) {
+            priceProvider = chainlinkPriceProvider.getFallbackProvider(_asset);
         }
 
-        revert PriceProviderNotFound();
+        if (address(priceProvider) == address(0)) {
+            revert PriceProviderNotFound();
+        }
+
+        return priceProvider;
     }
 
     function _swapAllForQuote(
         address[] calldata _assets,
-        uint256[] calldata _receivedCollaterals,
-        address swapperAddr
+        uint256[] calldata _receivedCollaterals
     ) internal returns (uint256 quoteAmount) {
         // swap all for quote token
 
@@ -191,7 +173,7 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
             // we will not overflow with `i` in a lifetime
             for (uint256 i = 0; i < _assets.length; i++) {
                 // if silo was able to handle solvency calculations, then we can handle quoteAmount without safe math
-                quoteAmount += _swapForQuote(_assets[i], _receivedCollaterals[i], swapperAddr);
+                quoteAmount += _swapForQuote(_assets[i], _receivedCollaterals[i]);
             }
         }
     }
@@ -200,8 +182,7 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
         ISilo silo,
         address _user,
         address[] calldata _assets,
-        uint256[] calldata _shareAmountsToRepaid,
-        address swapperAddr
+        uint256[] calldata _shareAmountsToRepaid
     ) internal returns (uint256 quoteSpendOnRepay) {
         if (!siloRepository.isSilo(address(silo))) revert NotSilo();
 
@@ -210,10 +191,11 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
 
             // if silo was able to handle solvency calculations, then we can handle amounts without safe math here
             unchecked {
-                quoteSpendOnRepay += _swapForAsset(_assets[i], _shareAmountsToRepaid[i], swapperAddr);
+                quoteSpendOnRepay += _swapForAsset(_assets[i], _shareAmountsToRepaid[i]);
             }
 
-            IERC20(_assets[i]).approve(address(silo), _shareAmountsToRepaid[i]);
+            _approve(_assets[i], address(silo), _shareAmountsToRepaid[i]);
+
             silo.repayFor(_assets[i], _user, _shareAmountsToRepaid[i]);
 
             // DEFLATIONARY TOKENS ARE NOT SUPPORTED
@@ -229,27 +211,27 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
     /// @dev it swaps asset token for quote
     /// @param _asset address
     /// @param _amount exact amount of asset to swap
-    /// @param _swapper contract that will be used for swapping asset for quote
     /// @return amount of quote token
-    function _swapForQuote(address _asset, uint256 _amount, address _swapper) internal returns (uint256) {
+    function _swapForQuote(address _asset, uint256 _amount) internal returns (uint256) {
         if (_amount == 0 || _asset == address(quoteToken)) return _amount;
 
-        bytes memory callData = abi.encodeWithSelector(
-            _SWAP_AMOUNT_IN_SELECTOR,
-            _asset,
-            quoteToken,
-            _amount,
-            findPriceProvider(_asset),
-            _asset
-        );
+        (IPriceProvider provider, ISwapper swapper) = _resolveProviderAndSwapper(_asset);
 
-        ISwapper swapper = _resolveSwapper(_asset, _swapper);
+        bytes memory callData = abi.encodeCall(ISwapper.swapAmountIn, (
+            _asset, address(quoteToken), _amount, address(provider), _asset
+        ));
 
         // no need for safe approval, because we always using 100%
-        IERC20(_asset).approve(swapper.spenderToApprove(), _amount);
+        _approve(_asset, swapper.spenderToApprove(), _amount);
+
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory data) = address(swapper).delegatecall(callData);
-        if (!success) data.revertBytes("SwapAmountInFailed");
+        // if (!success) data.revertBytes("SwapAmountInFailed");
+        if (!success && data.length > 0) {
+            assembly { // solhint-disable-line no-inline-assembly
+                revert(add(32, data), mload(data))
+            }
+        }
 
         return abi.decode(data, (uint256));
     }
@@ -257,55 +239,50 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
     /// @dev it swaps quote token for asset
     /// @param _asset address
     /// @param _amount exact amount OUT, what we want to receive
-    /// @param _swapper contract that will be used for swapping quote for asset
     /// @return amount of quote token used for swap
-    function _swapForAsset(address _asset, uint256 _amount, address _swapper) internal returns (uint256) {
+    function _swapForAsset(address _asset, uint256 _amount) internal returns (uint256) {
         if (_amount == 0 || address(quoteToken) == _asset) return _amount;
 
-        bytes memory callData = abi.encodeWithSelector(
-            _SWAP_AMOUNT_OUT_SELECTOR,
-            quoteToken,
-            _asset,
-            _amount,
-            findPriceProvider(_asset),
-            _asset
-        );
+        (IPriceProvider provider, ISwapper swapper) = _resolveProviderAndSwapper(_asset);
 
+        bytes memory callData = abi.encodeCall(ISwapper.swapAmountOut, (
+            address(quoteToken), _asset, _amount, address(provider), _asset
+        ));
 
-        ISwapper swapper = _resolveSwapper(_asset, _swapper);
         address spender = swapper.spenderToApprove();
-        IERC20(quoteToken).approve(spender, type(uint256).max);
+
+        _approve(address(quoteToken), spender, type(uint256).max);
 
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory data) = address(swapper).delegatecall(callData);
         if (!success) data.revertBytes("SwapAmountOutFailed");
 
-        IERC20(quoteToken).approve(spender, 0);
+        _approve(address(quoteToken), spender, 0);
 
         return abi.decode(data, (uint256));
     }
 
-    function _resolveSwapper(address _asset, address _swapper) internal view returns (ISwapper) {
-        if (address(_swapper) != address(0)) return ISwapper(_swapper);
-
+    function _resolveProviderAndSwapper(address _asset) internal view returns (IPriceProvider, ISwapper) {
         IPriceProvider priceProvider = findPriceProvider(_asset);
-        return swappers[priceProvider];
+
+        ISwapper swapper = _resolveSwapper(priceProvider);
+
+        return (priceProvider, swapper);
     }
 
-    function _withdraw(address _account) internal {
-        uint256 amount = earnings[_account];
-        if (amount == 0) return;
+    function _resolveSwapper(IPriceProvider priceProvider) internal view returns (ISwapper) {
+        ISwapper swapper = swappers[priceProvider];
 
-        earnings[_account] = 0;
-        quoteToken.transfer(_account, amount);
+        if (address(swapper) == address(0)) {
+            revert SwapperNotFound();
+        }
+
+        return swapper;
     }
 
-    function _withdrawEth(address _account) internal {
-        uint256 amount = earnings[_account];
-        if (amount == 0) return;
-
-        earnings[_account] = 0;
-        IWrappedNativeToken(address(quoteToken)).withdraw(amount);
-        payable(_account).transfer(amount);
+    function _approve(address _asset, address _to, uint256 _amount) internal {
+        if (!IERC20(_asset).approve(_to, _amount)) {
+            revert ApprovalFailed();
+        }
     }
 }

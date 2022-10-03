@@ -29,9 +29,6 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @dev Decimals used by the _QUOTE_AGGREGATOR
     uint8 private immutable _QUOTE_AGGREGATOR_DECIMALS; // solhint-disable-line var-name-mixedcase
 
-    /// @dev this is basically `PriceProvider.quoteToken.decimals()`
-    uint256 private immutable _QUOTE_TOKEN_DECIMALS; // solhint-disable-line var-name-mixedcase
-
     /// @dev Used to optimize calculations in emergency disable function
     // solhint-disable-next-line var-name-mixedcase
     uint256 private immutable _MAX_PRICE_DIFF = type(uint256).max / (100 * EMERGENCY_PRECISION);
@@ -41,6 +38,9 @@ contract ChainlinkV3PriceProvider is PriceProvider {
 
     /// @dev Disable the aggregator if the difference with the fallback is higher than this percentage (10%)
     uint256 public constant EMERGENCY_THRESHOLD = 10 * EMERGENCY_PRECISION; // solhint-disable-line var-name-mixedcase
+
+    /// @dev this is basically `PriceProvider.quoteToken.decimals()`
+    uint8 private immutable _QUOTE_TOKEN_DECIMALS; // solhint-disable-line var-name-mixedcase
 
     /// @dev Address allowed to call the emergencyDisable function, can be set by the owner
     address public emergencyManager;
@@ -72,6 +72,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     error InvalidFallbackPriceProvider();
     error InvalidHeartbeat();
     error OnlyEmergencyManager();
+    error QuoteAggregatorHeartbeatDidNotChange();
 
     modifier onlyAssetSupported(address _asset) {
         if (!assetSupported(_asset)) {
@@ -88,7 +89,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         uint256 _quoteAggregatorHeartbeat
     ) PriceProvider(_priceProvidersRepository) {
         _setEmergencyManager(_emergencyManager);
-        _QUOTE_TOKEN_DECIMALS = IERC20LikeV2(_priceProvidersRepository.quoteToken()).decimals();
+        _QUOTE_TOKEN_DECIMALS = IERC20LikeV2(quoteToken).decimals();
         _QUOTE_AGGREGATOR = _quoteAggregator;
         _QUOTE_AGGREGATOR_DECIMALS = _quoteAggregator.decimals();
         quoteAggregatorHeartbeat = _quoteAggregatorHeartbeat;
@@ -177,13 +178,22 @@ contract ChainlinkV3PriceProvider is PriceProvider {
 
     /// @dev Sets the heartbeat threshold for an asset. Can only be called by the manager.
     /// @param _asset Asset for which to set the heartbeat threshold
-    /// @param _threshold Threshold to set
-    function setHeartbeat(address _asset, uint256 _threshold)
+    /// @param _heartbeat Threshold to set
+    function setHeartbeat(address _asset, uint256 _heartbeat)
         external
         onlyManager
         onlyAssetSupported(_asset)
     {
-        if (!_setHeartbeat(_asset, _threshold)) revert HeartbeatDidNotChange();
+        if (!_setHeartbeat(_asset, _heartbeat)) revert HeartbeatDidNotChange();
+    }
+
+    /// @dev Sets the quote aggregator heartbeat threshold. Can only be called by the manager.
+    /// @param _heartbeat Threshold to set
+    function setQuoteAggregatorHeartbeat(uint256 _heartbeat)
+        external
+        onlyManager
+    {
+        if (!_setQuoteAggregatorHeartbeat(_heartbeat)) revert QuoteAggregatorHeartbeatDidNotChange();
     }
 
     /// @dev Sets the emergencyManager. Can only be called by the manager.
@@ -224,6 +234,10 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         assetData[_asset].forceFallback = true;
 
         emit AggregatorDisabled(_asset, assetData[_asset].aggregator);
+    }
+
+    function getFallbackProvider(address _asset) external view returns (IPriceProvider) {
+        return assetData[_asset].fallbackProvider;
     }
 
     function _getAggregatorPrice(address _asset) private view returns (bool success, uint256 price) {
@@ -377,16 +391,12 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @param _decimals Decimals considered in `_price`
     function _normalizeWithDecimals(uint256 _price, uint8 _decimals) private view returns (uint256) {
         // We want to return the price of 1 asset token, but with the decimals of the quote token
-        unchecked {
-            if (_QUOTE_TOKEN_DECIMALS == _decimals) {
-                return _price;
-            } else if (_QUOTE_TOKEN_DECIMALS < _decimals) {
-                // It is safe to uncheck because we know that _QUOTE_TOKEN_DECIMALS < _decimals
-                return _price / 10 ** (_decimals - _QUOTE_TOKEN_DECIMALS);
-            } else {
-                // It is safe to uncheck because we know that _QUOTE_TOKEN_DECIMALS > _decimals
-                return _price * 10 ** (_QUOTE_TOKEN_DECIMALS - _decimals);
-            }
+        if (_QUOTE_TOKEN_DECIMALS == _decimals) {
+            return _price;
+        } else if (_QUOTE_TOKEN_DECIMALS < _decimals) {
+            return _price / 10 ** (_decimals - _QUOTE_TOKEN_DECIMALS);
+        } else {
+            return _price * 10 ** (_QUOTE_TOKEN_DECIMALS - _decimals);
         }
     }
 
