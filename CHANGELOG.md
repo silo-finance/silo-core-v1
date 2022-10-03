@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [1.7.1] - 2022-09-29
+### Fixed
+- fixed issue with hubflow, adding tag that will include missing deployments
+
+## [1.7.0] - 2022-09-28
+### Added
+- Add ChainlinkV3 provider support in liquidation helper
+- Add missing functionality to ChainlinkV3 provider
+- Chainlink provider formal verification
+
 ## [1.6.0] - 2022-09-20
 ### Added
 - Add UniswapV3 provider V2 with support for non-eth prices
