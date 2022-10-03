@@ -13,11 +13,14 @@ import "../interfaces/IPriceProvidersRepository.sol";
 import "../interfaces/IWrappedNativeToken.sol";
 
 import "../lib/Ping.sol";
+import "../lib/RevertBytes.sol";
 
 
 /// @notice LiquidationHelper IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.
 /// see https://github.com/silo-finance/liquidation#readme for details how liquidation process should look like
 contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
+    using RevertBytes for bytes;
+
     bytes4 constant private _SWAP_AMOUNT_IN_SELECTOR =
         bytes4(keccak256("swapAmountIn(address,address,uint256,address,address)"));
 
@@ -183,9 +186,11 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
         address swapperAddr
     ) internal returns (uint256 quoteAmount) {
         // swap all for quote token
-        // if silo was able to handle solvency calculations, then we can handle them without safe math here
+
         unchecked {
+            // we will not overflow with `i` in a lifetime
             for (uint256 i = 0; i < _assets.length; i++) {
+                // if silo was able to handle solvency calculations, then we can handle quoteAmount without safe math
                 quoteAmount += _swapForQuote(_assets[i], _receivedCollaterals[i], swapperAddr);
             }
         }
@@ -244,7 +249,7 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
         IERC20(_asset).approve(swapper.spenderToApprove(), _amount);
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory data) = address(swapper).delegatecall(callData);
-        if (!success) revert SwapAmountInFailed();
+        if (!success) data.revertBytes("SwapAmountInFailed");
 
         return abi.decode(data, (uint256));
     }
@@ -273,7 +278,7 @@ contract LiquidationHelper is IFlashLiquidationReceiver, Ownable {
 
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory data) = address(swapper).delegatecall(callData);
-        if (!success) revert SwapAmountOutFailed();
+        if (!success) data.revertBytes("SwapAmountOutFailed");
 
         IERC20(quoteToken).approve(spender, 0);
 
