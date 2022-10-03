@@ -8,7 +8,7 @@ import "../SiloLens.sol";
 
 contract InterestRateDataResolver {
     ISiloRepository immutable public siloRepository;
-    SiloLens public immutable lens;
+    SiloLens public immutable siloLens;
 
     error InvalidSiloLens();
     error InvalidSiloRepository();
@@ -20,6 +20,7 @@ contract InterestRateDataResolver {
         uint256 currentInterestRate;
         uint256 siloUtilization;
         uint256 totalDepositsWithInterest;
+        uint256 depositAPY;
     }
 
     struct SiloAssetsData {
@@ -32,7 +33,7 @@ contract InterestRateDataResolver {
         if (!Ping.pong(_lens.lensPing)) revert InvalidSiloLens();
 
         siloRepository = _siloRepo;
-        lens = _lens;
+        siloLens = _lens;
     }
 
     /// @dev batch method for `getData()`
@@ -76,8 +77,9 @@ contract InterestRateDataResolver {
         assetData.asset = _asset;
         assetData.modelConfig = model.getConfig(address(_silo), _asset);
         assetData.currentInterestRate = model.getCurrentInterestRate(address(_silo), _asset, block.timestamp);
-        assetData.siloUtilization = lens.getUtilization(_silo, _asset);
-        assetData.totalDepositsWithInterest = lens.totalDepositsWithInterest(_silo, _asset);
+        assetData.siloUtilization = siloLens.getUtilization(_silo, _asset);
+        assetData.totalDepositsWithInterest = siloLens.totalDepositsWithInterest(_silo, _asset);
+        assetData.depositAPY = siloLens.depositAPY(_silo, _asset);
 
         timestamp = block.timestamp;
     }
