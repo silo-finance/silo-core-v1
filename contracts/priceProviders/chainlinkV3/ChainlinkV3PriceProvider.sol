@@ -24,14 +24,14 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     }
 
     /// @dev Aggregator that converts from USD to quote token
-    AggregatorV3Interface private immutable _QUOTE_AGGREGATOR; // solhint-disable-line var-name-mixedcase
+    AggregatorV3Interface internal immutable _QUOTE_AGGREGATOR; // solhint-disable-line var-name-mixedcase
 
     /// @dev Decimals used by the _QUOTE_AGGREGATOR
-    uint8 private immutable _QUOTE_AGGREGATOR_DECIMALS; // solhint-disable-line var-name-mixedcase
+    uint8 internal immutable _QUOTE_AGGREGATOR_DECIMALS; // solhint-disable-line var-name-mixedcase
 
     /// @dev Used to optimize calculations in emergency disable function
     // solhint-disable-next-line var-name-mixedcase
-    uint256 private immutable _MAX_PRICE_DIFF = type(uint256).max / (100 * EMERGENCY_PRECISION);
+    uint256 internal immutable _MAX_PRICE_DIFF = type(uint256).max / (100 * EMERGENCY_PRECISION);
     
     // @dev Precision to use for the EMERGENCY_THRESHOLD
     uint256 public constant EMERGENCY_PRECISION = 1e6;
@@ -40,7 +40,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     uint256 public constant EMERGENCY_THRESHOLD = 10 * EMERGENCY_PRECISION; // solhint-disable-line var-name-mixedcase
 
     /// @dev this is basically `PriceProvider.quoteToken.decimals()`
-    uint8 private immutable _QUOTE_TOKEN_DECIMALS; // solhint-disable-line var-name-mixedcase
+    uint8 internal immutable _QUOTE_TOKEN_DECIMALS; // solhint-disable-line var-name-mixedcase
 
     /// @dev Address allowed to call the emergencyDisable function, can be set by the owner
     address public emergencyManager;
@@ -96,7 +96,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     }
 
     /// @inheritdoc IPriceProvider
-    function assetSupported(address _asset) public view override returns (bool) {
+    function assetSupported(address _asset) public view virtual override returns (bool) {
         AssetData storage data = assetData[_asset];
 
         // Asset is supported if:
@@ -118,8 +118,14 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         return false;
     }
 
+    /// @dev Returns price directly from aggregator using all internal settings except of fallback provider
+    /// @param _asset Asset for which we want to get the price
+    function getAggregatorPrice(address _asset) public view virtual returns (bool success, uint256 price) {
+        (success, price) = _getAggregatorPrice(_asset);
+    }
+    
     /// @inheritdoc IPriceProvider
-    function getPrice(address _asset) public view override returns (uint256) {
+    function getPrice(address _asset) public view virtual override returns (uint256) {
         address quote = quoteToken;
 
         if (_asset == quote) {
@@ -142,7 +148,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         IPriceProvider _fallbackProvider,
         uint256 _heartbeat,
         bool _convertToQuote
-    ) external onlyManager {
+    ) external virtual onlyManager {
         // This has to be done first so that `_setAggregator` works
         _setHeartbeat(_asset, _heartbeat);
 
@@ -157,6 +163,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @param _aggregator Aggregator to set
     function setAggregator(address _asset, AggregatorV3Interface _aggregator, bool _convertToQuote)
         external
+        virtual
         onlyManager
         onlyAssetSupported(_asset)
     {
@@ -168,6 +175,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @param _fallbackProvider Provider to set
     function setFallbackPriceProvider(address _asset, IPriceProvider _fallbackProvider)
         external
+        virtual
         onlyManager
         onlyAssetSupported(_asset)
     {
@@ -181,6 +189,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @param _heartbeat Threshold to set
     function setHeartbeat(address _asset, uint256 _heartbeat)
         external
+        virtual
         onlyManager
         onlyAssetSupported(_asset)
     {
@@ -191,6 +200,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @param _heartbeat Threshold to set
     function setQuoteAggregatorHeartbeat(uint256 _heartbeat)
         external
+        virtual
         onlyManager
     {
         if (!_setQuoteAggregatorHeartbeat(_heartbeat)) revert QuoteAggregatorHeartbeatDidNotChange();
@@ -198,7 +208,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
 
     /// @dev Sets the emergencyManager. Can only be called by the manager.
     /// @param _emergencyManager Emergency manager to set
-    function setEmergencyManager(address _emergencyManager) external onlyManager {
+    function setEmergencyManager(address _emergencyManager) external virtual onlyManager {
         if (!_setEmergencyManager(_emergencyManager)) revert EmergencyManagerDidNotChange();
     }
 
@@ -206,7 +216,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// fallback provider. The only way to reenable the asset is by calling setupAsset or setAggregator again.
     /// Can only be called by the emergencyManager.
     /// @param _asset Asset for which to disable the aggregator
-    function emergencyDisable(address _asset) external {
+    function emergencyDisable(address _asset) external virtual {
         if (msg.sender != emergencyManager) {
             revert OnlyEmergencyManager();
         }
@@ -236,11 +246,11 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         emit AggregatorDisabled(_asset, assetData[_asset].aggregator);
     }
 
-    function getFallbackProvider(address _asset) external view returns (IPriceProvider) {
+    function getFallbackProvider(address _asset) external view virtual returns (IPriceProvider) {
         return assetData[_asset].fallbackProvider;
     }
 
-    function _getAggregatorPrice(address _asset) private view returns (bool success, uint256 price) {
+    function _getAggregatorPrice(address _asset) internal view virtual returns (bool success, uint256 price) {
         AssetData storage data = assetData[_asset];
 
         uint256 heartbeat = data.heartbeat;
@@ -275,7 +285,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         return (false, 0);
     }
 
-    function _getFallbackPrice(address _asset) private view returns (uint256) {
+    function _getFallbackPrice(address _asset) internal view virtual returns (uint256) {
         IPriceProvider fallbackProvider = assetData[_asset].fallbackProvider;
 
         if (address(fallbackProvider) == address(0)) revert FallbackProviderNotSet();
@@ -283,7 +293,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         return fallbackProvider.getPrice(_asset);
     }
 
-    function _setEmergencyManager(address _emergencyManager) private returns (bool changed) {
+    function _setEmergencyManager(address _emergencyManager) internal virtual returns (bool changed) {
         if (_emergencyManager == emergencyManager) {
             return false;
         }
@@ -299,7 +309,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         address _asset,
         AggregatorV3Interface _aggregator,
         bool _convertToQuote
-    ) private returns (bool changed) {
+    ) internal virtual returns (bool changed) {
         if (address(_aggregator) == address(0)) revert InvalidAggregator();
 
         AssetData storage data = assetData[_asset];
@@ -329,7 +339,8 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     }
 
     function _setFallbackPriceProvider(address _asset, IPriceProvider _fallbackProvider)
-        private
+        internal
+        virtual
         returns (bool changed)
     {
         if (_fallbackProvider == assetData[_asset].fallbackProvider) {
@@ -356,7 +367,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         return true;
     }
 
-    function _setHeartbeat(address _asset, uint256 _heartbeat) private returns (bool changed) {
+    function _setHeartbeat(address _asset, uint256 _heartbeat) internal virtual returns (bool changed) {
         // Arbitrary limit, Chainlink's threshold is always less than a day
         if (_heartbeat > 2 days) revert InvalidHeartbeat();
 
@@ -371,7 +382,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         return true;
     }
 
-    function _setQuoteAggregatorHeartbeat(uint256 _heartbeat) private returns (bool changed) {
+    function _setQuoteAggregatorHeartbeat(uint256 _heartbeat) internal virtual returns (bool changed) {
         // Arbitrary limit, Chainlink's threshold is always less than a day
         if (_heartbeat > 2 days) revert InvalidHeartbeat();
 
@@ -389,7 +400,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     /// @dev Adjusts the given price to use the same decimals as the quote token.
     /// @param _price Price to adjust decimals
     /// @param _decimals Decimals considered in `_price`
-    function _normalizeWithDecimals(uint256 _price, uint8 _decimals) private view returns (uint256) {
+    function _normalizeWithDecimals(uint256 _price, uint8 _decimals) internal view virtual returns (uint256) {
         // We want to return the price of 1 asset token, but with the decimals of the quote token
         if (_QUOTE_TOKEN_DECIMALS == _decimals) {
             return _price;
@@ -401,7 +412,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
     }
 
     /// @dev Converts a price returned by an aggregator to quote units
-    function _toQuote(uint256 _price) private view returns (uint256) {
+    function _toQuote(uint256 _price) internal view virtual returns (uint256) {
        (
             /*uint80 roundID*/,
             int256 aggregatorPrice,
@@ -419,7 +430,7 @@ contract ChainlinkV3PriceProvider is PriceProvider {
         return _price * 10 ** _QUOTE_TOKEN_DECIMALS / uint256(aggregatorPrice);
     }
 
-    function _isValidPrice(int256 _price, uint256 _timestamp, uint256 _heartbeat) private view returns (bool) {
+    function _isValidPrice(int256 _price, uint256 _timestamp, uint256 _heartbeat) internal view virtual returns (bool) {
         return _price > 0 && block.timestamp - _timestamp < _heartbeat;
     }
 }
