@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [1.15.0] - 2022-11-02
+### Changed
+- SIP 24: GOHMPriceProvider and gOHM Silo
+
 ## [1.14.0] - 2022-11-02
 ### Changed
 - SIP 23: XAI Fallback
