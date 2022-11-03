@@ -6,6 +6,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [1.10.0] - 2022-10-26
+### Added
+- `GOHMPriceProvider`
+
+## [1.9.0] - 2022-10-24
+### Added
+- `ChainlinkV3ReverseAggregator`
+- SIP-19: new XAI market / XAI minting and configuration for existing assets
+
+## [1.8.4] - 2022-10-20
+### Updated
+- `ChainlinkV3PriceProvider`
+
+## [1.8.3] - 2022-10-17
+### Changed
+- New proposal flow
+- Use `ethers.Wallet` to send proposals (EIP-1559)
+
+### Fixed
+- SIP-18: unregister old and register new `ChainlinkV3PriceProvider`
+
+## [1.8.2] - 2022-10-10
+### Changed
+- Expose `getAggregatorPrice` method and make all methods `virtual` in `ChainlinkV3PriceProvider`.
+
+## [1.8.1] - 2022-10-07
+### Added
+- New `InterestRateModelXAI` model
+
+## [1.8.0] - 2022-10-04
+## Added
+- Add proposal for registering new Uniswap and Chainlink providers (SIP-17)
+
 ## [1.7.1] - 2022-09-29
 ### Fixed
 - fixed issue with hubflow, adding tag that will include missing deployments
