@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [1.11.0] - 2022-11-01
+### Added
+- proposals for 47 markets
+
 ## [1.10.0] - 2022-10-26
 ### Added
 - `GOHMPriceProvider`
