@@ -1,0 +1,446 @@
+{
+  "address": "0x4182ad1513446861Be314c30DB27C67473541457",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "AddressZero",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyCoordinates",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "KeyIsTaken",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "name": "NewCoordinates",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newPendingOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipPending",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "key",
+          "type": "string"
+        }
+      ],
+      "name": "RemovedCoordinates",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "name": "UpdateCoordinates",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "acceptOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        }
+      ],
+      "name": "coordinates",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        }
+      ],
+      "name": "makeKey",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pendingOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "rawCoordinates",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_contract",
+          "type": "address"
+        }
+      ],
+      "name": "register",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "removePendingOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newPendingOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferPendingOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        }
+      ],
+      "name": "unregister",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_contract",
+          "type": "address"
+        }
+      ],
+      "name": "update",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x83cd97b6d794d7a445fb86f69a2e56a58984712290f50b374747969d05a23bcc",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0x4182ad1513446861Be314c30DB27C67473541457",
+    "transactionIndex": 1,
+    "gasUsed": "6688120",
+    "logsBloom": "0x00000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000404000000000000000000000000000000000000000000000000000000800000000000000000000000008000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000",
+    "blockHash": "0x17d7847f3e6c8cb83f1f85d363356f031a96ce8db8a0017f6ef472bec29198ab",
+    "transactionHash": "0x83cd97b6d794d7a445fb86f69a2e56a58984712290f50b374747969d05a23bcc",
+    "logs": [
+      {
+        "transactionIndex": 1,
+        "blockNumber": 51895192,
+        "transactionHash": "0x83cd97b6d794d7a445fb86f69a2e56a58984712290f50b374747969d05a23bcc",
+        "address": "0x4182ad1513446861Be314c30DB27C67473541457",
+        "topics": [
+          "0x04dba622d284ed0014ee4b9a6a68386be1a4c08a4913ae272de89199cc686163",
+          "0x0000000000000000000000009c3832db9f3c1375aa3542c55f6ee9b54f38d944"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x17d7847f3e6c8cb83f1f85d363356f031a96ce8db8a0017f6ef472bec29198ab"
+      }
+    ],
+    "blockNumber": 51895192,
+    "cumulativeGasUsed": "6688120",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "7d6be109365bbf8239d045b1436b7bc6",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"AddressZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyCoordinates\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"KeyIsTaken\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newContract\",\"type\":\"address\"}],\"name\":\"NewCoordinates\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newPendingOwner\",\"type\":\"address\"}],\"name\":\"OwnershipPending\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"}],\"name\":\"RemovedCoordinates\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newContract\",\"type\":\"address\"}],\"name\":\"UpdateCoordinates\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"acceptOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_key\",\"type\":\"string\"}],\"name\":\"coordinates\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_key\",\"type\":\"string\"}],\"name\":\"makeKey\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_key\",\"type\":\"bytes32\"}],\"name\":\"rawCoordinates\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_key\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_contract\",\"type\":\"address\"}],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"removePendingOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPendingOwner\",\"type\":\"address\"}],\"name\":\"transferPendingOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_key\",\"type\":\"string\"}],\"name\":\"unregister\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_key\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_contract\",\"type\":\"address\"}],\"name\":\"update\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"acceptOwnership()\":{\"details\":\"Transfers ownership of the contract to a pending owner Can only be called by the pending owner.\"},\"coordinates(string)\":{\"params\":{\"_key\":\"string key\"},\"returns\":{\"_0\":\"address coordinates for the `_key`\"}},\"makeKey(string)\":{\"details\":\"generating mapping key based on string\",\"params\":{\"_key\":\"string key\"},\"returns\":{\"_0\":\"bytes32 representation of the `_key`\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"pendingOwner()\":{\"details\":\"Returns the address of the pending owner.\"},\"rawCoordinates(bytes32)\":{\"params\":{\"_key\":\"raw bytes32 key\"},\"returns\":{\"_0\":\"address coordinates for the raw `_key`\"}},\"register(string,address)\":{\"details\":\"Registering new contract\",\"params\":{\"_contract\":\"contract address\",\"_key\":\"key under which contract will be stored\"}},\"removePendingOwnership()\":{\"details\":\"Clears the pending ownership. Can only be called by the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"transferPendingOwnership(address)\":{\"details\":\"Transfers pending ownership of the contract to a new account (`newPendingOwner`) and clears any existing pending ownership. Can only be called by the current owner.\"},\"unregister(string)\":{\"details\":\"Removing coordinates\",\"params\":{\"_key\":\"key to remove\"}},\"update(string,address)\":{\"details\":\"Update key with new contract address\",\"params\":{\"_contract\":\"contract address\",\"_key\":\"key under which new contract will be stored\"}}},\"title\":\"Tower\",\"version\":1},\"userdoc\":{\"events\":{\"OwnershipPending(address)\":{\"notice\":\"Emitted when ownership transfer is proposed, aka pending owner is set\"},\"OwnershipTransferred(address)\":{\"notice\":\"Emitted when ownership is transferred on `transferOwnership` and `acceptOwnership`\"}},\"kind\":\"user\",\"methods\":{},\"notice\":\"Utility contract that stores addresses of any contracts\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/utils/Tower.sol\":\"Tower\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/utils/Tower.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./TwoStepOwnable.sol\\\";\\n\\n/// @title Tower\\n/// @notice Utility contract that stores addresses of any contracts\\ncontract Tower is TwoStepOwnable {\\n    mapping(bytes32 => address) private _coordinates;\\n\\n    error AddressZero();\\n    error KeyIsTaken();\\n    error EmptyCoordinates();\\n\\n    event NewCoordinates(string key, address indexed newContract);\\n    event UpdateCoordinates(string key, address indexed newContract);\\n    event RemovedCoordinates(string key);\\n\\n    /// @param _key string key\\n    /// @return address coordinates for the `_key`\\n    function coordinates(string calldata _key) external view virtual returns (address) {\\n        return _coordinates[makeKey(_key)];\\n    }\\n\\n    /// @param _key raw bytes32 key\\n    /// @return address coordinates for the raw `_key`\\n    function rawCoordinates(bytes32 _key) external view virtual returns (address) {\\n        return _coordinates[_key];\\n    }\\n\\n    /// @dev Registering new contract\\n    /// @param _key key under which contract will be stored\\n    /// @param _contract contract address\\n    function register(string calldata _key, address _contract) external virtual onlyOwner {\\n        bytes32 key = makeKey(_key);\\n        if (_coordinates[key] != address(0)) revert KeyIsTaken();\\n        if (_contract == address(0)) revert AddressZero();\\n\\n        _coordinates[key] = _contract;\\n        emit NewCoordinates(_key, _contract);\\n    }\\n\\n    /// @dev Removing coordinates\\n    /// @param _key key to remove\\n    function unregister(string calldata _key) external virtual onlyOwner {\\n        bytes32 key = makeKey(_key);\\n        if (_coordinates[key] == address(0)) revert EmptyCoordinates();\\n\\n        _coordinates[key] = address(0);\\n        emit RemovedCoordinates(_key);\\n    }\\n\\n    /// @dev Update key with new contract address\\n    /// @param _key key under which new contract will be stored\\n    /// @param _contract contract address\\n    function update(string calldata _key, address _contract) external virtual onlyOwner {\\n        bytes32 key = makeKey(_key);\\n        if (_coordinates[key] == address(0)) revert EmptyCoordinates();\\n        if (_contract == address(0)) revert AddressZero();\\n\\n        _coordinates[key] = _contract;\\n        emit UpdateCoordinates(_key, _contract);\\n    }\\n\\n    /// @dev generating mapping key based on string\\n    /// @param _key string key\\n    /// @return bytes32 representation of the `_key`\\n    function makeKey(string calldata _key) public pure virtual returns (bytes32) {\\n        return keccak256(abi.encodePacked(_key));\\n    }\\n}\\n\",\"keccak256\":\"0xa458d1212bdd2dd74ebca88cfc3093790f0241c0c5e4c1196a459177cfcdbf29\",\"license\":\"BUSL-1.1\"},\"contracts/utils/TwoStepOwnable.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @title TwoStepOwnable\\n/// @notice Contract that implements the same functionality as popular Ownable contract from openzeppelin library.\\n/// The only difference is that it adds a possibility to transfer ownership in two steps. Single step ownership\\n/// transfer is still supported.\\n/// @dev Two step ownership transfer is meant to be used by humans to avoid human error. Single step ownership\\n/// transfer is meant to be used by smart contracts to avoid over-complicated two step integration. For that reason,\\n/// both ways are supported.\\nabstract contract TwoStepOwnable {\\n    /// @dev current owner\\n    address private _owner;\\n    /// @dev candidate to an owner\\n    address private _pendingOwner;\\n\\n    /// @notice Emitted when ownership is transferred on `transferOwnership` and `acceptOwnership`\\n    /// @param newOwner new owner\\n    event OwnershipTransferred(address indexed newOwner);\\n    /// @notice Emitted when ownership transfer is proposed, aka pending owner is set\\n    /// @param newPendingOwner new proposed/pending owner\\n    event OwnershipPending(address indexed newPendingOwner);\\n\\n    /**\\n     *  error OnlyOwner();\\n     *  error OnlyPendingOwner();\\n     *  error OwnerIsZero();\\n     */\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        if (owner() != msg.sender) revert(\\\"OnlyOwner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _setOwner(msg.sender);\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _setOwner(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) revert(\\\"OwnerIsZero\\\");\\n        _setOwner(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers pending ownership of the contract to a new account (`newPendingOwner`) and clears any existing\\n     * pending ownership.\\n     * Can only be called by the current owner.\\n     */\\n    function transferPendingOwnership(address newPendingOwner) public virtual onlyOwner {\\n        _setPendingOwner(newPendingOwner);\\n    }\\n\\n    /**\\n     * @dev Clears the pending ownership.\\n     * Can only be called by the current owner.\\n     */\\n    function removePendingOwnership() public virtual onlyOwner {\\n        _setPendingOwner(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a pending owner\\n     * Can only be called by the pending owner.\\n     */\\n    function acceptOwnership() public virtual {\\n        if (msg.sender != pendingOwner()) revert(\\\"OnlyPendingOwner\\\");\\n        _setOwner(pendingOwner());\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the pending owner.\\n     */\\n    function pendingOwner() public view virtual returns (address) {\\n        return _pendingOwner;\\n    }\\n\\n    /**\\n     * @dev Sets the new owner and emits the corresponding event.\\n     */\\n    function _setOwner(address newOwner) private {\\n        if (_owner == newOwner) revert(\\\"OwnerDidNotChange\\\");\\n\\n        _owner = newOwner;\\n        emit OwnershipTransferred(newOwner);\\n\\n        if (_pendingOwner != address(0)) {\\n            _setPendingOwner(address(0));\\n        }\\n    }\\n\\n    /**\\n     * @dev Sets the new pending owner and emits the corresponding event.\\n     */\\n    function _setPendingOwner(address newPendingOwner) private {\\n        if (_pendingOwner == newPendingOwner) revert(\\\"PendingOwnerDidNotChange\\\");\\n\\n        _pendingOwner = newPendingOwner;\\n        emit OwnershipPending(newPendingOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xeda289312a3dfe253df601ac8a3ddda1c95ee9f9985a80a4f91adbf3f303c1d7\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001a3361001f565b61017f565b6000546001600160a01b038083169116036100755760405162461bcd60e51b81526020600482015260116024820152704f776e65724469644e6f744368616e676560781b60448201526064015b60405180910390fd5b600080546001600160a01b0319166001600160a01b038316908117825560405190917f04dba622d284ed0014ee4b9a6a68386be1a4c08a4913ae272de89199cc68616391a26001546001600160a01b0316156100d5576100d560006100d8565b50565b6001546001600160a01b038083169116036101355760405162461bcd60e51b815260206004820152601860248201527f50656e64696e674f776e65724469644e6f744368616e67650000000000000000604482015260640161006c565b600180546001600160a01b0319166001600160a01b0383169081179091556040517fd6aad444c90d39fb0eee1c6e357a7fad83d63f719ac5f880445a2beb0ff3ab5890600090a250565b610a1a8061018e6000396000f3fe608060405234801561001057600080fd5b50600436106100cf5760003560e01c806379ba50971161008c578063e30c397811610066578063e30c397814610185578063e94368b314610196578063f2fde38b146101bf578063fe2cbfa8146101d257600080fd5b806379ba50971461013257806388ecdb2f1461013a5780638da5cb5b1461016057600080fd5b80631e59c529146100d45780632cff89c9146100e95780633278c694146100fc57806344552b5d1461010f5780636598a1ae14610117578063715018a61461012a575b600080fd5b6100e76100e23660046108b1565b6101e5565b005b6100e76100f73660046108b1565b6102fe565b6100e761010a366004610905565b6103ff565b6100e7610444565b6100e7610125366004610927565b610489565b6100e7610560565b6100e76105a3565b61014d610148366004610927565b61060a565b6040519081526020015b60405180910390f35b6000546001600160a01b03165b6040516001600160a01b039091168152602001610157565b6001546001600160a01b031661016d565b61016d6101a4366004610969565b6000908152600260205260409020546001600160a01b031690565b6100e76101cd366004610905565b61063d565b61016d6101e0366004610927565b6106c3565b336101f86000546001600160a01b031690565b6001600160a01b0316146102275760405162461bcd60e51b815260040161021e90610982565b60405180910390fd5b6000610233848461060a565b6000818152600260205260409020549091506001600160a01b03161561026c5760405163070ee79760e31b815260040160405180910390fd5b6001600160a01b03821661029357604051639fabe1c160e01b815260040160405180910390fd5b6000818152600260205260409081902080546001600160a01b0319166001600160a01b03851690811790915590517f5327935b8796b9614e833d16c9e90ccb2b33e41e5181f8af0308fba0373c1caf906102f090879087906109a5565b60405180910390a250505050565b336103116000546001600160a01b031690565b6001600160a01b0316146103375760405162461bcd60e51b815260040161021e90610982565b6000610343848461060a565b6000818152600260205260409020549091506001600160a01b031661037b5760405163513cc0b960e01b815260040160405180910390fd5b6001600160a01b0382166103a257604051639fabe1c160e01b815260040160405180910390fd5b6000818152600260205260409081902080546001600160a01b0319166001600160a01b03851690811790915590517faa96e0e6f7c38ef3ea5679180dc8034becfee398a6d177ee2c175663f96340e6906102f090879087906109a5565b336104126000546001600160a01b031690565b6001600160a01b0316146104385760405162461bcd60e51b815260040161021e90610982565b610441816106f4565b50565b336104576000546001600160a01b031690565b6001600160a01b03161461047d5760405162461bcd60e51b815260040161021e90610982565b61048760006106f4565b565b3361049c6000546001600160a01b031690565b6001600160a01b0316146104c25760405162461bcd60e51b815260040161021e90610982565b60006104ce838361060a565b6000818152600260205260409020549091506001600160a01b03166105065760405163513cc0b960e01b815260040160405180910390fd5b6000818152600260205260409081902080546001600160a01b0319169055517efa112e0c05e3b86d5a0cfa46bcc87ad949adcbc84a5d02e510c236f19e21409061055390859085906109a5565b60405180910390a1505050565b336105736000546001600160a01b031690565b6001600160a01b0316146105995760405162461bcd60e51b815260040161021e90610982565b610487600061079b565b6001546001600160a01b031633146105f05760405162461bcd60e51b815260206004820152601060248201526f27b7363ca832b73234b733a7bbb732b960811b604482015260640161021e565b6104876106056001546001600160a01b031690565b61079b565b6000828260405160200161061f9291906109d4565b60405160208183030381529060405280519060200120905092915050565b336106506000546001600160a01b031690565b6001600160a01b0316146106765760405162461bcd60e51b815260040161021e90610982565b6001600160a01b0381166106ba5760405162461bcd60e51b815260206004820152600b60248201526a4f776e657249735a65726f60a81b604482015260640161021e565b6104418161079b565b6000600260006106d3858561060a565b81526020810191909152604001600020546001600160a01b03169392505050565b6001546001600160a01b038083169116036107515760405162461bcd60e51b815260206004820152601860248201527f50656e64696e674f776e65724469644e6f744368616e67650000000000000000604482015260640161021e565b600180546001600160a01b0319166001600160a01b0383169081179091556040517fd6aad444c90d39fb0eee1c6e357a7fad83d63f719ac5f880445a2beb0ff3ab5890600090a250565b6000546001600160a01b038083169116036107ec5760405162461bcd60e51b81526020600482015260116024820152704f776e65724469644e6f744368616e676560781b604482015260640161021e565b600080546001600160a01b0319166001600160a01b038316908117825560405190917f04dba622d284ed0014ee4b9a6a68386be1a4c08a4913ae272de89199cc68616391a26001546001600160a01b0316156104415761044160006106f4565b60008083601f84011261085e57600080fd5b50813567ffffffffffffffff81111561087657600080fd5b60208301915083602082850101111561088e57600080fd5b9250929050565b80356001600160a01b03811681146108ac57600080fd5b919050565b6000806000604084860312156108c657600080fd5b833567ffffffffffffffff8111156108dd57600080fd5b6108e98682870161084c565b90945092506108fc905060208501610895565b90509250925092565b60006020828403121561091757600080fd5b61092082610895565b9392505050565b6000806020838503121561093a57600080fd5b823567ffffffffffffffff81111561095157600080fd5b61095d8582860161084c565b90969095509350505050565b60006020828403121561097b57600080fd5b5035919050565b60208082526009908201526827b7363ca7bbb732b960b91b604082015260600190565b60208152816020820152818360408301376000818301604090810191909152601f909201601f19160101919050565b818382376000910190815291905056fea264697066735822122000aa8d91643bceeccb7f197cceb564ff69d4756deb6d143a6c4efe46103d7cd364736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100cf5760003560e01c806379ba50971161008c578063e30c397811610066578063e30c397814610185578063e94368b314610196578063f2fde38b146101bf578063fe2cbfa8146101d257600080fd5b806379ba50971461013257806388ecdb2f1461013a5780638da5cb5b1461016057600080fd5b80631e59c529146100d45780632cff89c9146100e95780633278c694146100fc57806344552b5d1461010f5780636598a1ae14610117578063715018a61461012a575b600080fd5b6100e76100e23660046108b1565b6101e5565b005b6100e76100f73660046108b1565b6102fe565b6100e761010a366004610905565b6103ff565b6100e7610444565b6100e7610125366004610927565b610489565b6100e7610560565b6100e76105a3565b61014d610148366004610927565b61060a565b6040519081526020015b60405180910390f35b6000546001600160a01b03165b6040516001600160a01b039091168152602001610157565b6001546001600160a01b031661016d565b61016d6101a4366004610969565b6000908152600260205260409020546001600160a01b031690565b6100e76101cd366004610905565b61063d565b61016d6101e0366004610927565b6106c3565b336101f86000546001600160a01b031690565b6001600160a01b0316146102275760405162461bcd60e51b815260040161021e90610982565b60405180910390fd5b6000610233848461060a565b6000818152600260205260409020549091506001600160a01b03161561026c5760405163070ee79760e31b815260040160405180910390fd5b6001600160a01b03821661029357604051639fabe1c160e01b815260040160405180910390fd5b6000818152600260205260409081902080546001600160a01b0319166001600160a01b03851690811790915590517f5327935b8796b9614e833d16c9e90ccb2b33e41e5181f8af0308fba0373c1caf906102f090879087906109a5565b60405180910390a250505050565b336103116000546001600160a01b031690565b6001600160a01b0316146103375760405162461bcd60e51b815260040161021e90610982565b6000610343848461060a565b6000818152600260205260409020549091506001600160a01b031661037b5760405163513cc0b960e01b815260040160405180910390fd5b6001600160a01b0382166103a257604051639fabe1c160e01b815260040160405180910390fd5b6000818152600260205260409081902080546001600160a01b0319166001600160a01b03851690811790915590517faa96e0e6f7c38ef3ea5679180dc8034becfee398a6d177ee2c175663f96340e6906102f090879087906109a5565b336104126000546001600160a01b031690565b6001600160a01b0316146104385760405162461bcd60e51b815260040161021e90610982565b610441816106f4565b50565b336104576000546001600160a01b031690565b6001600160a01b03161461047d5760405162461bcd60e51b815260040161021e90610982565b61048760006106f4565b565b3361049c6000546001600160a01b031690565b6001600160a01b0316146104c25760405162461bcd60e51b815260040161021e90610982565b60006104ce838361060a565b6000818152600260205260409020549091506001600160a01b03166105065760405163513cc0b960e01b815260040160405180910390fd5b6000818152600260205260409081902080546001600160a01b0319169055517efa112e0c05e3b86d5a0cfa46bcc87ad949adcbc84a5d02e510c236f19e21409061055390859085906109a5565b60405180910390a1505050565b336105736000546001600160a01b031690565b6001600160a01b0316146105995760405162461bcd60e51b815260040161021e90610982565b610487600061079b565b6001546001600160a01b031633146105f05760405162461bcd60e51b815260206004820152601060248201526f27b7363ca832b73234b733a7bbb732b960811b604482015260640161021e565b6104876106056001546001600160a01b031690565b61079b565b6000828260405160200161061f9291906109d4565b60405160208183030381529060405280519060200120905092915050565b336106506000546001600160a01b031690565b6001600160a01b0316146106765760405162461bcd60e51b815260040161021e90610982565b6001600160a01b0381166106ba5760405162461bcd60e51b815260206004820152600b60248201526a4f776e657249735a65726f60a81b604482015260640161021e565b6104418161079b565b6000600260006106d3858561060a565b81526020810191909152604001600020546001600160a01b03169392505050565b6001546001600160a01b038083169116036107515760405162461bcd60e51b815260206004820152601860248201527f50656e64696e674f776e65724469644e6f744368616e67650000000000000000604482015260640161021e565b600180546001600160a01b0319166001600160a01b0383169081179091556040517fd6aad444c90d39fb0eee1c6e357a7fad83d63f719ac5f880445a2beb0ff3ab5890600090a250565b6000546001600160a01b038083169116036107ec5760405162461bcd60e51b81526020600482015260116024820152704f776e65724469644e6f744368616e676560781b604482015260640161021e565b600080546001600160a01b0319166001600160a01b038316908117825560405190917f04dba622d284ed0014ee4b9a6a68386be1a4c08a4913ae272de89199cc68616391a26001546001600160a01b0316156104415761044160006106f4565b60008083601f84011261085e57600080fd5b50813567ffffffffffffffff81111561087657600080fd5b60208301915083602082850101111561088e57600080fd5b9250929050565b80356001600160a01b03811681146108ac57600080fd5b919050565b6000806000604084860312156108c657600080fd5b833567ffffffffffffffff8111156108dd57600080fd5b6108e98682870161084c565b90945092506108fc905060208501610895565b90509250925092565b60006020828403121561091757600080fd5b61092082610895565b9392505050565b6000806020838503121561093a57600080fd5b823567ffffffffffffffff81111561095157600080fd5b61095d8582860161084c565b90969095509350505050565b60006020828403121561097b57600080fd5b5035919050565b60208082526009908201526827b7363ca7bbb732b960b91b604082015260600190565b60208152816020820152818360408301376000818301604090810191909152601f909201601f19160101919050565b818382376000910190815291905056fea264697066735822122000aa8d91643bceeccb7f197cceb564ff69d4756deb6d143a6c4efe46103d7cd364736f6c634300080d0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "acceptOwnership()": {
+        "details": "Transfers ownership of the contract to a pending owner Can only be called by the pending owner."
+      },
+      "coordinates(string)": {
+        "params": {
+          "_key": "string key"
+        },
+        "returns": {
+          "_0": "address coordinates for the `_key`"
+        }
+      },
+      "makeKey(string)": {
+        "details": "generating mapping key based on string",
+        "params": {
+          "_key": "string key"
+        },
+        "returns": {
+          "_0": "bytes32 representation of the `_key`"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "pendingOwner()": {
+        "details": "Returns the address of the pending owner."
+      },
+      "rawCoordinates(bytes32)": {
+        "params": {
+          "_key": "raw bytes32 key"
+        },
+        "returns": {
+          "_0": "address coordinates for the raw `_key`"
+        }
+      },
+      "register(string,address)": {
+        "details": "Registering new contract",
+        "params": {
+          "_contract": "contract address",
+          "_key": "key under which contract will be stored"
+        }
+      },
+      "removePendingOwnership()": {
+        "details": "Clears the pending ownership. Can only be called by the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "transferPendingOwnership(address)": {
+        "details": "Transfers pending ownership of the contract to a new account (`newPendingOwner`) and clears any existing pending ownership. Can only be called by the current owner."
+      },
+      "unregister(string)": {
+        "details": "Removing coordinates",
+        "params": {
+          "_key": "key to remove"
+        }
+      },
+      "update(string,address)": {
+        "details": "Update key with new contract address",
+        "params": {
+          "_contract": "contract address",
+          "_key": "key under which new contract will be stored"
+        }
+      }
+    },
+    "title": "Tower",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "OwnershipPending(address)": {
+        "notice": "Emitted when ownership transfer is proposed, aka pending owner is set"
+      },
+      "OwnershipTransferred(address)": {
+        "notice": "Emitted when ownership is transferred on `transferOwnership` and `acceptOwnership`"
+      }
+    },
+    "kind": "user",
+    "methods": {},
+    "notice": "Utility contract that stores addresses of any contracts",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 32990,
+        "contract": "contracts/utils/Tower.sol:Tower",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 32993,
+        "contract": "contracts/utils/Tower.sol:Tower",
+        "label": "_pendingOwner",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 32777,
+        "contract": "contracts/utils/Tower.sol:Tower",
+        "label": "_coordinates",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_bytes32,t_address)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_bytes32,t_address)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      }
+    }
+  }
+}

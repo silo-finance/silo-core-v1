@@ -1,0 +1,211 @@
+{
+  "address": "0xC07B94b2A1F1bfc7381Ffc72fE217063bF6946fb",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InvalidAsset",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CURVE_POOL",
+      "outputs": [
+        {
+          "internalType": "contract ICurvePoolLike",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ETH_INDEX",
+      "outputs": [
+        {
+          "internalType": "int128",
+          "name": "",
+          "type": "int128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "STETH",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "STETH_INDEX",
+      "outputs": [
+        {
+          "internalType": "int128",
+          "name": "",
+          "type": "int128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "WETH",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "WSTETH",
+      "outputs": [
+        {
+          "internalType": "contract IWstETHLike",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsAsset",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountOut",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsNative",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountOut",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x764c93ec592e348bbe4cf45ac5c1ec3727e7af00557eeadc7994fab427835f74",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0xC07B94b2A1F1bfc7381Ffc72fE217063bF6946fb",
+    "transactionIndex": 88,
+    "gasUsed": "453505",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x23391ff0bcf976e240f4a03d2b751f2ec4208ef3b218f12455cd98033ea8667c",
+    "transactionHash": "0x764c93ec592e348bbe4cf45ac5c1ec3727e7af00557eeadc7994fab427835f74",
+    "logs": [],
+    "blockNumber": 16140649,
+    "cumulativeGasUsed": "5442191",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "212cc10c2e495e5c5f70d81268c66bc9",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"InvalidAsset\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CURVE_POOL\",\"outputs\":[{\"internalType\":\"contract ICurvePoolLike\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ETH_INDEX\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"STETH\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"STETH_INDEX\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"WETH\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"WSTETH\",\"outputs\":[{\"internalType\":\"contract IWstETHLike\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsAsset\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsNative\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"stETH Magician IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.\",\"kind\":\"dev\",\"methods\":{\"towardsAsset(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be wrapped\"},\"returns\":{\"amountOut\":\"Amount of the quote token that we spent to get `_amoun` of the `_asset`\",\"tokenOut\":\"A token that the `_asset` has been converted to\"}},\"towardsNative(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be unwrapped\"},\"returns\":{\"amountOut\":\"Amount of the `tokenOut` that we received\",\"tokenOut\":\"A token that the `_asset` has been converted to\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"towardsAsset(address,uint256)\":{\"notice\":\"Performs operation opposit to `towardsNative`\"},\"towardsNative(address,uint256)\":{\"notice\":\"Operates to unwrap an `_asset`\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/liquidation/magicians/STETHMagician.sol\":\"STETHMagician\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address sender,\\n        address recipient,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0x61437cb513a887a1bbad006e7b1c8b414478427d33de47c5600af3c748f108da\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/STETHMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\nimport \\\"./interfaces/IWETH9Like.sol\\\";\\nimport \\\"./_common/STETHBaseMagician.sol\\\";\\n\\n/// @dev stETH Magician\\n/// IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.\\ncontract STETHMagician is STETHBaseMagician {\\n    error InvalidAsset();\\n\\n    /// @inheritdoc IMagician\\n    function towardsNative(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut) {\\n        if (_asset != address(STETH)) {\\n            revert InvalidAsset();\\n        }\\n\\n        IERC20(STETH).approve(address(CURVE_POOL), _amount);\\n\\n        tokenOut = WETH;\\n        uint256 minAmountOut = 1;\\n        amountOut = CURVE_POOL.exchange(STETH_INDEX, ETH_INDEX, _amount, minAmountOut);\\n\\n        // Wrap ETH\\n        IWETH9Like(WETH).deposit{value: amountOut}();\\n    }\\n\\n    /// @inheritdoc IMagician\\n    function towardsAsset(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut) {\\n        if (_asset != STETH) {\\n            revert InvalidAsset();\\n        }\\n\\n        // calculate a price stETH -> ETH \\n        (uint256 requiredETH, uint256 expectedStEthAmount) = _calcRequiredETH(_amount);\\n\\n        // Un wrap required amount of ETH (WETH -> ETH)\\n        IWETH9Like(WETH).withdraw(requiredETH);\\n\\n        // exchange ETH -> stETH\\n        CURVE_POOL.exchange{value: requiredETH}(\\n            ETH_INDEX,\\n            STETH_INDEX,\\n            requiredETH,\\n            expectedStEthAmount\\n        );\\n\\n        return (STETH, requiredETH);\\n    }\\n}\\n\",\"keccak256\":\"0x66bb4126560610d420fcea50ffdca605b52d611fe6143d292d335f7cec803c6d\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/_common/STETHBaseMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\nimport \\\"../interfaces/IWstETHLike.sol\\\";\\nimport \\\"../interfaces/IMagician.sol\\\";\\nimport \\\"../interfaces/ICurvePoolLike.sol\\\";\\n\\n/// @dev stETH Magician\\n/// IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.\\nabstract contract STETHBaseMagician is IMagician {\\n    address public constant STETH = 0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84;\\n    address public constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;\\n    IWstETHLike public constant WSTETH = IWstETHLike(0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0);\\n    ICurvePoolLike public constant CURVE_POOL = ICurvePoolLike(0xDC24316b9AE028F1497c275EB9192a3Ea0f67022);\\n\\n    /// @dev Index value for the coin to send (curve stETh/ETH pool)\\n    // solhint-disable-next-line use-forbidden-name\\n    int128 public constant STETH_INDEX = 1; // stETH\\n    /// @dev Index value of the coin to recieve\\n    // solhint-disable-next-line use-forbidden-name\\n    int128 public constant ETH_INDEX = 0; // ETH\\n\\n    /// @notice Calculate the required ETH amount to get the expected number of stETH from the Curve pool.\\n    /// @dev Present a precision error up to 2e11 (0.002$ if ETH price is 10 000$) in favor of `requiredETH`,\\n    /// so we will buy a little bit more stETH than needed. Which is fine.\\n    /// @param _stETHAmountRequired A number of the stETH that we want to get from the Curve pool\\n    /// @return requiredETH A number of the ETH to buy `_stETHAmountRequired`\\n    function _calcRequiredETH(uint256 _stETHAmountRequired)\\n        internal\\n        view\\n        returns (uint256 requiredETH, uint256 stETHOutput)\\n    {\\n        uint256 one = 1e18; // One coin stETH or ETH, has 18 decimals\\n        uint256 rate = CURVE_POOL.get_dy(ETH_INDEX, STETH_INDEX, one);\\n        uint256 multiplied = one * _stETHAmountRequired;\\n        \\n        // We have safe math while doing `one * _stETHAmountRequired`. Division should be fine.\\n        unchecked { requiredETH = multiplied / rate; }\\n\\n        // `get_dy` is an increasing function.\\n        // It should take ~ 1 - 6 iterations to `stETHOutput >= _stETHAmountRequired`.\\n        while (true) {\\n            stETHOutput = CURVE_POOL.get_dy(ETH_INDEX, STETH_INDEX, requiredETH);\\n\\n            if (stETHOutput >= _stETHAmountRequired) {\\n                return (requiredETH, stETHOutput);\\n            }\\n\\n            uint256 diff;\\n            // Because of the condition `stETHOutput >= _stETHAmountRequired`, safe math is not required here.\\n            unchecked { diff = _stETHAmountRequired - stETHOutput; }\\n            \\n            // We may be stuck with a situation where a difference between a `_stETHAmountRequired` and `stETHOutput`\\n            // will be small and we will need to perform more steps.\\n            // This expression helps to escape the almost infinite loop.\\n            if (diff < 1e3) {\\n                // if `requiredETH` value will be high the `get_dy` function will revert first\\n                unchecked { requiredETH += 1e3; }\\n                continue;\\n            }\\n\\n            // `one * diff` is safe as `diff` will be lower\\n            // than `_stETHAmountRequired` for which we have safe math while doing `one * _stETHAmountRequired`.\\n            unchecked { requiredETH += (one * diff) / rate; }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x75440bf560267f60a3ca8f4a8b8be5d2be8d2f1f99a9a1d0167a687341cc2b74\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/interfaces/ICurvePoolLike.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @dev A simplified version of the Curve Pool interface with methods\\n/// that are required for the SETH Magician.\\ninterface ICurvePoolLike {\\n    function exchange(int128 i, int128 j, uint256 dx, uint256 minDy) external payable returns (uint256);\\n    function coins(uint256 i) external view returns (address);\\n    // solhint-disable-next-line func-name-mixedcase\\n    function get_dy(int128 i, int128 j, uint256 dx) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xfd167be654e636863836e6b339daaf90820ee311a6eefe4f79ef3a40a95d2c4d\",\"license\":\"BUSL-1.1\"},\"contracts/liquidation/magicians/interfaces/IMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @notice Extension for the Liquidation helper to support such operations as unwrapping\\ninterface IMagician {\\n    /// @notice Operates to unwrap an `_asset`\\n    /// @param _asset Asset to be unwrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the `tokenOut` that we received\\n    function towardsNative(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n\\n    /// @notice Performs operation opposit to `towardsNative`\\n    /// @param _asset Asset to be wrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the quote token that we spent to get `_amoun` of the `_asset`\\n    function towardsAsset(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n}\\n\",\"keccak256\":\"0xb48290785d1be3d5b1ed767ee628faa69ee7ded238de776d66b9e0795536ff50\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/interfaces/IWETH9Like.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @dev A simplified version of the WETH\\ninterface IWETH9Like {\\n    function deposit() external payable;\\n    function withdraw(uint256 _amount) external;\\n}\\n\",\"keccak256\":\"0x0b441f9f3ec6d747c122b7c3c426ac5819e2fadb5fa3fc0fa68dfc1c2eac1530\",\"license\":\"BUSL-1.1\"},\"contracts/liquidation/magicians/interfaces/IWstETHLike.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\ninterface IWstETHLike {\\n    function unwrap(uint256 _wstETHAmount) external returns (uint256 stETHAmount);\\n    function wrap(uint256 _stETHAmount) external returns (uint256 wstETHAmount);\\n    function getWstETHByStETH(uint256 _stETHAmount) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xb646c6b8ed14d8bcc438a31f988cdfdd4da5ae98717a1787f9d85cfa597af6fb\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061073e806100206000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c806386a8b4b51161005b57806386a8b4b5146100fa578063ad5c46481461012d578063d9fb643a14610148578063e00bfe501461016357600080fd5b806321ebbf011461008d57806336aaa778146100c45780636ea477da146100df57806381844c2a146100f2575b600080fd5b6100a061009b36600461064b565b61017e565b604080516001600160a01b0390931683526020830191909152015b60405180910390f35b6100cc600181565b604051600f9190910b81526020016100bb565b6100a06100ed36600461064b565b610366565b6100cc600081565b61011573dc24316b9ae028f1497c275eb9192a3ea0f6702281565b6040516001600160a01b0390911681526020016100bb565b61011573c02aaa39b223fe8d0a0e5c4f27ead9083c756cc281565b610115737f39c581f595b53c5cb19bd0b3f8da6c935e2ca081565b61011573ae7ab96520de3a18e5e111b5eaab095312d7fe8481565b6000806001600160a01b03841673ae7ab96520de3a18e5e111b5eaab095312d7fe84146101be57604051636448d6e960e11b815260040160405180910390fd5b60405163095ea7b360e01b815273dc24316b9ae028f1497c275eb9192a3ea0f6702260048201526024810184905273ae7ab96520de3a18e5e111b5eaab095312d7fe849063095ea7b3906044016020604051808303816000875af115801561022a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061024e9190610683565b50604051630f7c084960e21b815260016004820181905260006024830152604482018590526064820181905273c02aaa39b223fe8d0a0e5c4f27ead9083c756cc293509073dc24316b9ae028f1497c275eb9192a3ea0f6702290633df02124906084016020604051808303816000875af11580156102d0573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102f491906106ac565b915073c02aaa39b223fe8d0a0e5c4f27ead9083c756cc26001600160a01b031663d0e30db0836040518263ffffffff1660e01b81526004016000604051808303818588803b15801561034557600080fd5b505af1158015610359573d6000803e3d6000fd5b5050505050509250929050565b6000806001600160a01b03841673ae7ab96520de3a18e5e111b5eaab095312d7fe84146103a657604051636448d6e960e11b815260040160405180910390fd5b6000806103b2856104cb565b604051632e1a7d4d60e01b815260048101839052919350915073c02aaa39b223fe8d0a0e5c4f27ead9083c756cc290632e1a7d4d90602401600060405180830381600087803b15801561040457600080fd5b505af1158015610418573d6000803e3d6000fd5b5050604051630f7c084960e21b81526000600482015260016024820152604481018590526064810184905273dc24316b9ae028f1497c275eb9192a3ea0f670229250633df021249150849060840160206040518083038185885af1158015610484573d6000803e3d6000fd5b50505050506040513d601f19601f820116820180604052508101906104a991906106ac565b5073ae7ab96520de3a18e5e111b5eaab095312d7fe8496919550909350505050565b604051635e0d443f60e01b815260006004820181905260016024830152670de0b6b3a7640000604483018190529091829190829073dc24316b9ae028f1497c275eb9192a3ea0f6702290635e0d443f90606401602060405180830381865afa15801561053b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061055f91906106ac565b9050600061056d86846106c5565b905081818161057e5761057e6106f2565b0494505b604051635e0d443f60e01b815260006004820152600160248201526044810186905273dc24316b9ae028f1497c275eb9192a3ea0f6702290635e0d443f90606401602060405180830381865afa1580156105e0573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061060491906106ac565b935085841061061557505050915091565b8386036103e881101561062f576103e88601955050610582565b8281850281610640576106406106f2565b048601955050610582565b6000806040838503121561065e57600080fd5b82356001600160a01b038116811461067557600080fd5b946020939093013593505050565b60006020828403121561069557600080fd5b815180151581146106a557600080fd5b9392505050565b6000602082840312156106be57600080fd5b5051919050565b60008160001904831182151516156106ed57634e487b7160e01b600052601160045260246000fd5b500290565b634e487b7160e01b600052601260045260246000fdfea2646970667358221220cfd520f27c8c342c3fb6a050d71062531be598aa662c675ee2afa386f1f261f464736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100885760003560e01c806386a8b4b51161005b57806386a8b4b5146100fa578063ad5c46481461012d578063d9fb643a14610148578063e00bfe501461016357600080fd5b806321ebbf011461008d57806336aaa778146100c45780636ea477da146100df57806381844c2a146100f2575b600080fd5b6100a061009b36600461064b565b61017e565b604080516001600160a01b0390931683526020830191909152015b60405180910390f35b6100cc600181565b604051600f9190910b81526020016100bb565b6100a06100ed36600461064b565b610366565b6100cc600081565b61011573dc24316b9ae028f1497c275eb9192a3ea0f6702281565b6040516001600160a01b0390911681526020016100bb565b61011573c02aaa39b223fe8d0a0e5c4f27ead9083c756cc281565b610115737f39c581f595b53c5cb19bd0b3f8da6c935e2ca081565b61011573ae7ab96520de3a18e5e111b5eaab095312d7fe8481565b6000806001600160a01b03841673ae7ab96520de3a18e5e111b5eaab095312d7fe84146101be57604051636448d6e960e11b815260040160405180910390fd5b60405163095ea7b360e01b815273dc24316b9ae028f1497c275eb9192a3ea0f6702260048201526024810184905273ae7ab96520de3a18e5e111b5eaab095312d7fe849063095ea7b3906044016020604051808303816000875af115801561022a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061024e9190610683565b50604051630f7c084960e21b815260016004820181905260006024830152604482018590526064820181905273c02aaa39b223fe8d0a0e5c4f27ead9083c756cc293509073dc24316b9ae028f1497c275eb9192a3ea0f6702290633df02124906084016020604051808303816000875af11580156102d0573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102f491906106ac565b915073c02aaa39b223fe8d0a0e5c4f27ead9083c756cc26001600160a01b031663d0e30db0836040518263ffffffff1660e01b81526004016000604051808303818588803b15801561034557600080fd5b505af1158015610359573d6000803e3d6000fd5b5050505050509250929050565b6000806001600160a01b03841673ae7ab96520de3a18e5e111b5eaab095312d7fe84146103a657604051636448d6e960e11b815260040160405180910390fd5b6000806103b2856104cb565b604051632e1a7d4d60e01b815260048101839052919350915073c02aaa39b223fe8d0a0e5c4f27ead9083c756cc290632e1a7d4d90602401600060405180830381600087803b15801561040457600080fd5b505af1158015610418573d6000803e3d6000fd5b5050604051630f7c084960e21b81526000600482015260016024820152604481018590526064810184905273dc24316b9ae028f1497c275eb9192a3ea0f670229250633df021249150849060840160206040518083038185885af1158015610484573d6000803e3d6000fd5b50505050506040513d601f19601f820116820180604052508101906104a991906106ac565b5073ae7ab96520de3a18e5e111b5eaab095312d7fe8496919550909350505050565b604051635e0d443f60e01b815260006004820181905260016024830152670de0b6b3a7640000604483018190529091829190829073dc24316b9ae028f1497c275eb9192a3ea0f6702290635e0d443f90606401602060405180830381865afa15801561053b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061055f91906106ac565b9050600061056d86846106c5565b905081818161057e5761057e6106f2565b0494505b604051635e0d443f60e01b815260006004820152600160248201526044810186905273dc24316b9ae028f1497c275eb9192a3ea0f6702290635e0d443f90606401602060405180830381865afa1580156105e0573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061060491906106ac565b935085841061061557505050915091565b8386036103e881101561062f576103e88601955050610582565b8281850281610640576106406106f2565b048601955050610582565b6000806040838503121561065e57600080fd5b82356001600160a01b038116811461067557600080fd5b946020939093013593505050565b60006020828403121561069557600080fd5b815180151581146106a557600080fd5b9392505050565b6000602082840312156106be57600080fd5b5051919050565b60008160001904831182151516156106ed57634e487b7160e01b600052601160045260246000fd5b500290565b634e487b7160e01b600052601260045260246000fdfea2646970667358221220cfd520f27c8c342c3fb6a050d71062531be598aa662c675ee2afa386f1f261f464736f6c634300080d0033",
+  "devdoc": {
+    "details": "stETH Magician IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.",
+    "kind": "dev",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be wrapped"
+        },
+        "returns": {
+          "amountOut": "Amount of the quote token that we spent to get `_amoun` of the `_asset`",
+          "tokenOut": "A token that the `_asset` has been converted to"
+        }
+      },
+      "towardsNative(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be unwrapped"
+        },
+        "returns": {
+          "amountOut": "Amount of the `tokenOut` that we received",
+          "tokenOut": "A token that the `_asset` has been converted to"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "notice": "Performs operation opposit to `towardsNative`"
+      },
+      "towardsNative(address,uint256)": {
+        "notice": "Operates to unwrap an `_asset`"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

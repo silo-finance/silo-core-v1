@@ -6,6 +6,14 @@ import "../interfaces/ISiloRepository.sol";
 
 /// @dev this is MOCK contract - DO NOT USE IT!
 contract MockLiquidationHelper is IFlashLiquidationReceiver {
+    struct SwapInput0x {
+        address sellToken;
+        address buyToken;
+        bytes swapCallData;
+    }
+
+    enum LiquidationScenario { Internal, Collateral0x, Full0x, Full0xWithChange }
+
     ISiloRepository public immutable siloRepository;
     SiloLens public immutable lens;
 
@@ -14,8 +22,16 @@ contract MockLiquidationHelper is IFlashLiquidationReceiver {
         lens = SiloLens(_lens);
     }
 
-    function executeLiquidation(address[] memory _users, ISilo _silo) external {
-        _silo.flashLiquidate(_users, abi.encode(0x0));
+    function executeLiquidation(
+        address _user,
+        ISilo _silo,
+        LiquidationScenario _scenario,
+        SwapInput0x[] calldata _swapsInputs0x
+    ) external {
+        address[] memory users = new address[](1);
+        users[0] = _user;
+
+        _silo.flashLiquidate(users, abi.encode(0x0, _scenario, _swapsInputs0x));
     }
 
     /// @dev this is working example of how to perform liquidation, this method will be called by Silo
