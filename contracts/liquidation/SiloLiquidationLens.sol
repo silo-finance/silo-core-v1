@@ -2,7 +2,7 @@
 pragma solidity 0.8.13;
 
 import "../interfaces/ISilo.sol";
-import "../lib/Solvency.sol";
+import "../lib/SolvencyV2.sol";
 import "../lib/EasyMath.sol";
 import "../lib/Ping.sol";
 
@@ -136,8 +136,8 @@ contract SiloLiquidationLens {
 
         uint256 totalBorrowAmountCached = _state.totalBorrowAmount;
 
-        uint256 totalInterest = totalBorrowAmountCached * rcomp / Solvency._PRECISION_DECIMALS;
-        uint256 protocolShare = totalInterest * protocolShareFee / Solvency._PRECISION_DECIMALS;
+        uint256 totalInterest = totalBorrowAmountCached * rcomp / SolvencyV2._PRECISION_DECIMALS;
+        uint256 protocolShare = totalInterest * protocolShareFee / SolvencyV2._PRECISION_DECIMALS;
         uint256 depositorsShare = totalInterest - protocolShare;
 
         // update contract state
@@ -190,7 +190,7 @@ contract SiloLiquidationLens {
     {
         uint256 liquidationFeeAmount;
 
-        (liquidationFeeAmount,) = Solvency.calculateLiquidationFee(_protocolFees, _amount, _protocolLiquidationFee);
+        (liquidationFeeAmount,) = SolvencyV2.calculateLiquidationFee(_protocolFees, _amount, _protocolLiquidationFee);
 
         unchecked {
             // if fees will not be higher than 100% this will not underflow, this is responsibility of siloRepository

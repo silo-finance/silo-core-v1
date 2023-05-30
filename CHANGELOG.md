@@ -6,6 +6,215 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [1.51.0] - 2023-05-16
+- SIP-75: Burn XAI credit line in RAI silo
+
+## [1.50.0] - 2023-05-10
+- SIP-72: Setup for wstETH and OHMv2 on Arbitrum
+- SIP-73: Fix Setup for wstETH and OHM on Arbitrum
+- SIP-74: Setup for PEPE, XDEFI, boxETH, BLUR on Mainnet
+
+## [1.49.0] - 2023-05-09
+- SIP-70 Update XAI config for USDC
+
+## [1.48.0] - 2023-05-09
+- Update XAI config
+
+## [1.47.1] - 2023-04-28
+### Changed
+- merging two IRM models into one
+- optimizing model behavior
+- gas optimizations
+
+## [1.47.0] - 2023-04-25
+### Added
+- SIP-53: Change rDPX oracle to DIA (Arbitrum)
+
+## [1.46.0] - 2023-04-12
+### Added
+- SIP-52: Setup for WBTC and VELA on Arbitrum
+
+## [1.45.0] - 2023-04-11
+### Added
+- DIA oracle
+- SIP-50: Setup for JONES and SPA on Arbitrum
+- SIP-51: proposal to change XAI price to USDC
+
+## [1.44.1] - 2023-04-04
+### Fixed
+- fix changelog
+
+## [1.44.0] - 2023-04-04
+### Added
+- SIP-48 ARB launch
+- SIP-49 update ARB setup
+
+## [1.43.0] - 2023-03-19
+### Added
+- SIP-47: launching PREMIA
+
+## [1.42.0] - 2023-03-11
+### Added
+- SIP-46: Transfer admin functions to core team (emergency proposal)
+
+## [1.41.0] - 2023-03-08
+### Added
+- SIP-45: Migrate rETH to Chainlink price oracle
+
+## [1.40.2] - 2023-03-06
+### Changed
+- exclude `PREMIA` from SIP-44 and put it in separate SIP
+
+## [1.40.1] - 2023-02-28
+### Changed
+- new address of `ethEmergencyMultisig`
+
+### Fixed 
+- fix vested dates for 8 new vesters
+
+## [1.40.0] - 2023-02-27
+### Added
+- SIP-44: Setup for 3 assets on Arbitrum
+- 8 new vesters contracts
+
+## [1.39.0] - 2023-02-23
+### Added
+- SIP-42: Mint/Burn XAI (February)
+- SIP-43: Set protocol fees to 25% (Arbitrum)
+
+## [1.38.0] - 2023-02-23
+### Added
+- `SiloIncentivesController` - reward distributor
+- SIP-41: Setup rewards notifications for Silos
+
+## [1.37.1] - 2023-02-16
+### Fixed
+- fix silo unit tests
+
+## [1.37.0] - 2023-02-10
+### Added
+- view method to calculate used deposits with interests
+- `ManualLiquidation` contract
+
+## [1.36.0] - 2023-02-07
+### Added
+- Arbitrum production
+  - SIP-39 Initial Setup For Arbitrum
+  - SIP-40 Phase 1: Assets Setup For Arbitrum
+
+### Updated
+- `LiquidationHelper`
+
+## [1.35.0] - 2023-02-02
+### Added
+- SIP-37: Proposal to set protocol fees to 10%
+- SIP-38: Claim DAO's vested SILO
+
+## [1.34.0] - 2023-02-02
+### Added
+- option to force liquidation even when it might be not profitable
+
+## [1.33.0] - 2023-01-27
+### Added
+- SIP-35: Disable sETH2, FTT and xSushi Silos
+- SIP-36: Mint XAI to silos
+
+## [1.32.0] - 2023-01-25
+### Added
+- SIP-34: Change IRM config for WETH in all silos
+
+## [1.31.0] - 2023-01-24
+### Added
+- SIP-33: 
+  - `rETH` and `agEUR` Silos
+  - Update IRM for `OHM` asset
+
+## [1.30.0] - 2023-01-18
+### Changed
+- SIP-32: Setup fallback providers for `DAI` and `USDP`
+
+## [1.29.1] - 2023-01-12
+### Fixed
+- support non-standard `ERC20.approve` in `LiquidationHelper` eg for `USDT`
+
+## [1.29.0] - 2023-01-10
+### Updated
+- cbETH aggregator in the `ChainlinkV3PriceProvider`.
+
+## [1.28.0] - 2022-12-30
+### Added
+- `0x` support for `LiquidationHelper`
+- `XAICurveMagicianETH`
+
+### Changed
+- Send all earnings from liquidation process to executor, not to LiquidationHelper.owner()
+
+## [1.27.1] - 2022-12-22
+### Fixed
+- changed OHM pool in `GOHMMagician` to Balancer OHM-ETH.
+
+## [1.27.0] - 2022-12-12
+### Added
+- add `OHMMagician` to support `OHM` liquidation
+
+## [1.26.0] - 2022-12-09
+### Added
+- `GOHMMagician` gOHM magician to support liquidation
+
+## [1.25.0] - 2022-12-09
+### Added
+- `WSTETHMagician` wstETH magician to support liquidation
+- `STETHMagician` stETH magician to support liquidation
+
+### Updated
+- `LiquidationHelper` to support `magicians` for assets liquidation
+
+### Fixed
+- fix gas calculation in `LiquidationHelper`, ensure it is closer to reality
+
+## [1.24.0] - 2022-12-01
+### Added
+- Control `Tower` for keeping track of some contract addresses
+
+## [1.23.1] - 2022-11-29
+### Fixed
+- fix changelog for `1.23.0`
+
+## [1.23.0] - 2022-11-23
+### Added
+- SIP-30: Update interest rate models and price providers for existing Silos
+### Updated
+- improve `testLiquidation` task
+
+## [1.22.0] - 2022-11-15
+### Added
+- SIP-29: cancel SIP-24, GOHMPriceProvider and gOHM Silo proposals
+
+## [1.21.0] - 2022-11-15
+### Added
+- Support `IndividualPriceProvider` in `GOHMPriceProvider`
+
+## [1.20.0] - 2022-11-11
+### Added
+- SIP-28: 3 new markets
+
+## [1.19.0] - 2022-11-09
+### Added
+- SIP-27: WSTETHPriceProvider
+- `testLiquidation` task for testing liquidation process for any asset
+
+## [1.18.0] - 2022-11-08
+### Added
+- WSTETHPriceProvider created and deployed
+
+## [1.17.1] - 2022-11-05
+### Fixed
+- Support two `ChainlinkPriceProviders` in `LiquidationHelper`
+
+## [1.17.0] - 2022-11-04
+### Added
+- SIP-26: 7 new markets
+
 ## [1.16.0] - 2022-11-02
 ### Changed
 - SIP 25: Setup Chainlink price provider, Uniswap fallback pool for cbETH

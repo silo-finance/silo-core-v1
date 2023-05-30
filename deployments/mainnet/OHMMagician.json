@@ -1,0 +1,301 @@
+{
+  "address": "0xD4BdDdcA31668F37DBA5115f68422D043CB5EE08",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_quote",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IOlympusStakingV3Like",
+          "name": "_olympusStakingV3",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IBalancerVaultLike",
+          "name": "_balancerVault",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_balancerOhmPool",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAsset",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidBalancerPool",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "BALANCER_OHM_POOL",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "BALANCER_VAULT",
+      "outputs": [
+        {
+          "internalType": "contract IBalancerVaultLike",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "OHM",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "QUOTE",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SWAP_AMOUNT_IN_LIMIT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SWAP_AMOUNT_OUT_LIMIT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsAsset",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "quoteSpent",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsNative",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IBalancerVaultLike",
+          "name": "_balancerVault",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_poolId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "verifyPoolAndVault",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x67599f73193d00c13190d28bf1201619857ec8b54f5f3d90ac186c8f306f2511",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0xD4BdDdcA31668F37DBA5115f68422D043CB5EE08",
+    "transactionIndex": 81,
+    "gasUsed": "788498",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xcc16334422844fa0d18b4a5ff6aaeddbe5110fc6bfea8bb1adca7433ad0bc2d6",
+    "transactionHash": "0x67599f73193d00c13190d28bf1201619857ec8b54f5f3d90ac186c8f306f2511",
+    "logs": [],
+    "blockNumber": 16248072,
+    "cumulativeGasUsed": "7061560",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "0xB63cac384247597756545b500253ff8E607a8020",
+    "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
+    "0xd1ec5e215e8148d76f4460e4097fd3d5ae0a35580002000000000000000003d3"
+  ],
+  "numDeployments": 2,
+  "solcInputHash": "1c3ed62bc78b1723b3d9b7897a5ae84d",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_quote\",\"type\":\"address\"},{\"internalType\":\"contract IOlympusStakingV3Like\",\"name\":\"_olympusStakingV3\",\"type\":\"address\"},{\"internalType\":\"contract IBalancerVaultLike\",\"name\":\"_balancerVault\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"_balancerOhmPool\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidAsset\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidBalancerPool\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BALANCER_OHM_POOL\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"BALANCER_VAULT\",\"outputs\":[{\"internalType\":\"contract IBalancerVaultLike\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"OHM\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"QUOTE\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"SWAP_AMOUNT_IN_LIMIT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"SWAP_AMOUNT_OUT_LIMIT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsAsset\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quoteSpent\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsNative\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IBalancerVaultLike\",\"name\":\"_balancerVault\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"_poolId\",\"type\":\"bytes32\"}],\"name\":\"verifyPoolAndVault\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"OHM Magician IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE. we made it because current Uni pool is empty it could be base for `GOHMMagician` but `GOHMMagician` is already deployed\",\"kind\":\"dev\",\"methods\":{\"towardsAsset(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be wrapped\"},\"returns\":{\"asset\":\"A token that the `_asset` has been converted to\",\"quoteSpent\":\"Amount of the quote token that we spent to get `_amoun` of the `_asset`\"}},\"towardsNative(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be unwrapped\"},\"returns\":{\"amount\":\"Amount of the `tokenOut` that we received\",\"asset\":\"A token that the `_asset` has been converted to\"}},\"verifyPoolAndVault(address,bytes32)\":{\"details\":\"verify the Balancer pool and the vault. Sanity check for vault address is a call of getPoolTokens(_poolId).     Pool is valid if it has OHMv2 and quote tokens.\",\"params\":{\"_balancerVault\":\"address of the Balancer vault\",\"_poolId\":\"pool id\"},\"returns\":{\"_0\":\"true if the pool is valid for the swap\"}}},\"stateVariables\":{\"BALANCER_OHM_POOL\":{\"details\":\"OHMv2 pool that is used for swap.\"},\"BALANCER_VAULT\":{\"details\":\"Required for OHMv2 swap.\"},\"OHM\":{\"details\":\"Original token, OHMv2.\"},\"QUOTE\":{\"details\":\"The address of quote token.\"},\"SWAP_AMOUNT_IN_LIMIT\":{\"details\":\"Limit for OHMv2 swap.\"},\"SWAP_AMOUNT_OUT_LIMIT\":{\"details\":\"Limit for OHMv2 swap.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"towardsAsset(address,uint256)\":{\"notice\":\"Performs operation opposit to `towardsNative`\"},\"towardsNative(address,uint256)\":{\"notice\":\"Operates to unwrap an `_asset`\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/liquidation/magicians/OHMMagician.sol\":\"OHMMagician\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address sender,\\n        address recipient,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0x61437cb513a887a1bbad006e7b1c8b414478427d33de47c5600af3c748f108da\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/OHMMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"./interfaces/IMagician.sol\\\";\\nimport \\\"./interfaces/IOlympusStakingV3Like.sol\\\";\\nimport \\\"./interfaces/IGOHMLikeV2.sol\\\";\\nimport \\\"./interfaces/IBalancerVaultLike.sol\\\";\\n\\n/// @dev OHM Magician\\n/// IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.\\n/// we made it because current Uni pool is empty\\n/// it could be base for `GOHMMagician` but `GOHMMagician` is already deployed\\ncontract OHMMagician is IMagician {\\n    /// @dev Limit for OHMv2 swap.\\n    uint256 public constant SWAP_AMOUNT_OUT_LIMIT = type(uint256).max;\\n\\n    /// @dev Limit for OHMv2 swap.\\n    uint256 public constant SWAP_AMOUNT_IN_LIMIT = 1;\\n\\n    /// @dev Required for OHMv2 swap.\\n    // solhint-disable-next-line var-name-mixedcase\\n    IBalancerVaultLike public immutable BALANCER_VAULT;\\n\\n    /// @dev OHMv2 pool that is used for swap.\\n    // solhint-disable-next-line var-name-mixedcase\\n    bytes32 public immutable BALANCER_OHM_POOL;\\n\\n    /// @dev The address of quote token.\\n    // solhint-disable-next-line var-name-mixedcase\\n    address public immutable QUOTE;\\n\\n    /// @dev Original token, OHMv2.\\n    // solhint-disable-next-line var-name-mixedcase\\n    address public immutable OHM;\\n\\n    error InvalidAsset();\\n    error InvalidBalancerPool();\\n\\n    constructor(\\n        address _quote,\\n        IOlympusStakingV3Like _olympusStakingV3,\\n        IBalancerVaultLike _balancerVault,\\n        bytes32 _balancerOhmPool\\n    ) {\\n        QUOTE = _quote;\\n\\n        OHM = _olympusStakingV3.OHM();\\n\\n        BALANCER_VAULT = _balancerVault;\\n        BALANCER_OHM_POOL = _balancerOhmPool;\\n\\n        if (!verifyPoolAndVault(_balancerVault, _balancerOhmPool)) revert InvalidBalancerPool();\\n    }\\n\\n    /// @inheritdoc IMagician\\n    function towardsNative(address _asset, uint256 _amount) external returns (address asset, uint256 amount) {\\n        if (_asset != address(OHM)) revert InvalidAsset();\\n\\n        return (QUOTE, _swapOHMForQuote(_amount));\\n    }\\n\\n    /// @inheritdoc IMagician\\n    function towardsAsset(address _asset, uint256 _amount) external returns (address asset, uint256 quoteSpent) {\\n        if (_asset != address(OHM)) revert InvalidAsset();\\n\\n        return (address(OHM), _swapQuoteForOHM(_amount));\\n    }\\n\\n    /// @dev verify the Balancer pool and the vault. Sanity check for vault address is a call of getPoolTokens(_poolId).\\n    ///     Pool is valid if it has OHMv2 and quote tokens.\\n    /// @param _balancerVault address of the Balancer vault\\n    /// @param _poolId pool id\\n    /// @return true if the pool is valid for the swap\\n    function verifyPoolAndVault(IBalancerVaultLike _balancerVault, bytes32 _poolId) public view returns (bool) {\\n        (address[] memory tokens,,) = IBalancerVaultLike(_balancerVault).getPoolTokens(_poolId);\\n        bool isQuote;\\n        bool isOhm;\\n\\n        for (uint256 i; i < tokens.length && !(isOhm && isQuote);) {\\n            if (!isOhm && tokens[i] == OHM) {\\n                isOhm = true;\\n            } else if (!isQuote && tokens[i] == QUOTE) {\\n                isQuote = true;\\n            }\\n\\n            unchecked {\\n                i++;\\n            }\\n        }\\n\\n        return isQuote && isOhm;\\n    }\\n\\n    /// @dev it swaps OHMv2 for quote token\\n    /// @param _ohmAmount exact amountIn of OHMv2 token\\n    /// @return quoteReceived amount of quote token received\\n    function _swapOHMForQuote(uint256 _ohmAmount) internal returns (uint256 quoteReceived) {\\n        IERC20(OHM).approve(address(BALANCER_VAULT), _ohmAmount);\\n        quoteReceived = _swapAmountIn(OHM, QUOTE, _ohmAmount, BALANCER_OHM_POOL);\\n    }\\n\\n    /// @dev it swaps quote token for OHMv2\\n    /// @param _ohmAmount exact amountOut of OHMv2\\n    /// @return quoteSpent amount of quote token spent\\n    function _swapQuoteForOHM(uint256 _ohmAmount) internal returns (uint256 quoteSpent) {\\n        IERC20(QUOTE).approve(address(BALANCER_VAULT), SWAP_AMOUNT_OUT_LIMIT);\\n        quoteSpent = _swapAmountOut(QUOTE, OHM, _ohmAmount, BALANCER_OHM_POOL);\\n    }\\n\\n    /// @dev it swaps _tokenIn for _tokenOut\\n    /// @param _tokenIn address of the tokenIn\\n    /// @param _tokenOut address of the tokenOut\\n    /// @param _amountOut amount of the tokenOut to receive\\n    /// @param _poolId balancer pool id\\n    /// @return amount of _tokenIn spent\\n    function _swapAmountOut(\\n        address _tokenIn,\\n        address _tokenOut,\\n        uint256 _amountOut,\\n        bytes32 _poolId\\n    ) internal returns (uint256) {\\n        IBalancerVaultLike.SingleSwap memory singleSwap = IBalancerVaultLike.SingleSwap(\\n            _poolId, IBalancerVaultLike.SwapKind.GIVEN_OUT, address(_tokenIn), address(_tokenOut), _amountOut, \\\"\\\"\\n        );\\n\\n        IBalancerVaultLike.FundManagement memory funds = IBalancerVaultLike.FundManagement(\\n            address(this), false, payable(address(this)), false\\n        );\\n\\n        return BALANCER_VAULT.swap(singleSwap, funds, SWAP_AMOUNT_OUT_LIMIT, block.timestamp);\\n    }\\n\\n    /// @dev it swaps _tokenIn for _tokenOut\\n    /// @param _tokenIn address of the tokenIn\\n    /// @param _tokenOut address of the tokenOut\\n    /// @param _amountIn amount of the tokenIn to spend\\n    /// @param _poolId balancer pool id\\n    /// @return amount of _tokenOut received\\n    function _swapAmountIn(\\n        address _tokenIn,\\n        address _tokenOut,\\n        uint256 _amountIn,\\n        bytes32 _poolId\\n    ) internal returns (uint256) {\\n        IBalancerVaultLike.SingleSwap memory singleSwap = IBalancerVaultLike.SingleSwap(\\n            _poolId, IBalancerVaultLike.SwapKind.GIVEN_IN, address(_tokenIn), address(_tokenOut), _amountIn, \\\"\\\"\\n        );\\n\\n        IBalancerVaultLike.FundManagement memory funds = IBalancerVaultLike.FundManagement(\\n            address(this), false, payable(address(this)), false\\n        );\\n\\n        return BALANCER_VAULT.swap(singleSwap, funds, SWAP_AMOUNT_IN_LIMIT, block.timestamp);\\n    }\\n}\\n\",\"keccak256\":\"0x894a1c65be1fdafe97921d1115ee469fc521dfc2091ba064a7ef6b21e9d6764a\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/interfaces/IBalancerVaultLike.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\ninterface IBalancerVaultLike {\\n    enum SwapKind { GIVEN_IN, GIVEN_OUT }\\n\\n    struct SingleSwap {\\n        bytes32 poolId;\\n        SwapKind kind;\\n        address assetIn;\\n        address assetOut;\\n        uint256 amount;\\n        bytes userData;\\n    }\\n\\n    struct FundManagement {\\n        address sender;\\n        bool fromInternalBalance;\\n        address payable recipient;\\n        bool toInternalBalance;\\n    }\\n\\n    function swap(\\n        SingleSwap memory singleSwap,\\n        FundManagement memory funds,\\n        uint256 limit,\\n        uint256 deadline\\n    ) external payable returns (uint256);\\n\\n    function getPoolTokens(bytes32 poolId)\\n        external\\n        view\\n        returns (\\n            address[] memory tokens,\\n            uint256[] memory balances,\\n            uint256 lastChangeBlock\\n        );\\n}\\n\",\"keccak256\":\"0xacbd0cf3ad2fb0f51664ea2842edb0da075cf8067c93e35d205127d136905027\",\"license\":\"BUSL-1.1\"},\"contracts/liquidation/magicians/interfaces/IGOHMLikeV2.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\ninterface IGOHMLikeV2 is IERC20 {\\n    function index() external view returns (uint256);\\n    function decimals() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x21001093cd4f95b6529bf051ea6c4b2293a9ec386eb43683a04c71f70d7d2b48\",\"license\":\"BUSL-1.1\"},\"contracts/liquidation/magicians/interfaces/IMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @notice Extension for the Liquidation helper to support such operations as unwrapping\\ninterface IMagician {\\n    /// @notice Operates to unwrap an `_asset`\\n    /// @param _asset Asset to be unwrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the `tokenOut` that we received\\n    function towardsNative(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n\\n    /// @notice Performs operation opposit to `towardsNative`\\n    /// @param _asset Asset to be wrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the quote token that we spent to get `_amoun` of the `_asset`\\n    function towardsAsset(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n}\\n\",\"keccak256\":\"0xb48290785d1be3d5b1ed767ee628faa69ee7ded238de776d66b9e0795536ff50\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/interfaces/IOlympusStakingV3Like.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @dev A simplified version of the Olympus staking V3 interface with methods\\n/// that are required for the gOHM magician contract.\\ninterface IOlympusStakingV3Like {\\n    function unstake(\\n        address _to,\\n        uint256 _amount,\\n        bool _trigger,\\n        bool _rebasing\\n    ) external returns (uint256 amount_);\\n\\n    function stake(\\n        address _to,\\n        uint256 _amount,\\n        bool _rebasing,\\n        bool _claim\\n    ) external returns (uint256);\\n\\n    // solhint-disable-next-line func-name-mixedcase\\n    function OHM() external view returns (address);\\n    function gOHM() external view returns (address);\\n}\\n\",\"keccak256\":\"0x7e2477f42496f89b7980ceaca142f59c04f5e12d3fbf3ec5bbb6bf3e1c4a765f\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x6101006040523480156200001257600080fd5b50604051620012173803806200121783398101604081905262000035916200026d565b836001600160a01b031660c0816001600160a01b031681525050826001600160a01b031663a6c41fec6040518163ffffffff1660e01b8152600401602060405180830381865afa1580156200008e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190620000b49190620002c7565b6001600160a01b0390811660e052821660805260a0819052620000d8828262000100565b620000f657604051633ee6ea3360e01b815260040160405180910390fd5b50505050620004c1565b604051631f29a8cd60e31b81526004810182905260009081906001600160a01b0385169063f94d466890602401600060405180830381865afa1580156200014b573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052620001759190810190620003d0565b5050905060008060005b835181108015620001985750818015620001965750825b155b156200023e5781158015620001dc575060e0516001600160a01b0316848281518110620001c957620001c9620004ab565b60200260200101516001600160a01b0316145b15620001ec576001915062000235565b821580156200022a575060c0516001600160a01b0316848281518110620002175762000217620004ab565b60200260200101516001600160a01b0316145b156200023557600192505b6001016200017f565b508180156200024a5750805b9695505050505050565b6001600160a01b03811681146200026a57600080fd5b50565b600080600080608085870312156200028457600080fd5b8451620002918162000254565b6020860151909450620002a48162000254565b6040860151909350620002b78162000254565b6060959095015193969295505050565b600060208284031215620002da57600080fd5b8151620002e78162000254565b9392505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f191681016001600160401b03811182821017156200032f576200032f620002ee565b604052919050565b60006001600160401b03821115620003535762000353620002ee565b5060051b60200190565b600082601f8301126200036f57600080fd5b8151602062000388620003828362000337565b62000304565b82815260059290921b84018101918181019086841115620003a857600080fd5b8286015b84811015620003c55780518352918301918301620003ac565b509695505050505050565b600080600060608486031215620003e657600080fd5b83516001600160401b0380821115620003fe57600080fd5b818601915086601f8301126200041357600080fd5b8151602062000426620003828362000337565b82815260059290921b8401810191818101908a8411156200044657600080fd5b948201945b8386101562000471578551620004618162000254565b825294820194908201906200044b565b918901519197509093505050808211156200048b57600080fd5b506200049a868287016200035d565b925050604084015190509250925092565b634e487b7160e01b600052603260045260246000fd5b60805160a05160c05160e051610c9e6200057960003960008181610168015281816101dd01528181610305015281816103e401528181610436015281816104a70152818161051c01526106690152600081816101200152818161022f0152818161036b0152818161053d015281816105d301526106480152600081816101b60152818161055f015261068b01526000818161018f01528181610475015281816105a00152818161075301526108950152610c9e6000f3fe608060405234801561001057600080fd5b50600436106100935760003560e01c80639c579839116100665780639c5798391461011b578063a65f5d881461015a578063a6c41fec14610163578063bc1638461461018a578063e40b3c82146101b157600080fd5b806321ebbf0114610098578063269b177e146100cf5780636a6d6633146100f25780636ea477da14610108575b600080fd5b6100ab6100a63660046108ff565b6101d8565b604080516001600160a01b0390931683526020830191909152015b60405180910390f35b6100e26100dd3660046108ff565b610262565b60405190151581526020016100c6565b6100fa600181565b6040519081526020016100c6565b6100ab6101163660046108ff565b6103df565b6101427f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020016100c6565b6100fa60001981565b6101427f000000000000000000000000000000000000000000000000000000000000000081565b6101427f000000000000000000000000000000000000000000000000000000000000000081565b6100fa7f000000000000000000000000000000000000000000000000000000000000000081565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161461022d57604051636448d6e960e11b815260040160405180910390fd5b7f00000000000000000000000000000000000000000000000000000000000000006102578461045e565b915091509250929050565b604051631f29a8cd60e31b81526004810182905260009081906001600160a01b0385169063f94d466890602401600060405180830381865afa1580156102ac573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526102d49190810190610a01565b5050905060008060005b8351811080156102f557508180156102f35750825b155b156103ca578115801561035257507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031684828151811061033f5761033f610acf565b60200260200101516001600160a01b0316145b1561036057600191506103c2565b821580156103b857507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168482815181106103a5576103a5610acf565b60200260200101516001600160a01b0316145b156103c257600192505b6001016102de565b508180156103d55750805b9695505050505050565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161461043457604051636448d6e960e11b815260040160405180910390fd5b7f000000000000000000000000000000000000000000000000000000000000000061025784610589565b60405163095ea7b360e01b81526001600160a01b037f000000000000000000000000000000000000000000000000000000000000000081166004830152602482018390526000917f00000000000000000000000000000000000000000000000000000000000000009091169063095ea7b3906044016020604051808303816000875af11580156104f2573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105169190610ae5565b506105837f00000000000000000000000000000000000000000000000000000000000000007f0000000000000000000000000000000000000000000000000000000000000000847f00000000000000000000000000000000000000000000000000000000000000006106af565b92915050565b60405163095ea7b360e01b81526001600160a01b037f00000000000000000000000000000000000000000000000000000000000000008116600483015260001960248301526000917f00000000000000000000000000000000000000000000000000000000000000009091169063095ea7b3906044016020604051808303816000875af115801561061e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106429190610ae5565b506105837f00000000000000000000000000000000000000000000000000000000000000007f0000000000000000000000000000000000000000000000000000000000000000847f00000000000000000000000000000000000000000000000000000000000000006107f2565b6000806040518060c00160405280848152602001600060018111156106d6576106d6610b0e565b8152602001876001600160a01b03168152602001866001600160a01b0316815260200185815260200160405180602001604052806000815250815250905060006040518060800160405280306001600160a01b03168152602001600015158152602001306001600160a01b031681526020016000151581525090507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166352bbbe2983836001426040518563ffffffff1660e01b81526004016107a49493929190610b71565b6020604051808303816000875af11580156107c3573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107e79190610c4f565b979650505050505050565b6000806040518060c0016040528084815260200160018081111561081857610818610b0e565b8152602001876001600160a01b03168152602001866001600160a01b0316815260200185815260200160405180602001604052806000815250815250905060006040518060800160405280306001600160a01b03168152602001600015158152602001306001600160a01b031681526020016000151581525090507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166352bbbe298383600019426040518563ffffffff1660e01b81526004016107a49493929190610b71565b6001600160a01b03811681146108fc57600080fd5b50565b6000806040838503121561091257600080fd5b823561091d816108e7565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561096a5761096a61092b565b604052919050565b600067ffffffffffffffff82111561098c5761098c61092b565b5060051b60200190565b600082601f8301126109a757600080fd5b815160206109bc6109b783610972565b610941565b82815260059290921b840181019181810190868411156109db57600080fd5b8286015b848110156109f657805183529183019183016109df565b509695505050505050565b600080600060608486031215610a1657600080fd5b835167ffffffffffffffff80821115610a2e57600080fd5b818601915086601f830112610a4257600080fd5b81516020610a526109b783610972565b82815260059290921b8401810191818101908a841115610a7157600080fd5b948201945b83861015610a98578551610a89816108e7565b82529482019490820190610a76565b91890151919750909350505080821115610ab157600080fd5b50610abe86828701610996565b925050604084015190509250925092565b634e487b7160e01b600052603260045260246000fd5b600060208284031215610af757600080fd5b81518015158114610b0757600080fd5b9392505050565b634e487b7160e01b600052602160045260246000fd5b6000815180845260005b81811015610b4a57602081850181015186830182015201610b2e565b81811115610b5c576000602083870101525b50601f01601f19169290920160200192915050565b60e08152845160e08201526000602086015160028110610ba157634e487b7160e01b600052602160045260246000fd5b61010083015260408601516001600160a01b03166101208301526060860151610bd66101408401826001600160a01b03169052565b50608086015161016083015260a086015160c0610180840152610bfd6101a0840182610b24565b915050610c3d602083018680516001600160a01b039081168352602080830151151590840152604080830151909116908301526060908101511515910152565b60a082019390935260c0015292915050565b600060208284031215610c6157600080fd5b505191905056fea2646970667358221220594446adecc0853be5b580a069555ffdfcc8307f5e0a39f83d45d868cbb4cf1464736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100935760003560e01c80639c579839116100665780639c5798391461011b578063a65f5d881461015a578063a6c41fec14610163578063bc1638461461018a578063e40b3c82146101b157600080fd5b806321ebbf0114610098578063269b177e146100cf5780636a6d6633146100f25780636ea477da14610108575b600080fd5b6100ab6100a63660046108ff565b6101d8565b604080516001600160a01b0390931683526020830191909152015b60405180910390f35b6100e26100dd3660046108ff565b610262565b60405190151581526020016100c6565b6100fa600181565b6040519081526020016100c6565b6100ab6101163660046108ff565b6103df565b6101427f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020016100c6565b6100fa60001981565b6101427f000000000000000000000000000000000000000000000000000000000000000081565b6101427f000000000000000000000000000000000000000000000000000000000000000081565b6100fa7f000000000000000000000000000000000000000000000000000000000000000081565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161461022d57604051636448d6e960e11b815260040160405180910390fd5b7f00000000000000000000000000000000000000000000000000000000000000006102578461045e565b915091509250929050565b604051631f29a8cd60e31b81526004810182905260009081906001600160a01b0385169063f94d466890602401600060405180830381865afa1580156102ac573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526102d49190810190610a01565b5050905060008060005b8351811080156102f557508180156102f35750825b155b156103ca578115801561035257507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031684828151811061033f5761033f610acf565b60200260200101516001600160a01b0316145b1561036057600191506103c2565b821580156103b857507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168482815181106103a5576103a5610acf565b60200260200101516001600160a01b0316145b156103c257600192505b6001016102de565b508180156103d55750805b9695505050505050565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161461043457604051636448d6e960e11b815260040160405180910390fd5b7f000000000000000000000000000000000000000000000000000000000000000061025784610589565b60405163095ea7b360e01b81526001600160a01b037f000000000000000000000000000000000000000000000000000000000000000081166004830152602482018390526000917f00000000000000000000000000000000000000000000000000000000000000009091169063095ea7b3906044016020604051808303816000875af11580156104f2573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105169190610ae5565b506105837f00000000000000000000000000000000000000000000000000000000000000007f0000000000000000000000000000000000000000000000000000000000000000847f00000000000000000000000000000000000000000000000000000000000000006106af565b92915050565b60405163095ea7b360e01b81526001600160a01b037f00000000000000000000000000000000000000000000000000000000000000008116600483015260001960248301526000917f00000000000000000000000000000000000000000000000000000000000000009091169063095ea7b3906044016020604051808303816000875af115801561061e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106429190610ae5565b506105837f00000000000000000000000000000000000000000000000000000000000000007f0000000000000000000000000000000000000000000000000000000000000000847f00000000000000000000000000000000000000000000000000000000000000006107f2565b6000806040518060c00160405280848152602001600060018111156106d6576106d6610b0e565b8152602001876001600160a01b03168152602001866001600160a01b0316815260200185815260200160405180602001604052806000815250815250905060006040518060800160405280306001600160a01b03168152602001600015158152602001306001600160a01b031681526020016000151581525090507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166352bbbe2983836001426040518563ffffffff1660e01b81526004016107a49493929190610b71565b6020604051808303816000875af11580156107c3573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107e79190610c4f565b979650505050505050565b6000806040518060c0016040528084815260200160018081111561081857610818610b0e565b8152602001876001600160a01b03168152602001866001600160a01b0316815260200185815260200160405180602001604052806000815250815250905060006040518060800160405280306001600160a01b03168152602001600015158152602001306001600160a01b031681526020016000151581525090507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166352bbbe298383600019426040518563ffffffff1660e01b81526004016107a49493929190610b71565b6001600160a01b03811681146108fc57600080fd5b50565b6000806040838503121561091257600080fd5b823561091d816108e7565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561096a5761096a61092b565b604052919050565b600067ffffffffffffffff82111561098c5761098c61092b565b5060051b60200190565b600082601f8301126109a757600080fd5b815160206109bc6109b783610972565b610941565b82815260059290921b840181019181810190868411156109db57600080fd5b8286015b848110156109f657805183529183019183016109df565b509695505050505050565b600080600060608486031215610a1657600080fd5b835167ffffffffffffffff80821115610a2e57600080fd5b818601915086601f830112610a4257600080fd5b81516020610a526109b783610972565b82815260059290921b8401810191818101908a841115610a7157600080fd5b948201945b83861015610a98578551610a89816108e7565b82529482019490820190610a76565b91890151919750909350505080821115610ab157600080fd5b50610abe86828701610996565b925050604084015190509250925092565b634e487b7160e01b600052603260045260246000fd5b600060208284031215610af757600080fd5b81518015158114610b0757600080fd5b9392505050565b634e487b7160e01b600052602160045260246000fd5b6000815180845260005b81811015610b4a57602081850181015186830182015201610b2e565b81811115610b5c576000602083870101525b50601f01601f19169290920160200192915050565b60e08152845160e08201526000602086015160028110610ba157634e487b7160e01b600052602160045260246000fd5b61010083015260408601516001600160a01b03166101208301526060860151610bd66101408401826001600160a01b03169052565b50608086015161016083015260a086015160c0610180840152610bfd6101a0840182610b24565b915050610c3d602083018680516001600160a01b039081168352602080830151151590840152604080830151909116908301526060908101511515910152565b60a082019390935260c0015292915050565b600060208284031215610c6157600080fd5b505191905056fea2646970667358221220594446adecc0853be5b580a069555ffdfcc8307f5e0a39f83d45d868cbb4cf1464736f6c634300080d0033",
+  "devdoc": {
+    "details": "OHM Magician IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE. we made it because current Uni pool is empty it could be base for `GOHMMagician` but `GOHMMagician` is already deployed",
+    "kind": "dev",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be wrapped"
+        },
+        "returns": {
+          "asset": "A token that the `_asset` has been converted to",
+          "quoteSpent": "Amount of the quote token that we spent to get `_amoun` of the `_asset`"
+        }
+      },
+      "towardsNative(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be unwrapped"
+        },
+        "returns": {
+          "amount": "Amount of the `tokenOut` that we received",
+          "asset": "A token that the `_asset` has been converted to"
+        }
+      },
+      "verifyPoolAndVault(address,bytes32)": {
+        "details": "verify the Balancer pool and the vault. Sanity check for vault address is a call of getPoolTokens(_poolId).     Pool is valid if it has OHMv2 and quote tokens.",
+        "params": {
+          "_balancerVault": "address of the Balancer vault",
+          "_poolId": "pool id"
+        },
+        "returns": {
+          "_0": "true if the pool is valid for the swap"
+        }
+      }
+    },
+    "stateVariables": {
+      "BALANCER_OHM_POOL": {
+        "details": "OHMv2 pool that is used for swap."
+      },
+      "BALANCER_VAULT": {
+        "details": "Required for OHMv2 swap."
+      },
+      "OHM": {
+        "details": "Original token, OHMv2."
+      },
+      "QUOTE": {
+        "details": "The address of quote token."
+      },
+      "SWAP_AMOUNT_IN_LIMIT": {
+        "details": "Limit for OHMv2 swap."
+      },
+      "SWAP_AMOUNT_OUT_LIMIT": {
+        "details": "Limit for OHMv2 swap."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "notice": "Performs operation opposit to `towardsNative`"
+      },
+      "towardsNative(address,uint256)": {
+        "notice": "Operates to unwrap an `_asset`"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
