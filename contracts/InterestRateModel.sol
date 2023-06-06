@@ -11,10 +11,14 @@ import "./interfaces/IInterestRateModel.sol";
 import "./utils/TwoStepOwnable.sol";
 
 /// @title InterestRateModel
-/// @notice Dynamic interest rate model implementation
+/// @notice DEPRECATED. Please use InterestRateModelV2 instead.
+/// Dynamic interest rate model implementation
 /// @dev Model stores some Silo specific data. If model is replaced, it needs to set proper config after redeployment
 /// for seamless service. Please refer to separate litepaper about model for design details.
 /// @custom:security-contact security@silo.finance
+///
+/// DEPRECATED. Please use InterestRateModelV2 instead.
+///
 contract InterestRateModel is IInterestRateModel, TwoStepOwnable {
     using PRBMathSD59x18 for int256;
     using SafeCast for int256;
