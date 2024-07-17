@@ -1,0 +1,735 @@
+{
+  "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IPriceProvidersRepository",
+          "name": "_repository",
+          "type": "address"
+        },
+        {
+          "internalType": "contract ICurveAddressProviderLike",
+          "name": "_addressProvider",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "isMeta",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct Pool[]",
+          "name": "_pools",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "pool",
+          "type": "address"
+        }
+      ],
+      "name": "AlreadyRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CantResolvePoolInRegistry",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyAddressProvider",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyPoolAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidPriceProviderRepository",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyManager",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "pool",
+          "type": "address"
+        }
+      ],
+      "name": "PoolIsNotRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RegistryIsTheSame",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum RegistryId",
+          "name": "id",
+          "type": "uint8"
+        }
+      ],
+      "name": "RegistryNotFoundById",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "contract ICurveAddressProviderLike",
+          "name": "curveAddressProvider",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum RegistryId",
+          "name": "registryId",
+          "type": "uint8"
+        }
+      ],
+      "name": "DataFetcherCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_pool",
+          "type": "address"
+        }
+      ],
+      "name": "PoolAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_pool",
+          "type": "address"
+        }
+      ],
+      "name": "PoolRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registry",
+          "type": "address"
+        }
+      ],
+      "name": "RegistryUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "ADDRESS_PROVIDER",
+      "outputs": [
+        {
+          "internalType": "contract ICurveAddressProviderLike",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "REGISTRY_ID",
+      "outputs": [
+        {
+          "internalType": "enum RegistryId",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "isMeta",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct Pool[]",
+          "name": "_pools",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "addPools",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "curveLPTokensDetailsFetcherPing",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_lpToken",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "getLPTokenDetails",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "addr",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isMeta",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Pool",
+              "name": "pool",
+              "type": "tuple"
+            },
+            {
+              "internalType": "address[]",
+              "name": "coins",
+              "type": "address[]"
+            }
+          ],
+          "internalType": "struct LPTokenDetails",
+          "name": "details",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "registeredPools",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isRegistered",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "isMeta",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "registry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_pools",
+          "type": "address[]"
+        }
+      ],
+      "name": "removePools",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "updateRegistry",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+    "transactionIndex": 102,
+    "gasUsed": "1259118",
+    "logsBloom": "0x00010000008000c00000100000000000000008000800000000000000000008010002000000088000000000000000000000000100000000000040000000000000100000100000000000000000000008000000000400000000002050000000000100000000000200000010002000000000000000000000000000000000000000000000008000000000040000000000000000000000000000100000000000000020800000000000000000000000008000000c00000000000000400000100000400000000000000000000042200000000000000000010000020000000000000000000000100000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68",
+    "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+    "logs": [
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0xd6ceddf6d2a22f21c7c81675c518004eff43bc5c8a6fc32a0b748e69d58671cd",
+          "0x0000000000000000000000008f942c20d02befc377d41445793068908e2250d0"
+        ],
+        "data": "0x",
+        "logIndex": 124,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x52de47fa822e34a3c6f13eb7aa0c053b483adc5dda099e1145c373d342249735"
+        ],
+        "data": "0x0000000000000000000000000000000022d53366457f9d5e68ec105046fc43830000000000000000000000000000000000000000000000000000000000000005",
+        "logIndex": 125,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x000000000000000000000000d51a44d3fae010294c616388b506acda1bfaae46"
+        ],
+        "data": "0x",
+        "logIndex": 126,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x0000000000000000000000009838eccc42659fa8aa7daf2ad134b53984c9427b"
+        ],
+        "data": "0x",
+        "logIndex": 127,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x00000000000000000000000098a7f18d4e56cfe84e3d081b40001b3d5bd3eb8b"
+        ],
+        "data": "0x",
+        "logIndex": 128,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x0000000000000000000000008301ae4fc9c624d1d396cbdaa1ed877821d7c511"
+        ],
+        "data": "0x",
+        "logIndex": 129,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x000000000000000000000000b576491f1e6e5e62f1d8f26062ee822b40b0e0d4"
+        ],
+        "data": "0x",
+        "logIndex": 130,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x000000000000000000000000adcfcf9894335dc340f6cd182afa45999f45fc44"
+        ],
+        "data": "0x",
+        "logIndex": 131,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x00000000000000000000000098638facf9a3865cd033f36548713183f6996122"
+        ],
+        "data": "0x",
+        "logIndex": 132,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x000000000000000000000000752ebeb79963cf0732e9c0fec72a49fd1defaeac"
+        ],
+        "data": "0x",
+        "logIndex": 133,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      },
+      {
+        "transactionIndex": 102,
+        "blockNumber": 17391873,
+        "transactionHash": "0x5872e10508d0e374fbb9c14bba5020fe79d4083b4be634c5436e9efdbfbe6d33",
+        "address": "0xF4999AB1a5a2a2206a71d53Fa31d8Fc9ABF2709D",
+        "topics": [
+          "0x73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea6",
+          "0x000000000000000000000000e84f5b1582ba325fdf9ce6b0c1f087ccfc924e54"
+        ],
+        "data": "0x",
+        "logIndex": 134,
+        "blockHash": "0x7036b938b002be8f405c9148442b21d62e8b71d5efdff25a2481bc941776de68"
+      }
+    ],
+    "blockNumber": 17391873,
+    "cumulativeGasUsed": "7451782",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x7C2ca9D502f2409BeceAfa68E97a176Ff805029F",
+    "0x0000000022D53366457F9d5E68Ec105046FC4383",
+    [
+      {
+        "addr": "0xD51a44d3FaE010294C616388b506AcdA1bfAAE46",
+        "isMeta": false,
+        "registryId": 5
+      },
+      {
+        "addr": "0x9838eCcC42659FA8AA7daF2aD134b53984c9427b",
+        "isMeta": true,
+        "registryId": 5
+      },
+      {
+        "addr": "0x98a7F18d4E56Cfe84E3D081B40001B3d5bD3eB8B",
+        "isMeta": false,
+        "registryId": 5
+      },
+      {
+        "addr": "0x8301AE4fc9c624d1D396cbDAa1ed877821D7C511",
+        "isMeta": false,
+        "registryId": 5
+      },
+      {
+        "addr": "0xB576491F1E6e5E62f1d8F26062Ee822B40B0E0d4",
+        "isMeta": false,
+        "registryId": 5
+      },
+      {
+        "addr": "0xAdCFcf9894335dC340f6Cd182aFA45999F45Fc44",
+        "isMeta": true,
+        "registryId": 5
+      },
+      {
+        "addr": "0x98638FAcf9a3865cd033F36548713183f6996122",
+        "isMeta": false,
+        "registryId": 5
+      },
+      {
+        "addr": "0x752eBeb79963cf0732E9c0fec72a49FD1DEfAEAC",
+        "isMeta": false,
+        "registryId": 5
+      },
+      {
+        "addr": "0xE84f5b1582BA325fDf9cE6B0c1F087ccfC924e54",
+        "isMeta": true,
+        "registryId": 5
+      }
+    ]
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "c9303397e20c2b4613b58e6ec221d180",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IPriceProvidersRepository\",\"name\":\"_repository\",\"type\":\"address\"},{\"internalType\":\"contract ICurveAddressProviderLike\",\"name\":\"_addressProvider\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isMeta\",\"type\":\"bool\"}],\"internalType\":\"struct Pool[]\",\"name\":\"_pools\",\"type\":\"tuple[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"}],\"name\":\"AlreadyRegistered\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CantResolvePoolInRegistry\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyAddressProvider\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyPoolAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidPriceProviderRepository\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyManager\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"}],\"name\":\"PoolIsNotRegistered\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RegistryIsTheSame\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"enum RegistryId\",\"name\":\"id\",\"type\":\"uint8\"}],\"name\":\"RegistryNotFoundById\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract ICurveAddressProviderLike\",\"name\":\"curveAddressProvider\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enum RegistryId\",\"name\":\"registryId\",\"type\":\"uint8\"}],\"name\":\"DataFetcherCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_pool\",\"type\":\"address\"}],\"name\":\"PoolAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_pool\",\"type\":\"address\"}],\"name\":\"PoolRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registry\",\"type\":\"address\"}],\"name\":\"RegistryUpdated\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADDRESS_PROVIDER\",\"outputs\":[{\"internalType\":\"contract ICurveAddressProviderLike\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"REGISTRY_ID\",\"outputs\":[{\"internalType\":\"enum RegistryId\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isMeta\",\"type\":\"bool\"}],\"internalType\":\"struct Pool[]\",\"name\":\"_pools\",\"type\":\"tuple[]\"}],\"name\":\"addPools\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"curveLPTokensDetailsFetcherPing\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_lpToken\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"getLPTokenDetails\",\"outputs\":[{\"components\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isMeta\",\"type\":\"bool\"}],\"internalType\":\"struct Pool\",\"name\":\"pool\",\"type\":\"tuple\"},{\"internalType\":\"address[]\",\"name\":\"coins\",\"type\":\"address[]\"}],\"internalType\":\"struct LPTokenDetails\",\"name\":\"details\",\"type\":\"tuple\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"registeredPools\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isRegistered\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"isMeta\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_pools\",\"type\":\"address[]\"}],\"name\":\"removePools\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"updateRegistry\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Registry id `5` in the Curve address provider\",\"errors\":{\"EmptyAddressProvider()\":[{\"details\":\"Revert if address provider address is empty\"}],\"InvalidPriceProviderRepository()\":[{\"details\":\"Revert on a false sanity check with `Ping` library\"}],\"OnlyManager()\":[{\"details\":\"Revert if `msg.sender` is not Price Providers Repository manager\"}],\"RegistryIsTheSame()\":[{\"details\":\"Revert if Curve registry is not changed\"}],\"RegistryNotFoundById(uint8)\":[{\"details\":\"Revert if in the Curve address provider the registry is not found by the provided registry id\"}]},\"kind\":\"dev\",\"methods\":{\"addPools((address,bool)[])\":{\"params\":{\"_pools\":\"A list of pools to be added\"}},\"constructor\":{\"details\":\"Constructor is required for indirect CurveRegistriesBaseFetcher and PriceProvidersRepositoryManager initialization. Arguments for CurveRegistriesBaseFetcher initialization are given in the modifier-style in the derived constructor. CurveCryptoSwapRegistryFetcher constructor body should be empty as we need to do nothing.\",\"params\":{\"_addressProvider\":\"Curve address provider address\",\"_pools\":\"A list of pools with details for a fetcher initialization\",\"_repository\":\"Price providers repository address\"}},\"curveLPTokensDetailsFetcherPing()\":{\"returns\":{\"_0\":\"always curveLPTokensDetailsFetcherPing.selector\"}},\"getLPTokenDetails(address,bytes)\":{\"details\":\"This method should not revert. If the data is not found or provided an invalid LP token address, it should return an empty data structure.\",\"params\":{\"_data\":\"Any additional data that can be required\",\"_lpToken\":\"Curve LP token address\"},\"returns\":{\"data\":\"Any additional data to return\",\"details\":\"LP token details. See CurveLPTokensDataTypes.LPTokenDetails\"}},\"removePools(address[])\":{\"params\":{\"_pools\":\"A list of pools to be removed\"}}},\"stateVariables\":{\"_MAX_NUMBER_OF_COINS\":{\"details\":\"Number of coins by the Curve CryptoSwap Registry interface\"}},\"title\":\"Curve LP Tokens details fetcher for CryptoSwap Registry\",\"version\":1},\"userdoc\":{\"errors\":{\"AlreadyRegistered(address)\":[{\"notice\":\"Reverts if a pool is already registered in the fetcher\"}],\"CantResolvePoolInRegistry()\":[{\"notice\":\"Reverts if a pool is not found in the registry\"}],\"EmptyPoolAddress()\":[{\"notice\":\"Reverts if a pool address is empty\"}],\"PoolIsNotRegistered(address)\":[{\"notice\":\"Reverts if a pool is not registered\"}]},\"events\":{\"RegistryUpdated(address)\":{\"notice\":\"Emitted when Curve LP registry address has been updated\"}},\"kind\":\"user\",\"methods\":{\"addPools((address,bool)[])\":{\"notice\":\"Add pools to the handler\"},\"curveLPTokensDetailsFetcherPing()\":{\"notice\":\"Helper method that allows easily detects, if contract is Curve Registry Fatcher\"},\"getLPTokenDetails(address,bytes)\":{\"notice\":\"Curve LP Token details getter\"},\"registeredPools(address)\":{\"notice\":\"pool address => registered pool details\"},\"removePools(address[])\":{\"notice\":\"Remove pools to the handler\"},\"updateRegistry()\":{\"notice\":\"Pulls a registry address from the Curve address provider\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveCryptoSwapRegistryFetcher.sol\":\"CurveCryptoSwapRegistryFetcher\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @title Common interface for Silo Price Providers\\ninterface IPriceProvider {\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset. Calculates TWAP price for quote/asset.\\n    /// It unifies all tokens decimal to 18, examples:\\n    /// - if asses == quote it returns 1e18\\n    /// - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price of asses with 18 decimals, throws when pool is not ready yet to provide price\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @dev Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away.\\n    /// Some providers implementations need time to \\\"build\\\" buffer for TWAP price,\\n    /// so price may not be available yet but this method will return true.\\n    /// @param _asset asset in question\\n    /// @return TRUE if asset has been setup, otherwise false\\n    function assetSupported(address _asset) external view returns (bool);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Helper method that allows easily detects, if contract is PriceProvider\\n    /// @dev this can save us from simple human errors, in case we use invalid address\\n    /// but this should NOT be treated as security check\\n    /// @return always true\\n    function priceProviderPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0xe25259fe540647dd3945dbc8eff5f7ec789c6708b42e1d82c456d3e8c9082147\",\"license\":\"BUSL-1.1\"},\"contracts/interfaces/IPriceProvidersRepository.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\nimport \\\"./IPriceProvider.sol\\\";\\n\\ninterface IPriceProvidersRepository {\\n    /// @notice Emitted when price provider is added\\n    /// @param newPriceProvider new price provider address\\n    event NewPriceProvider(IPriceProvider indexed newPriceProvider);\\n\\n    /// @notice Emitted when price provider is removed\\n    /// @param priceProvider removed price provider address\\n    event PriceProviderRemoved(IPriceProvider indexed priceProvider);\\n\\n    /// @notice Emitted when asset is assigned to price provider\\n    /// @param asset assigned asset   address\\n    /// @param priceProvider price provider address\\n    event PriceProviderForAsset(address indexed asset, IPriceProvider indexed priceProvider);\\n\\n    /// @notice Register new price provider\\n    /// @param _priceProvider address of price provider\\n    function addPriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Unregister price provider\\n    /// @param _priceProvider address of price provider to be removed\\n    function removePriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Sets price provider for asset\\n    /// @dev Request for asset price is forwarded to the price provider assigned to that asset\\n    /// @param _asset address of an asset for which price provider will be used\\n    /// @param _priceProvider address of price provider\\n    function setPriceProviderForAsset(address _asset, IPriceProvider _priceProvider) external;\\n\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price TWAP price of a token with 18 decimals\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @notice Gets price provider assigned to an asset\\n    /// @param _asset address of an asset for which to get price provider\\n    /// @return priceProvider address of price provider\\n    function priceProviders(address _asset) external view returns (IPriceProvider priceProvider);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Gets manager role address\\n    /// @return manager role address\\n    function manager() external view returns (address);\\n\\n    /// @notice Checks if providers are available for an asset\\n    /// @param _asset asset address to check\\n    /// @return returns TRUE if price feed is ready, otherwise false\\n    function providersReadyForAsset(address _asset) external view returns (bool);\\n\\n    /// @notice Returns true if address is a registered price provider\\n    /// @param _provider address of price provider to be removed\\n    /// @return true if address is a registered price provider, otherwise false\\n    function isPriceProvider(IPriceProvider _provider) external view returns (bool);\\n\\n    /// @notice Gets number of price providers registered\\n    /// @return number of price providers registered\\n    function providersCount() external view returns (uint256);\\n\\n    /// @notice Gets an array of price providers\\n    /// @return array of price providers\\n    function providerList() external view returns (address[] memory);\\n\\n    /// @notice Sanity check function\\n    /// @return returns always TRUE\\n    function priceProvidersRepositoryPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0x715cb0aa617134d1f4ebe427adb5899455114260c3d853732a6302fb5b5d6e53\",\"license\":\"BUSL-1.1\"},\"contracts/lib/Ping.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n\\nlibrary Ping {\\n    function pong(function() external pure returns(bytes4) pingFunction) internal pure returns (bool) {\\n        return pingFunction.address != address(0) && pingFunction.selector == pingFunction();\\n    }\\n}\\n\",\"keccak256\":\"0xc99622dfb46693aeb8a332ee0e124f54e12d5ed5e6b8f70a0c0e3678df35c8b1\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/_common/PriceProvidersRepositoryManager.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../../lib/Ping.sol\\\";\\nimport \\\"../../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title Price Providers Repository manager\\nabstract contract PriceProvidersRepositoryManager  {\\n    /// @dev Price Providers Repository\\n    IPriceProvidersRepository internal immutable _priceProvidersRepository;\\n\\n    /// @dev Revert if `msg.sender` is not Price Providers Repository manager\\n    error OnlyManager();\\n    /// @dev Revert on a false sanity check with `Ping` library\\n    error InvalidPriceProviderRepository();\\n\\n    /// @dev Permissions verification modifier.\\n    /// Functions execution with this modifier will be allowed only for the Price Providers Repository manager\\n    modifier onlyManager() {\\n        if (_priceProvidersRepository.manager() != msg.sender) revert OnlyManager();\\n        _;\\n    }\\n\\n    /// @param _repository address of the Price Providers Repository\\n    constructor(IPriceProvidersRepository _repository) {\\n        if (!Ping.pong(_repository.priceProvidersRepositoryPing)) {\\n            revert InvalidPriceProviderRepository();\\n        }\\n\\n        _priceProvidersRepository = _repository;\\n    }\\n}\\n\",\"keccak256\":\"0xd56090bcd216381415fc0f05f19c6fd5e3920cf4df9590eb530675d343bed925\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveCryptoSwapRegistryFetcher.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./CurveRegistriesPoolsManagement.sol\\\";\\nimport \\\"../interfaces/ICurveCryptoSwapRegistryLike.sol\\\";\\nimport \\\"../../../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title Curve LP Tokens details fetcher for CryptoSwap Registry\\n/// @dev Registry id `5` in the Curve address provider\\ncontract CurveCryptoSwapRegistryFetcher is CurveRegistriesPoolsManagement {\\n    /// @dev Number of coins by the Curve CryptoSwap Registry interface\\n    uint256 constant internal _MAX_NUMBER_OF_COINS = 8;\\n\\n    /// @dev Constructor is required for indirect CurveRegistriesBaseFetcher and\\n    /// PriceProvidersRepositoryManager initialization. Arguments for CurveRegistriesBaseFetcher\\n    /// initialization are given in the modifier-style in the derived constructor.\\n    /// CurveCryptoSwapRegistryFetcher constructor body should be empty as we need to do nothing.\\n    /// @param _repository Price providers repository address\\n    /// @param _addressProvider Curve address provider address\\n    /// @param _pools A list of pools with details for a fetcher initialization\\n    constructor(\\n        IPriceProvidersRepository _repository,\\n        ICurveAddressProviderLike _addressProvider,\\n        Pool[] memory _pools\\n    )\\n        PriceProvidersRepositoryManager(_repository)\\n        CurveRegistriesBaseFetcher(_addressProvider, RegistryId.CRYPTO_SWAP_REGISTRY_5)\\n        CurveRegistriesPoolsManagement(_pools)\\n    {\\n        // The code will not compile without it. So, we need to keep an empty constructor.\\n    }\\n\\n    /// @inheritdoc ICurveLPTokensDetailsFetcher\\n    function getLPTokenDetails(\\n        address _lpToken,\\n        bytes memory\\n    )\\n        external\\n        virtual\\n        view\\n        returns (\\n            LPTokenDetails memory details,\\n            bytes memory data\\n        )\\n    {\\n        ICurveCryptoSwapRegistryLike registry = ICurveCryptoSwapRegistryLike(registry);\\n        details.pool.addr = registry.get_pool_from_lp_token(_lpToken);\\n\\n        if (details.pool.addr == address(0)) {\\n            return (details, data);\\n        }\\n\\n        RegisteredPool memory pool = registeredPools[details.pool.addr];\\n\\n        // It can happen in the case when the Curve protocol team adds a new pool\\n        // via the `add_pool` function directly in the CryptoSwap Registry but, it is not\\n        // registered in the `CurveCryptoSwapRegistryFetcher` yet.\\n        // We need to call `CurveCryptoSwapRegistryFetcher.addPools`.\\n        if (!pool.isRegistered) {\\n            details.pool.addr = address(0);\\n            return (details, data);\\n        }\\n\\n        details.pool.isMeta = pool.isMeta;\\n\\n        uint256 length = 0;\\n        address[_MAX_NUMBER_OF_COINS] memory poolCoins = registry.get_coins(details.pool.addr);\\n\\n        while (length < _MAX_NUMBER_OF_COINS) {\\n            if (poolCoins[length] == address(0)) break;\\n\\n            // Because of the condition `length < 8` we can ignore overflow check\\n            unchecked { length++; }\\n        }\\n\\n        details.coins = new address[](length);\\n        uint256 i = 0;\\n\\n        while (i < length) {\\n            details.coins[i] = poolCoins[i];\\n\\n            // Because of the condition `i < length` we can ignore overflow check\\n            unchecked { i++; }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xbdbd8ae6fd06aaec0ee2203b8b8a7b11b23a89164a24fbb0fcef6a87ac78f20f\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveRegistriesBaseFetcher.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\nimport \\\"../interfaces/ICurveAddressProviderLike.sol\\\";\\nimport \\\"../interfaces/ICurveLPTokensDetailsFetcher.sol\\\";\\nimport \\\"../../_common/PriceProvidersRepositoryManager.sol\\\";\\n\\n/// @title Curve registries base fetcher\\nabstract contract CurveRegistriesBaseFetcher is PriceProvidersRepositoryManager, ICurveLPTokensDetailsFetcher {\\n    /// @dev The registry identifier that this fetcher is designed for\\n    RegistryId public immutable REGISTRY_ID; // solhint-disable-line var-name-mixedcase\\n    /// @dev Curve address provider\\n    ICurveAddressProviderLike public immutable ADDRESS_PROVIDER; // solhint-disable-line var-name-mixedcase\\n    /// @dev Curve registry address pulled from the Curve address provider.\\n    /// As Main Registry, CryptoSwap Registry, Metapool Factory, and Cryptopool Factory have different\\n    /// interfaces we will store registry as an address as it is a base contract that will be used for\\n    /// each registry and it must have a common type.\\n    address public registry;\\n\\n    /// @dev Revert if address provider address is empty\\n    error EmptyAddressProvider();\\n    /// @dev Revert if Curve registry is not changed\\n    error RegistryIsTheSame();\\n    /// @dev Revert if in the Curve address provider the registry is not found by the provided registry id\\n    error RegistryNotFoundById(RegistryId id);\\n\\n    /// @dev Emitted on creation\\n    /// @param curveAddressProvider The Curve address provider for a data fetcher\\n    /// @param registryId The Curve registry identifier in the Curve address provider for a data fetcher\\n    event DataFetcherCreated(ICurveAddressProviderLike curveAddressProvider, RegistryId registryId);\\n\\n    /// @dev Curve address provider contract address is immutable and it\\u2019s address will never change.\\n    /// We do it configurable to make a code compliant with different networks in the case if \\n    /// address will differs for them.\\n    /// @param _curveAddressProvider Curve address provider\\n    /// @param _id Curve registry identifier. See CurveLPTokensDataTypes.RegistryId\\n    constructor(ICurveAddressProviderLike _curveAddressProvider, RegistryId _id) {\\n        if (address(_curveAddressProvider) == address(0)) revert EmptyAddressProvider();\\n\\n        REGISTRY_ID = _id;\\n        ADDRESS_PROVIDER = _curveAddressProvider;\\n\\n        _updateRegistry();\\n\\n        emit DataFetcherCreated(ADDRESS_PROVIDER, REGISTRY_ID);\\n    }\\n\\n    /// @inheritdoc ICurveLPTokensDetailsFetcher\\n    function updateRegistry() external virtual onlyManager() {\\n        _updateRegistry();\\n    }\\n\\n    /// @inheritdoc ICurveLPTokensDetailsFetcher\\n    function curveLPTokensDetailsFetcherPing() external virtual pure returns (bytes4) {\\n        return this.curveLPTokensDetailsFetcherPing.selector;\\n    }\\n\\n    /// @notice Updates a registry address from the Curve address provider\\n    /// @dev Reverts if an address is not found or is the same as current address\\n    function _updateRegistry() internal {\\n        address newRegistry = ADDRESS_PROVIDER.get_address(uint256(REGISTRY_ID));\\n\\n        if (newRegistry == address(0)) revert RegistryNotFoundById(REGISTRY_ID);\\n        if (registry == newRegistry) revert RegistryIsTheSame();\\n\\n        registry = newRegistry;\\n\\n        emit RegistryUpdated(newRegistry);\\n    }\\n}\\n\",\"keccak256\":\"0xb90095eafbeccc0a2c208d28d3925da2a2a577cd931ebb6398c664319dbbf1b9\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveRegistriesPoolsManagement.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./CurveRegistriesBaseFetcher.sol\\\";\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\nimport \\\"../interfaces/ICurveRegistriesPoolsManagement.sol\\\";\\nimport \\\"../interfaces/ICurveCryptoSwapRegistryLike.sol\\\";\\n\\n/// @title Curve registries pools management\\nabstract contract CurveRegistriesPoolsManagement is ICurveRegistriesPoolsManagement, CurveRegistriesBaseFetcher {\\n    /// @dev Storage struct with a registered pool details\\n    struct RegisteredPool {\\n        bool isRegistered; // `true` if a pool is registered in the fetcher\\n        bool isMeta; // `true` if a pools is meta pool. Storing it as in some registries\\n        // this information is missed, and it is not possible to retrieve it\\n    }\\n\\n    /// pool address => registered pool details\\n    mapping(address => RegisteredPool) public registeredPools;\\n\\n    /// Reverts if a pool address is empty\\n    error EmptyPoolAddress();\\n    /// Reverts if a pool is already registered in the fetcher\\n    error AlreadyRegistered(address pool);\\n    /// Reverts if a pool is not registered\\n    error PoolIsNotRegistered(address pool);\\n    /// Reverts if a pool is not found in the registry\\n    error CantResolvePoolInRegistry();\\n\\n    /// @param _pools A list of pools with details for a fetcher initialization\\n    constructor(Pool[] memory _pools) {\\n        _addPools(_pools);\\n    }\\n\\n    /// @inheritdoc ICurveRegistriesPoolsManagement\\n    function addPools(Pool[] calldata _pools) external virtual onlyManager {\\n        _addPools(_pools);\\n    }\\n\\n    /// @inheritdoc ICurveRegistriesPoolsManagement\\n    function removePools(address[] calldata _pools) external virtual onlyManager {\\n        uint256 i = 0;\\n\\n        while (i < _pools.length) {\\n            address pool = _pools[i];\\n\\n            if (!registeredPools[pool].isRegistered) revert PoolIsNotRegistered(pool);\\n\\n            delete registeredPools[pool];\\n\\n            emit PoolRemoved(pool);\\n\\n            // Because of the condition `i < _pools.length` we can ignore overflow check\\n            unchecked { i++; }\\n        }\\n    }\\n\\n    /// @notice Add pools to the fetcher\\n    /// @param _pools A list of pools to be added\\n    function _addPools(Pool[] memory _pools) internal {\\n        uint256 i = 0;\\n        ICurveCryptoSwapRegistryLike registry = ICurveCryptoSwapRegistryLike(registry);\\n\\n        while (i < _pools.length) {\\n            Pool memory pool = _pools[i];\\n\\n            if (pool.addr == address(0)) revert EmptyPoolAddress();\\n            if (registeredPools[pool.addr].isRegistered) revert AlreadyRegistered(pool.addr);\\n\\n            address lpToken = registry.get_lp_token(pool.addr);\\n\\n            if (lpToken == address(0)) revert CantResolvePoolInRegistry();\\n\\n            registeredPools[pool.addr] = RegisteredPool({\\n                isRegistered: true,\\n                isMeta: pool.isMeta\\n            });\\n\\n            emit PoolAdded(pool.addr);\\n\\n            // Because of the condition `i < _pools.length` we can ignore overflow check\\n            unchecked { i++; }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xd62eac13558a6db02f5b75a34ba3a41d1dcc1809d84c23c667f75b82be701413\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/_common/CurveLPTokensDataTypes.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @dev Identifiers of the Curve protocol components in the Curve address provider\\nenum RegistryId {\\n    MAIN_REGISTRY_0,\\n    POOL_INFO_GETTER_1,\\n    EXCHANGES_2,\\n    META_POOL_FACTORY_3,\\n    FEE_DISTRIBUTOR_4,\\n    CRYPTO_SWAP_REGISTRY_5,\\n    CRYPTO_POOL_FACTORY_6\\n}\\n\\n/// @dev Storage struct that holds Curve pool coin details\\nstruct PoolCoin {\\n    /// @dev Coin address\\n    address addr;\\n    /// @dev `true` if a coin is Curve LP Token (used in the meta pools)\\n    bool isLPToken;\\n}\\n\\n/// @dev Storage struct that holds Curve pool details\\nstruct Pool {\\n    /// @dev Pool address\\n    address addr;\\n    /// @dev `true` if a pool is the meta pool (the pool that contains other Curve LP Tokens)\\n    bool isMeta;\\n}\\n\\n/// @dev Describes an LP Token with all the details required for the price calculation\\nstruct LPTokenDetails {\\n    /// @dev A pool of the LP Token. See a Pool struct\\n    Pool pool;\\n    /// @dev A list of the LP token pool coins\\n    address[] coins;\\n}\\n\",\"keccak256\":\"0x1ac2f9680532ec19462b5d3a9dbc5081bac531c93e938bcbb25c72d200563b76\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveAddressProviderLike.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @notice A simplified interface of the Curve address provider for the registry contracts.\\n/// @dev As curve protocol is implemented with Vyper programming language and we don't use\\n/// all the methods present in the Curve address provider. We'll have a solidity version\\n/// of the interface that includes only methods required for Silo's Curve LP Tokens price providers.\\ninterface ICurveAddressProviderLike {\\n    /// Description from Curve docs:\\n    /// @notice Fetch the address associated with `_id`\\n    /// @dev Returns ZERO_ADDRESS if `_id` has not been defined, or has been unset\\n    /// @param _id Identifier to fetch an address for\\n    /// @return Current address associated to `_id`\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function get_address(uint256 _id) external view returns (address);\\n}\\n\",\"keccak256\":\"0x548ba14ae73361f86c6b42df844fb4e249eba4ea8aaaeca3baf689f119fc4a34\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveCryptoSwapRegistryLike.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @notice A simplified interface of the Curve CryptoSwap Registry.\\n/// @dev As curve protocol is implemented with Vyper programming language and we don't use\\n/// all the methods present in the Curve address provider. We'll have a solidity version of the interface\\n/// that includes only methods required to retrieve LP token details as are necessary for a price calculation.\\ninterface ICurveCryptoSwapRegistryLike {\\n    /// @param _lpToken LP Token address to fetch a pool address for\\n    /// @return Pool address associated with `_lpToken`\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function get_pool_from_lp_token(address _lpToken) external view returns (address);\\n\\n    /// @param _pool Curve pool address\\n    /// @return LP Token address associated with `_pool`\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function get_lp_token(address _pool) external view returns (address);\\n\\n    /// @param _pool Pool address to fetch coins for\\n    /// @return A list of coins in the pool\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function get_coins(address _pool) external view returns (address[8] memory);\\n}\\n\",\"keccak256\":\"0x887d640e189e16ae3dd6d991833cd18c6ed0abb593c587b69a72627c88008af7\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveLPTokensDetailsFetcher.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\n\\n/// @title Curve LP Tokens details fetcher\\n/// @dev Designed to unify an interface of the Curve pool tokens details getter,\\n/// such registries as Main Registry, CryptoSwap Registry,  Metapool Factory, and Cryptopool Factory\\n/// have different interfaces.\\ninterface ICurveLPTokensDetailsFetcher {\\n    /// @notice Emitted when Curve LP registry address has been updated\\n    /// @param registry The configured registry address\\n    event RegistryUpdated(address indexed registry);\\n\\n    /// @notice Pulls a registry address from the Curve address provider\\n    function updateRegistry() external;\\n\\n    /// @notice Curve LP Token details getter\\n    /// @param _lpToken Curve LP token address\\n    /// @param _data Any additional data that can be required\\n    /// @dev This method should not revert. If the data is not found or provided an invalid LP token address,\\n    /// it should return an empty data structure.\\n    /// @return details LP token details. See CurveLPTokensDataTypes.LPTokenDetails\\n    /// @return data Any additional data to return\\n    function getLPTokenDetails(\\n        address _lpToken,\\n        bytes memory _data\\n    )\\n      external\\n      view\\n      returns (\\n        LPTokenDetails memory details,\\n        bytes memory data\\n      );\\n\\n    /// @notice Helper method that allows easily detects, if contract is Curve Registry Fatcher\\n    /// @return always curveLPTokensDetailsFetcherPing.selector\\n    function curveLPTokensDetailsFetcherPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0xf16275af21fc6262495a13f19596467df8bda0999044bae0ed941d8e24bd14c0\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveRegistriesPoolsManagement.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\n\\n/// @notice Curve registry extension\\ninterface ICurveRegistriesPoolsManagement {\\n    /// @dev  Emitted when a pool has been added to the handler\\n    event PoolAdded(address indexed _pool);\\n    /// @dev  Emitted when a pool has been removed from the handler\\n    event PoolRemoved(address indexed _pool);\\n\\n    /// @notice Add pools to the handler\\n    /// @param _pools A list of pools to be added\\n    function addPools(Pool[] calldata _pools) external;\\n\\n    /// @notice Remove pools to the handler\\n    /// @param _pools A list of pools to be removed\\n    function removePools(address[] calldata _pools) external;\\n}\\n\",\"keccak256\":\"0x0c721127f2efe79b122419bed4d2a8ec47a2087018bb39be01d5e9f0b46ac55b\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x60e06040523480156200001157600080fd5b50604051620017ce380380620017ce833981016040819052620000349162000582565b80826005856200005d816001600160a01b031663eec3e6a76200014660201b620007951760201c565b6200007b5760405163352cccdf60e01b815260040160405180910390fd5b6001600160a01b039081166080528216620000a95760405163a9b0233160e01b815260040160405180910390fd5b806006811115620000be57620000be620006a5565b60a0816006811115620000d557620000d5620006a5565b9052506001600160a01b03821660c052620000ef620001d2565b7f52de47fa822e34a3c6f13eb7aa0c053b483adc5dda099e1145c373d34224973560c05160a05160405162000126929190620006de565b60405180910390a1506200013c9050816200030f565b5050505062000776565b60006001600160a01b03831615801590620001c9575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156200018e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190620001b4919062000704565b60e083901b6001600160e01b03199081169116145b90505b92915050565b600060c0516001600160a01b031663493f4f7460a0516006811115620001fc57620001fc620006a5565b6040518263ffffffff1660e01b81526004016200021b91815260200190565b602060405180830381865afa15801562000239573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906200025f919062000730565b90506001600160a01b038116620002985760a0516040516353616e6160e11b81526004016200028f919062000750565b60405180910390fd5b6000546001600160a01b03808316911603620002c75760405163c4c1c75960e01b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b038316908117825560405190917fd6ceddf6d2a22f21c7c81675c518004eff43bc5c8a6fc32a0b748e69d58671cd91a250565b600080546001600160a01b03165b8251821015620004f05760008383815181106200033e576200033e62000760565b602090810291909101015180519091506001600160a01b0316620003755760405163de4db0af60e01b815260040160405180910390fd5b80516001600160a01b031660009081526001602052604090205460ff1615620003c05780516040516345ed80e960e01b81526001600160a01b0390911660048201526024016200028f565b8051604051633795104960e01b81526001600160a01b039182166004820152600091841690633795104990602401602060405180830381865afa1580156200040c573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019062000432919062000730565b90506001600160a01b0381166200045c5760405163096bdb7160e41b815260040160405180910390fd5b6040805180820182526001808252602085810151151581840190815286516001600160a01b0390811660009081529390925284832093518454915161ffff1990921690151561ff0019161761010091151591909102179092558451925192909116917f73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea69190a250506001909101906200031d565b505050565b6001600160a01b03811681146200050b57600080fd5b50565b634e487b7160e01b600052604160045260246000fd5b604080519081016001600160401b03811182821017156200054957620005496200050e565b60405290565b604051601f8201601f191681016001600160401b03811182821017156200057a576200057a6200050e565b604052919050565b6000806000606084860312156200059857600080fd5b8351620005a581620004f5565b80935050602080850151620005ba81620004f5565b604086810151919450906001600160401b0380821115620005da57600080fd5b818801915088601f830112620005ef57600080fd5b8151818111156200060457620006046200050e565b62000614858260051b016200054f565b818152858101925060069190911b83018501908a8211156200063557600080fd5b928501925b81841015620006955784848c031215620006545760008081fd5b6200065e62000524565b84516200066b81620004f5565b8152848701518015158114620006815760008081fd5b81880152835292840192918501916200063a565b8096505050505050509250925092565b634e487b7160e01b600052602160045260246000fd5b60078110620006da57634e487b7160e01b600052602160045260246000fd5b9052565b6001600160a01b038316815260408101620006fd6020830184620006bb565b9392505050565b6000602082840312156200071757600080fd5b81516001600160e01b031981168114620006fd57600080fd5b6000602082840312156200074357600080fd5b8151620006fd81620004f5565b60208101620001cc8284620006bb565b634e487b7160e01b600052603260045260246000fd5b60805160a05160c051611006620007c86000396000818160b7015261081f0152600081816101770152818161084e01526108ef01526000818161044a01528181610507015261068f01526110066000f3fe608060405234801561001057600080fd5b50600436106100935760003560e01c806349d10b641161006657806349d10b64146101555780634b1641401461015f5780636ad3f74c146101725780637b103999146101a657806388990903146101b957600080fd5b806314f2627e146100985780631848effa146100b25780633afc259d146100f15780634578d29014610112575b600080fd5b604051630a79313f60e11b81526020015b60405180910390f35b6100d97f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020016100a9565b6101046100ff366004610bd2565b6101cc565b6040516100a9929190610cc7565b61013e610120366004610d54565b60016020526000908152604090205460ff8082169161010090041682565b6040805192151583529015156020830152016100a9565b61015d61043e565b005b61015d61016d366004610d71565b6104fb565b6101997f000000000000000000000000000000000000000000000000000000000000000081565b6040516100a99190610dfc565b6000546100d9906001600160a01b031681565b61015d6101c7366004610e24565b610683565b6040805160808101825260009181018281526060808301939093528152602081019190915260005460405163bdf475c360e01b81526001600160a01b0385811660048301526060921690819063bdf475c390602401602060405180830381865afa15801561023e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102629190610e87565b83516001600160a01b0391821690528351511661027f5750610437565b8251516001600160a01b031660009081526001602090815260409182902082518084019093525460ff8082161515808552610100909204161515918301919091526102d1575050815160009052610437565b6020818101518551901515910152835151604051639ac90d3d60e01b81526001600160a01b039182166004820152600091829190851690639ac90d3d9060240161010060405180830381865afa15801561032f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103539190610ea4565b90505b600882101561039157600081836008811061037357610373610f2c565b60200201516001600160a01b03161461039157600190910190610356565b8167ffffffffffffffff8111156103aa576103aa610b8b565b6040519080825280602002602001820160405280156103d3578160200160208202803683370190505b50602087015260005b82811015610431578181600881106103f6576103f6610f2c565b60200201518760200151828151811061041157610411610f2c565b6001600160a01b03909216602092830291909101909101526001016103dc565b50505050505b9250929050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156104a6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104ca9190610e87565b6001600160a01b0316146104f15760405163605919ad60e11b815260040160405180910390fd5b6104f961081b565b565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610563573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105879190610e87565b6001600160a01b0316146105ae5760405163605919ad60e11b815260040160405180910390fd5b60005b8181101561067e5760008383838181106105cd576105cd610f2c565b90506020020160208101906105e29190610d54565b6001600160a01b03811660009081526001602052604090205490915060ff1661062e57604051633415a99d60e01b81526001600160a01b03821660048201526024015b60405180910390fd5b6001600160a01b038116600081815260016020526040808220805461ffff19169055517f4106dfdaa577573db51c0ca93f766dbedfa0758faa2e7f5bcdb7c142be803c3f9190a2506001016105b1565b505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106eb573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061070f9190610e87565b6001600160a01b0316146107365760405163605919ad60e11b815260040160405180910390fd5b6107918282808060200260200160405190810160405280939291908181526020016000905b828210156107875761077860408302860136819003810190610f42565b8152602001906001019061075b565b505050505061099e565b5050565b60006001600160a01b03831615801590610814575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156107db573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107ff9190610fa6565b60e083901b6001600160e01b03199081169116145b9392505050565b60007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663493f4f747f0000000000000000000000000000000000000000000000000000000000000000600681111561087e5761087e610de6565b6040518263ffffffff1660e01b815260040161089c91815260200190565b602060405180830381865afa1580156108b9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108dd9190610e87565b90506001600160a01b038116610928577f00000000000000000000000000000000000000000000000000000000000000006040516353616e6160e11b81526004016106259190610dfc565b6000546001600160a01b038083169116036109565760405163c4c1c75960e01b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b038316908117825560405190917fd6ceddf6d2a22f21c7c81675c518004eff43bc5c8a6fc32a0b748e69d58671cd91a250565b600080546001600160a01b03165b825182101561067e5760008383815181106109c9576109c9610f2c565b602090810291909101015180519091506001600160a01b03166109ff5760405163de4db0af60e01b815260040160405180910390fd5b80516001600160a01b031660009081526001602052604090205460ff1615610a485780516040516345ed80e960e01b81526001600160a01b039091166004820152602401610625565b8051604051633795104960e01b81526001600160a01b039182166004820152600091841690633795104990602401602060405180830381865afa158015610a93573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ab79190610e87565b90506001600160a01b038116610ae05760405163096bdb7160e41b815260040160405180910390fd5b6040805180820182526001808252602085810151151581840190815286516001600160a01b0390811660009081529390925284832093518454915161ffff1990921690151561ff0019161761010091151591909102179092558451925192909116917f73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea69190a250506001909101906109ac565b6001600160a01b0381168114610b8857600080fd5b50565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff81118282101715610bca57610bca610b8b565b604052919050565b60008060408385031215610be557600080fd5b8235610bf081610b73565b915060208381013567ffffffffffffffff80821115610c0e57600080fd5b818601915086601f830112610c2257600080fd5b813581811115610c3457610c34610b8b565b610c46601f8201601f19168501610ba1565b91508082528784828501011115610c5c57600080fd5b80848401858401376000848284010152508093505050509250929050565b6000815180845260005b81811015610ca057602081850181015186830182015201610c84565b81811115610cb2576000602083870101525b50601f01601f19169290920160200192915050565b60408152600060a08201845160018060a01b03808251166040860152602080830151151560608701528088015192506060608087015283835180865260c0880191508285019550600094505b80851015610d3557855184168252948201946001949094019390820190610d13565b5086810382880152610d478189610c7a565b9998505050505050505050565b600060208284031215610d6657600080fd5b813561081481610b73565b60008060208385031215610d8457600080fd5b823567ffffffffffffffff80821115610d9c57600080fd5b818501915085601f830112610db057600080fd5b813581811115610dbf57600080fd5b8660208260051b8501011115610dd457600080fd5b60209290920196919550909350505050565b634e487b7160e01b600052602160045260246000fd5b6020810160078310610e1e57634e487b7160e01b600052602160045260246000fd5b91905290565b60008060208385031215610e3757600080fd5b823567ffffffffffffffff80821115610e4f57600080fd5b818501915085601f830112610e6357600080fd5b813581811115610e7257600080fd5b8660208260061b8501011115610dd457600080fd5b600060208284031215610e9957600080fd5b815161081481610b73565b6000610100808385031215610eb857600080fd5b83601f840112610ec757600080fd5b60405181810181811067ffffffffffffffff82111715610ee957610ee9610b8b565b604052908301908085831115610efe57600080fd5b845b83811015610f21578051610f1381610b73565b825260209182019101610f00565b509095945050505050565b634e487b7160e01b600052603260045260246000fd5b600060408284031215610f5457600080fd5b6040516040810181811067ffffffffffffffff82111715610f7757610f77610b8b565b6040528235610f8581610b73565b815260208301358015158114610f9a57600080fd5b60208201529392505050565b600060208284031215610fb857600080fd5b81516001600160e01b03198116811461081457600080fdfea26469706673582212204ce4f06ee439b8c756a580baadc2e2d51cdf8166a892ab3e3658b5da5c4cc10f64736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100935760003560e01c806349d10b641161006657806349d10b64146101555780634b1641401461015f5780636ad3f74c146101725780637b103999146101a657806388990903146101b957600080fd5b806314f2627e146100985780631848effa146100b25780633afc259d146100f15780634578d29014610112575b600080fd5b604051630a79313f60e11b81526020015b60405180910390f35b6100d97f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020016100a9565b6101046100ff366004610bd2565b6101cc565b6040516100a9929190610cc7565b61013e610120366004610d54565b60016020526000908152604090205460ff8082169161010090041682565b6040805192151583529015156020830152016100a9565b61015d61043e565b005b61015d61016d366004610d71565b6104fb565b6101997f000000000000000000000000000000000000000000000000000000000000000081565b6040516100a99190610dfc565b6000546100d9906001600160a01b031681565b61015d6101c7366004610e24565b610683565b6040805160808101825260009181018281526060808301939093528152602081019190915260005460405163bdf475c360e01b81526001600160a01b0385811660048301526060921690819063bdf475c390602401602060405180830381865afa15801561023e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102629190610e87565b83516001600160a01b0391821690528351511661027f5750610437565b8251516001600160a01b031660009081526001602090815260409182902082518084019093525460ff8082161515808552610100909204161515918301919091526102d1575050815160009052610437565b6020818101518551901515910152835151604051639ac90d3d60e01b81526001600160a01b039182166004820152600091829190851690639ac90d3d9060240161010060405180830381865afa15801561032f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103539190610ea4565b90505b600882101561039157600081836008811061037357610373610f2c565b60200201516001600160a01b03161461039157600190910190610356565b8167ffffffffffffffff8111156103aa576103aa610b8b565b6040519080825280602002602001820160405280156103d3578160200160208202803683370190505b50602087015260005b82811015610431578181600881106103f6576103f6610f2c565b60200201518760200151828151811061041157610411610f2c565b6001600160a01b03909216602092830291909101909101526001016103dc565b50505050505b9250929050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156104a6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104ca9190610e87565b6001600160a01b0316146104f15760405163605919ad60e11b815260040160405180910390fd5b6104f961081b565b565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610563573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105879190610e87565b6001600160a01b0316146105ae5760405163605919ad60e11b815260040160405180910390fd5b60005b8181101561067e5760008383838181106105cd576105cd610f2c565b90506020020160208101906105e29190610d54565b6001600160a01b03811660009081526001602052604090205490915060ff1661062e57604051633415a99d60e01b81526001600160a01b03821660048201526024015b60405180910390fd5b6001600160a01b038116600081815260016020526040808220805461ffff19169055517f4106dfdaa577573db51c0ca93f766dbedfa0758faa2e7f5bcdb7c142be803c3f9190a2506001016105b1565b505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106eb573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061070f9190610e87565b6001600160a01b0316146107365760405163605919ad60e11b815260040160405180910390fd5b6107918282808060200260200160405190810160405280939291908181526020016000905b828210156107875761077860408302860136819003810190610f42565b8152602001906001019061075b565b505050505061099e565b5050565b60006001600160a01b03831615801590610814575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156107db573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107ff9190610fa6565b60e083901b6001600160e01b03199081169116145b9392505050565b60007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663493f4f747f0000000000000000000000000000000000000000000000000000000000000000600681111561087e5761087e610de6565b6040518263ffffffff1660e01b815260040161089c91815260200190565b602060405180830381865afa1580156108b9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108dd9190610e87565b90506001600160a01b038116610928577f00000000000000000000000000000000000000000000000000000000000000006040516353616e6160e11b81526004016106259190610dfc565b6000546001600160a01b038083169116036109565760405163c4c1c75960e01b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b038316908117825560405190917fd6ceddf6d2a22f21c7c81675c518004eff43bc5c8a6fc32a0b748e69d58671cd91a250565b600080546001600160a01b03165b825182101561067e5760008383815181106109c9576109c9610f2c565b602090810291909101015180519091506001600160a01b03166109ff5760405163de4db0af60e01b815260040160405180910390fd5b80516001600160a01b031660009081526001602052604090205460ff1615610a485780516040516345ed80e960e01b81526001600160a01b039091166004820152602401610625565b8051604051633795104960e01b81526001600160a01b039182166004820152600091841690633795104990602401602060405180830381865afa158015610a93573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ab79190610e87565b90506001600160a01b038116610ae05760405163096bdb7160e41b815260040160405180910390fd5b6040805180820182526001808252602085810151151581840190815286516001600160a01b0390811660009081529390925284832093518454915161ffff1990921690151561ff0019161761010091151591909102179092558451925192909116917f73cca62ab1b520c9715bf4e6c71e3e518c754e7148f65102f43289a7df0efea69190a250506001909101906109ac565b6001600160a01b0381168114610b8857600080fd5b50565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff81118282101715610bca57610bca610b8b565b604052919050565b60008060408385031215610be557600080fd5b8235610bf081610b73565b915060208381013567ffffffffffffffff80821115610c0e57600080fd5b818601915086601f830112610c2257600080fd5b813581811115610c3457610c34610b8b565b610c46601f8201601f19168501610ba1565b91508082528784828501011115610c5c57600080fd5b80848401858401376000848284010152508093505050509250929050565b6000815180845260005b81811015610ca057602081850181015186830182015201610c84565b81811115610cb2576000602083870101525b50601f01601f19169290920160200192915050565b60408152600060a08201845160018060a01b03808251166040860152602080830151151560608701528088015192506060608087015283835180865260c0880191508285019550600094505b80851015610d3557855184168252948201946001949094019390820190610d13565b5086810382880152610d478189610c7a565b9998505050505050505050565b600060208284031215610d6657600080fd5b813561081481610b73565b60008060208385031215610d8457600080fd5b823567ffffffffffffffff80821115610d9c57600080fd5b818501915085601f830112610db057600080fd5b813581811115610dbf57600080fd5b8660208260051b8501011115610dd457600080fd5b60209290920196919550909350505050565b634e487b7160e01b600052602160045260246000fd5b6020810160078310610e1e57634e487b7160e01b600052602160045260246000fd5b91905290565b60008060208385031215610e3757600080fd5b823567ffffffffffffffff80821115610e4f57600080fd5b818501915085601f830112610e6357600080fd5b813581811115610e7257600080fd5b8660208260061b8501011115610dd457600080fd5b600060208284031215610e9957600080fd5b815161081481610b73565b6000610100808385031215610eb857600080fd5b83601f840112610ec757600080fd5b60405181810181811067ffffffffffffffff82111715610ee957610ee9610b8b565b604052908301908085831115610efe57600080fd5b845b83811015610f21578051610f1381610b73565b825260209182019101610f00565b509095945050505050565b634e487b7160e01b600052603260045260246000fd5b600060408284031215610f5457600080fd5b6040516040810181811067ffffffffffffffff82111715610f7757610f77610b8b565b6040528235610f8581610b73565b815260208301358015158114610f9a57600080fd5b60208201529392505050565b600060208284031215610fb857600080fd5b81516001600160e01b03198116811461081457600080fdfea26469706673582212204ce4f06ee439b8c756a580baadc2e2d51cdf8166a892ab3e3658b5da5c4cc10f64736f6c634300080d0033",
+  "devdoc": {
+    "details": "Registry id `5` in the Curve address provider",
+    "errors": {
+      "EmptyAddressProvider()": [
+        {
+          "details": "Revert if address provider address is empty"
+        }
+      ],
+      "InvalidPriceProviderRepository()": [
+        {
+          "details": "Revert on a false sanity check with `Ping` library"
+        }
+      ],
+      "OnlyManager()": [
+        {
+          "details": "Revert if `msg.sender` is not Price Providers Repository manager"
+        }
+      ],
+      "RegistryIsTheSame()": [
+        {
+          "details": "Revert if Curve registry is not changed"
+        }
+      ],
+      "RegistryNotFoundById(uint8)": [
+        {
+          "details": "Revert if in the Curve address provider the registry is not found by the provided registry id"
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "addPools((address,bool)[])": {
+        "params": {
+          "_pools": "A list of pools to be added"
+        }
+      },
+      "constructor": {
+        "details": "Constructor is required for indirect CurveRegistriesBaseFetcher and PriceProvidersRepositoryManager initialization. Arguments for CurveRegistriesBaseFetcher initialization are given in the modifier-style in the derived constructor. CurveCryptoSwapRegistryFetcher constructor body should be empty as we need to do nothing.",
+        "params": {
+          "_addressProvider": "Curve address provider address",
+          "_pools": "A list of pools with details for a fetcher initialization",
+          "_repository": "Price providers repository address"
+        }
+      },
+      "curveLPTokensDetailsFetcherPing()": {
+        "returns": {
+          "_0": "always curveLPTokensDetailsFetcherPing.selector"
+        }
+      },
+      "getLPTokenDetails(address,bytes)": {
+        "details": "This method should not revert. If the data is not found or provided an invalid LP token address, it should return an empty data structure.",
+        "params": {
+          "_data": "Any additional data that can be required",
+          "_lpToken": "Curve LP token address"
+        },
+        "returns": {
+          "data": "Any additional data to return",
+          "details": "LP token details. See CurveLPTokensDataTypes.LPTokenDetails"
+        }
+      },
+      "removePools(address[])": {
+        "params": {
+          "_pools": "A list of pools to be removed"
+        }
+      }
+    },
+    "stateVariables": {
+      "_MAX_NUMBER_OF_COINS": {
+        "details": "Number of coins by the Curve CryptoSwap Registry interface"
+      }
+    },
+    "title": "Curve LP Tokens details fetcher for CryptoSwap Registry",
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "AlreadyRegistered(address)": [
+        {
+          "notice": "Reverts if a pool is already registered in the fetcher"
+        }
+      ],
+      "CantResolvePoolInRegistry()": [
+        {
+          "notice": "Reverts if a pool is not found in the registry"
+        }
+      ],
+      "EmptyPoolAddress()": [
+        {
+          "notice": "Reverts if a pool address is empty"
+        }
+      ],
+      "PoolIsNotRegistered(address)": [
+        {
+          "notice": "Reverts if a pool is not registered"
+        }
+      ]
+    },
+    "events": {
+      "RegistryUpdated(address)": {
+        "notice": "Emitted when Curve LP registry address has been updated"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "addPools((address,bool)[])": {
+        "notice": "Add pools to the handler"
+      },
+      "curveLPTokensDetailsFetcherPing()": {
+        "notice": "Helper method that allows easily detects, if contract is Curve Registry Fatcher"
+      },
+      "getLPTokenDetails(address,bytes)": {
+        "notice": "Curve LP Token details getter"
+      },
+      "registeredPools(address)": {
+        "notice": "pool address => registered pool details"
+      },
+      "removePools(address[])": {
+        "notice": "Remove pools to the handler"
+      },
+      "updateRegistry()": {
+        "notice": "Pulls a registry address from the Curve address provider"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 41192,
+        "contract": "contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveCryptoSwapRegistryFetcher.sol:CurveCryptoSwapRegistryFetcher",
+        "label": "registry",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 41338,
+        "contract": "contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveCryptoSwapRegistryFetcher.sol:CurveCryptoSwapRegistryFetcher",
+        "label": "registeredPools",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_struct(RegisteredPool)41332_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_struct(RegisteredPool)41332_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct CurveRegistriesPoolsManagement.RegisteredPool)",
+        "numberOfBytes": "32",
+        "value": "t_struct(RegisteredPool)41332_storage"
+      },
+      "t_struct(RegisteredPool)41332_storage": {
+        "encoding": "inplace",
+        "label": "struct CurveRegistriesPoolsManagement.RegisteredPool",
+        "members": [
+          {
+            "astId": 41329,
+            "contract": "contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveCryptoSwapRegistryFetcher.sol:CurveCryptoSwapRegistryFetcher",
+            "label": "isRegistered",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 41331,
+            "contract": "contracts/priceProviders/curveLPTokens/LPTokensDetailsFetchers/CurveCryptoSwapRegistryFetcher.sol:CurveCryptoSwapRegistryFetcher",
+            "label": "isMeta",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

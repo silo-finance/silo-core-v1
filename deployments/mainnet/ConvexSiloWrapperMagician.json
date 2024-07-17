@@ -1,0 +1,150 @@
+{
+  "address": "0x76577efdCb4539B7D0aFe6F31d3C76d546E3c79d",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InvalidAsset",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Unsupported",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsAsset",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsNative",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountOut",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xba3a30ccc341f9ad386fee7bf2e51a5855b7d936100c0dab7891f9f0949ff9a4",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0x76577efdCb4539B7D0aFe6F31d3C76d546E3c79d",
+    "transactionIndex": 124,
+    "gasUsed": "166021",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x7be0189cf102308284d5c830d6f3bfa26b26a81df135d51d5b4acf87b9c1e9cf",
+    "transactionHash": "0xba3a30ccc341f9ad386fee7bf2e51a5855b7d936100c0dab7891f9f0949ff9a4",
+    "logs": [],
+    "blockNumber": 17391871,
+    "cumulativeGasUsed": "7743328",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "c9303397e20c2b4613b58e6ec221d180",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"InvalidAsset\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Unsupported\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"towardsAsset\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsNative\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"ConvexSiloWrapperMagician Magician for unwrapping `ConvexSiloWrapper` tokens to     Curve LP tokens. IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.\",\"errors\":{\"InvalidAsset()\":[{\"details\":\"revert when the asset is not ConvexSiloWrapper token.\"}],\"Unsupported()\":[{\"details\":\"revert when towardsAsset is called, because `ConvexSiloWrapper` is collateralOnly.     Liquidations of that collateral will not happen, because it can not be borrowed.\"}]},\"kind\":\"dev\",\"methods\":{\"towardsAsset(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be wrapped\"},\"returns\":{\"_0\":\"A token that the `_asset` has been converted to\",\"_1\":\"Amount of the quote token that we spent to get `_amoun` of the `_asset`\"}},\"towardsNative(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be unwrapped\"},\"returns\":{\"amountOut\":\"Amount of the `tokenOut` that we received\",\"tokenOut\":\"A token that the `_asset` has been converted to\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"towardsAsset(address,uint256)\":{\"notice\":\"Performs operation opposit to `towardsNative`\"},\"towardsNative(address,uint256)\":{\"notice\":\"Operates to unwrap an `_asset`\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/liquidation/magicians/ConvexSiloWrapperMagician.sol\":\"ConvexSiloWrapperMagician\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IConvexSiloWrapper.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.6.12 <=0.8.13; // solhint-disable-line compiler-version\\n\\ninterface IConvexSiloWrapper {\\n    /// @dev Function to checkpoint single user rewards. This function has the same use case as the `user_checkpoint`\\n    ///     in `ConvexStakingWrapper` and implemented to match the `IConvexSiloWrapper` interface.\\n    /// @param _account address\\n    function checkpointSingle(address _account) external;\\n\\n    /// @dev Function to checkpoint pair of users rewards. This function must be used to checkpoint collateral transfer.\\n    /// @param _from sender address\\n    /// @param _to recipient address\\n    function checkpointPair(address _from, address _to) external;\\n\\n    /// @notice wrap underlying tokens\\n    /// @param _amount of underlying token to wrap\\n    /// @param _to receiver of the wrapped tokens\\n    function deposit(uint256 _amount, address _to) external;\\n\\n    /// @dev initializeSiloWrapper executes parent `initialize` function, transfers ownership to Silo DAO,\\n    ///     changes token name and symbol. After `initializeSiloWrapper` execution, execution of the parent `initialize`\\n    ///     function is not possible. This function must be called by `ConvexSiloWrapperFactory` in the same\\n    ///     transaction with the deployment of this contract. If the parent `initialize` function was already executed\\n    ///     for some reason, call to `initialize` is skipped.\\n    /// @param _poolId the Curve pool id in the Convex Booster.\\n    function initializeSiloWrapper(uint256 _poolId) external;\\n\\n    /// @notice unwrap and receive underlying tokens\\n    /// @param _amount of tokens to unwrap\\n    function withdrawAndUnwrap(uint256 _amount) external;\\n\\n    /// @dev Function to init or update Silo address. Saves the history of deprecated Silos and routers to not take it\\n    ///     into account for rewards calculation. Reverts if the first Silo is not created yet. Note, that syncSilo\\n    ///     updates collateral vault and it can cause the unclaimed and not checkpointed rewards to be lost in\\n    ///     deprecated Silos. This behaviour is intended. Taking into account deprecated Silos shares for rewards\\n    ///     calculations will significantly increase the gas costs for all interactions with Convex Silo. Users should\\n    ///     claim rewards before the Silo is replaced. Note that replacing Silo is improbable scenario and must be done\\n    ///     by the DAO only in very specific cases.\\n    function syncSilo() external;\\n\\n    /// @dev Function to get underlying curveLP token address. Created for a better naming,\\n    ///     the `curveToken` inherited variable name can be misleading.\\n    function underlyingToken() external view returns (address);\\n}\\n\",\"keccak256\":\"0x441b9f3f4eb79e96810dc38c78c35b44c8cedc0aaa43fc1533af24ecc6105b15\",\"license\":\"BUSL-1.1\"},\"contracts/liquidation/magicians/ConvexSiloWrapperMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"../../interfaces/IConvexSiloWrapper.sol\\\";\\nimport \\\"./interfaces/IMagician.sol\\\";\\n\\n/// @dev ConvexSiloWrapperMagician Magician for unwrapping `ConvexSiloWrapper` tokens to\\n///     Curve LP tokens.\\n/// IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.\\ncontract ConvexSiloWrapperMagician is IMagician {\\n    /// @dev revert when towardsAsset is called, because `ConvexSiloWrapper` is collateralOnly.\\n    ///     Liquidations of that collateral will not happen, because it can not be borrowed.\\n    error Unsupported();\\n\\n    /// @dev revert when the asset is not ConvexSiloWrapper token.\\n    error InvalidAsset();\\n\\n    /// @inheritdoc IMagician\\n    function towardsNative(address _asset, uint256 _amount)\\n        external\\n        virtual\\n        returns (address tokenOut, uint256 amountOut)\\n    {\\n        tokenOut = address(IConvexSiloWrapper(_asset).underlyingToken());\\n        amountOut = _amount;\\n        IConvexSiloWrapper(_asset).withdrawAndUnwrap(_amount);\\n    }\\n\\n    /// @inheritdoc IMagician\\n    function towardsAsset(address, uint256) external virtual returns (address, uint256) {\\n        revert Unsupported();\\n    }\\n}\\n\",\"keccak256\":\"0xa1edbf35df01e0dc8fb72145fe2d3d55124ba17f88abe693bf74559ba408b1f8\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/interfaces/IMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @notice Extension for the Liquidation helper to support such operations as unwrapping\\ninterface IMagician {\\n    /// @notice Operates to unwrap an `_asset`\\n    /// @param _asset Asset to be unwrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the `tokenOut` that we received\\n    function towardsNative(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n\\n    /// @notice Performs operation opposit to `towardsNative`\\n    /// @param _asset Asset to be wrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the quote token that we spent to get `_amoun` of the `_asset`\\n    function towardsAsset(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n}\\n\",\"keccak256\":\"0xb48290785d1be3d5b1ed767ee628faa69ee7ded238de776d66b9e0795536ff50\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061020a806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806321ebbf011461003b5780636ea477da14610071575b600080fd5b61004e610049366004610184565b610084565b604080516001600160a01b03909316835260208301919091520160405180910390f35b61004e61007f366004610184565b610150565b600080836001600160a01b0316632495a5996040518163ffffffff1660e01b8152600401602060405180830381865afa1580156100c5573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100e991906101b0565b604051630e5a77ed60e21b8152600481018590529092508391506001600160a01b03851690633969dfb490602401600060405180830381600087803b15801561013157600080fd5b505af1158015610145573d6000803e3d6000fd5b505050509250929050565b600080604051634851657960e11b815260040160405180910390fd5b6001600160a01b038116811461018157600080fd5b50565b6000806040838503121561019757600080fd5b82356101a28161016c565b946020939093013593505050565b6000602082840312156101c257600080fd5b81516101cd8161016c565b939250505056fea2646970667358221220009f48c59b1496835743cbaad6de9dd2ecda996fa4572f1a6425d28e44d343ee64736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c806321ebbf011461003b5780636ea477da14610071575b600080fd5b61004e610049366004610184565b610084565b604080516001600160a01b03909316835260208301919091520160405180910390f35b61004e61007f366004610184565b610150565b600080836001600160a01b0316632495a5996040518163ffffffff1660e01b8152600401602060405180830381865afa1580156100c5573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100e991906101b0565b604051630e5a77ed60e21b8152600481018590529092508391506001600160a01b03851690633969dfb490602401600060405180830381600087803b15801561013157600080fd5b505af1158015610145573d6000803e3d6000fd5b505050509250929050565b600080604051634851657960e11b815260040160405180910390fd5b6001600160a01b038116811461018157600080fd5b50565b6000806040838503121561019757600080fd5b82356101a28161016c565b946020939093013593505050565b6000602082840312156101c257600080fd5b81516101cd8161016c565b939250505056fea2646970667358221220009f48c59b1496835743cbaad6de9dd2ecda996fa4572f1a6425d28e44d343ee64736f6c634300080d0033",
+  "devdoc": {
+    "details": "ConvexSiloWrapperMagician Magician for unwrapping `ConvexSiloWrapper` tokens to     Curve LP tokens. IT IS NOT PART OF THE PROTOCOL. SILO CREATED THIS TOOL, MOSTLY AS AN EXAMPLE.",
+    "errors": {
+      "InvalidAsset()": [
+        {
+          "details": "revert when the asset is not ConvexSiloWrapper token."
+        }
+      ],
+      "Unsupported()": [
+        {
+          "details": "revert when towardsAsset is called, because `ConvexSiloWrapper` is collateralOnly.     Liquidations of that collateral will not happen, because it can not be borrowed."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be wrapped"
+        },
+        "returns": {
+          "_0": "A token that the `_asset` has been converted to",
+          "_1": "Amount of the quote token that we spent to get `_amoun` of the `_asset`"
+        }
+      },
+      "towardsNative(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be unwrapped"
+        },
+        "returns": {
+          "amountOut": "Amount of the `tokenOut` that we received",
+          "tokenOut": "A token that the `_asset` has been converted to"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "notice": "Performs operation opposit to `towardsNative`"
+      },
+      "towardsNative(address,uint256)": {
+        "notice": "Operates to unwrap an `_asset`"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

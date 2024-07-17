@@ -1,0 +1,833 @@
+{
+  "address": "0xE89D07da1438177eaa0AE7277D7D9A4dDdc16C0F",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IPriceProvidersRepository",
+          "name": "_priceProvidersRepository",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_emergencyManager",
+          "type": "address"
+        },
+        {
+          "internalType": "contract AggregatorV3Interface",
+          "name": "_quoteAggregator",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_quoteAggregatorHeartbeat",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AggregatorDidNotChange",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AggregatorPriceNotAvailable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AssetNotSupported",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmergencyManagerDidNotChange",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmergencyThresholdNotReached",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FallbackProviderAlreadySet",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FallbackProviderDidNotChange",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FallbackProviderNotSet",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "HeartbeatDidNotChange",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAggregator",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAggregatorDecimals",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidFallbackPriceProvider",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidHeartbeat",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyEmergencyManager",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "QuoteAggregatorHeartbeatDidNotChange",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "contract AggregatorV3Interface",
+          "name": "aggregator",
+          "type": "address"
+        }
+      ],
+      "name": "AggregatorDisabled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "contract AggregatorV3Interface",
+          "name": "aggregator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "convertToQuote",
+          "type": "bool"
+        }
+      ],
+      "name": "NewAggregator",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "emergencyManager",
+          "type": "address"
+        }
+      ],
+      "name": "NewEmergencyManager",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "contract IPriceProvider",
+          "name": "fallbackProvider",
+          "type": "address"
+        }
+      ],
+      "name": "NewFallbackPriceProvider",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "heartbeat",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewHeartbeat",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "heartbeat",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewQuoteAggregatorHeartbeat",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "EMERGENCY_PRECISION",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "EMERGENCY_THRESHOLD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "assetData",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "heartbeat",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "forceFallback",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "convertToQuote",
+          "type": "bool"
+        },
+        {
+          "internalType": "contract AggregatorV3Interface",
+          "name": "aggregator",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IPriceProvider",
+          "name": "fallbackProvider",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "assetSupported",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "emergencyDisable",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "emergencyManager",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "getAggregatorPrice",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "getFallbackProvider",
+      "outputs": [
+        {
+          "internalType": "contract IPriceProvider",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "priceProviderPing",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "priceProvidersRepository",
+      "outputs": [
+        {
+          "internalType": "contract IPriceProvidersRepository",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "quoteAggregatorHeartbeat",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "quoteToken",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "contract AggregatorV3Interface",
+          "name": "_aggregator",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "_convertToQuote",
+          "type": "bool"
+        }
+      ],
+      "name": "setAggregator",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_emergencyManager",
+          "type": "address"
+        }
+      ],
+      "name": "setEmergencyManager",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IPriceProvider",
+          "name": "_fallbackProvider",
+          "type": "address"
+        }
+      ],
+      "name": "setFallbackPriceProvider",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_heartbeat",
+          "type": "uint256"
+        }
+      ],
+      "name": "setHeartbeat",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_heartbeat",
+          "type": "uint256"
+        }
+      ],
+      "name": "setQuoteAggregatorHeartbeat",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "contract AggregatorV3Interface",
+          "name": "_aggregator",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IPriceProvider",
+          "name": "_fallbackProvider",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_heartbeat",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_convertToQuote",
+          "type": "bool"
+        }
+      ],
+      "name": "setupAsset",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xa03304c9ff125025da5628d0f5d3ed732c765e88a95cbf045a97935a3cf8182e",
+  "receipt": {
+    "to": null,
+    "from": "0x6d228Fa4daD2163056A48Fc2186d716f5c65E89A",
+    "contractAddress": "0xE89D07da1438177eaa0AE7277D7D9A4dDdc16C0F",
+    "transactionIndex": 11,
+    "gasUsed": "1624386",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000020000400000000000000000004000000000000020010000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000004000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x1a004864690f6a5877650a506cb4a4c3ea92e3eae61584f0b8c2fd4e1d4c6f48",
+    "transactionHash": "0xa03304c9ff125025da5628d0f5d3ed732c765e88a95cbf045a97935a3cf8182e",
+    "logs": [
+      {
+        "transactionIndex": 11,
+        "blockNumber": 120481629,
+        "transactionHash": "0xa03304c9ff125025da5628d0f5d3ed732c765e88a95cbf045a97935a3cf8182e",
+        "address": "0xE89D07da1438177eaa0AE7277D7D9A4dDdc16C0F",
+        "topics": [
+          "0xc9f3c0828967b8c34f2d6bbf6797c2965918320a1b0cd659293a94bff918fecd",
+          "0x000000000000000000000000468cd12aa9e9fe4301db146b0f7037831b52382d"
+        ],
+        "data": "0x",
+        "logIndex": 70,
+        "blockHash": "0x1a004864690f6a5877650a506cb4a4c3ea92e3eae61584f0b8c2fd4e1d4c6f48"
+      }
+    ],
+    "blockNumber": 120481629,
+    "cumulativeGasUsed": "4319964",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x1E915d8950f0C6bf9d01C603D33c50b6110beDA3",
+    "0x468CD12aa9e9fe4301DB146B0f7037831B52382d",
+    "0x13e3Ee699D1909E989722E753853AE30b17e08c5",
+    7200
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "986f1f0675541c27457f499da27f8d3d",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IPriceProvidersRepository\",\"name\":\"_priceProvidersRepository\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_emergencyManager\",\"type\":\"address\"},{\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"_quoteAggregator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_quoteAggregatorHeartbeat\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AggregatorDidNotChange\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AggregatorPriceNotAvailable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AssetNotSupported\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmergencyManagerDidNotChange\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmergencyThresholdNotReached\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FallbackProviderAlreadySet\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FallbackProviderDidNotChange\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FallbackProviderNotSet\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"HeartbeatDidNotChange\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAggregator\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAggregatorDecimals\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidFallbackPriceProvider\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidHeartbeat\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyEmergencyManager\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"QuoteAggregatorHeartbeatDidNotChange\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"aggregator\",\"type\":\"address\"}],\"name\":\"AggregatorDisabled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"aggregator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"convertToQuote\",\"type\":\"bool\"}],\"name\":\"NewAggregator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"emergencyManager\",\"type\":\"address\"}],\"name\":\"NewEmergencyManager\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"contract IPriceProvider\",\"name\":\"fallbackProvider\",\"type\":\"address\"}],\"name\":\"NewFallbackPriceProvider\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"heartbeat\",\"type\":\"uint256\"}],\"name\":\"NewHeartbeat\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"heartbeat\",\"type\":\"uint256\"}],\"name\":\"NewQuoteAggregatorHeartbeat\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"EMERGENCY_PRECISION\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"EMERGENCY_THRESHOLD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"assetData\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"heartbeat\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"forceFallback\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"convertToQuote\",\"type\":\"bool\"},{\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"aggregator\",\"type\":\"address\"},{\"internalType\":\"contract IPriceProvider\",\"name\":\"fallbackProvider\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"assetSupported\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"emergencyDisable\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"emergencyManager\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"getAggregatorPrice\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"getFallbackProvider\",\"outputs\":[{\"internalType\":\"contract IPriceProvider\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceProviderPing\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceProvidersRepository\",\"outputs\":[{\"internalType\":\"contract IPriceProvidersRepository\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quoteAggregatorHeartbeat\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quoteToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"_aggregator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_convertToQuote\",\"type\":\"bool\"}],\"name\":\"setAggregator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_emergencyManager\",\"type\":\"address\"}],\"name\":\"setEmergencyManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"contract IPriceProvider\",\"name\":\"_fallbackProvider\",\"type\":\"address\"}],\"name\":\"setFallbackPriceProvider\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_heartbeat\",\"type\":\"uint256\"}],\"name\":\"setHeartbeat\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_heartbeat\",\"type\":\"uint256\"}],\"name\":\"setQuoteAggregatorHeartbeat\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"_aggregator\",\"type\":\"address\"},{\"internalType\":\"contract IPriceProvider\",\"name\":\"_fallbackProvider\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_heartbeat\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_convertToQuote\",\"type\":\"bool\"}],\"name\":\"setupAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"assetSupported(address)\":{\"details\":\"Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away. Some providers implementations need time to \\\"build\\\" buffer for TWAP price, so price may not be available yet but this method will return true.\",\"params\":{\"_asset\":\"asset in question\"},\"returns\":{\"_0\":\"TRUE if asset has been setup, otherwise false\"}},\"emergencyDisable(address)\":{\"details\":\"Disables the aggregator for an asset if there is a big discrepancy between the aggregator and the fallback provider. The only way to reenable the asset is by calling setupAsset or setAggregator again. Can only be called by the emergencyManager.\",\"params\":{\"_asset\":\"Asset for which to disable the aggregator\"}},\"getAggregatorPrice(address)\":{\"details\":\"Returns price directly from aggregator using all internal settings except of fallback provider\",\"params\":{\"_asset\":\"Asset for which we want to get the price\"}},\"getPrice(address)\":{\"params\":{\"_asset\":\"address of an asset for which to read price\"},\"returns\":{\"_0\":\"of asses with 18 decimals, throws when pool is not ready yet to provide price\"}},\"priceProviderPing()\":{\"details\":\"this can save us from simple human errors, in case we use invalid address but this should NOT be treated as security check\",\"returns\":{\"_0\":\"always true\"}},\"setAggregator(address,address,bool)\":{\"details\":\"Sets the aggregator for an asset. Can only be called by the manager.\",\"params\":{\"_aggregator\":\"Aggregator to set\",\"_asset\":\"Asset for which to set the aggregator\"}},\"setEmergencyManager(address)\":{\"details\":\"Sets the emergencyManager. Can only be called by the manager.\",\"params\":{\"_emergencyManager\":\"Emergency manager to set\"}},\"setFallbackPriceProvider(address,address)\":{\"details\":\"Sets the fallback provider for an asset. Can only be called by the manager.\",\"params\":{\"_asset\":\"Asset for which to set the fallback provider\",\"_fallbackProvider\":\"Provider to set\"}},\"setHeartbeat(address,uint256)\":{\"details\":\"Sets the heartbeat threshold for an asset. Can only be called by the manager.\",\"params\":{\"_asset\":\"Asset for which to set the heartbeat threshold\",\"_heartbeat\":\"Threshold to set\"}},\"setQuoteAggregatorHeartbeat(uint256)\":{\"details\":\"Sets the quote aggregator heartbeat threshold. Can only be called by the manager.\",\"params\":{\"_heartbeat\":\"Threshold to set\"}},\"setupAsset(address,address,address,uint256,bool)\":{\"details\":\"Sets the aggregator, fallbackProvider and heartbeat for an asset. Can only be called by the manager.\",\"params\":{\"_aggregator\":\"Chainlink aggregator proxy\",\"_asset\":\"Asset to setup\",\"_fallbackProvider\":\"Provider to use if the price is invalid or if the aggregator was disabled\",\"_heartbeat\":\"Threshold in seconds to invalidate a stale price\"}}},\"stateVariables\":{\"EMERGENCY_THRESHOLD\":{\"details\":\"Disable the aggregator if the difference with the fallback is higher than this percentage (10%)\"},\"_MAX_PRICE_DIFF\":{\"details\":\"Used to optimize calculations in emergency disable function\"},\"_QUOTE_AGGREGATOR\":{\"details\":\"Aggregator that converts from USD to quote token\"},\"_QUOTE_AGGREGATOR_DECIMALS\":{\"details\":\"Decimals used by the _QUOTE_AGGREGATOR\"},\"_QUOTE_TOKEN_DECIMALS\":{\"details\":\"this is basically `PriceProvider.quoteToken.decimals()`\"},\"assetData\":{\"details\":\"Data used for each asset\"},\"emergencyManager\":{\"details\":\"Address allowed to call the emergencyDisable function, can be set by the owner\"},\"quoteAggregatorHeartbeat\":{\"details\":\"Threshold used to determine if the price returned by the _QUOTE_AGGREGATOR is valid\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getPrice(address)\":{\"notice\":\"Returns \\\"Time-Weighted Average Price\\\" for an asset. Calculates TWAP price for quote/asset. It unifies all tokens decimal to 18, examples: - if asses == quote it returns 1e18 - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC\"},\"priceProviderPing()\":{\"notice\":\"Helper method that allows easily detects, if contract is PriceProvider\"},\"priceProvidersRepository()\":{\"notice\":\"PriceProvidersRepository address\"},\"quoteToken()\":{\"notice\":\"Token address which prices are quoted in. Must be the same as PriceProvidersRepository.quoteToken\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol\":\"ChainlinkV3PriceProvider\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ninterface AggregatorV3Interface {\\n  function decimals() external view returns (uint8);\\n\\n  function description() external view returns (string memory);\\n\\n  function version() external view returns (uint256);\\n\\n  // getRoundData and latestRoundData should both raise \\\"No data present\\\"\\n  // if they do not have data to report, instead of returning unset values\\n  // which could be misinterpreted as actual reported values.\\n  function getRoundData(uint80 _roundId)\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n\\n  function latestRoundData()\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n}\\n\",\"keccak256\":\"0xf2b6c9adb3552254df1445b73563cf014434ff5e78663e9b961b6c059506ceb5\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/math/SafeMath.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/math/SafeMath.sol)\\n\\npragma solidity ^0.8.0;\\n\\n// CAUTION\\n// This version of SafeMath should only be used with Solidity 0.8 or later,\\n// because it relies on the compiler's built in overflow checks.\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations.\\n *\\n * NOTE: `SafeMath` is generally not needed starting with Solidity 0.8, since the compiler\\n * now has built in overflow checking.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            uint256 c = a + b;\\n            if (c < a) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the substraction of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b > a) return (false, 0);\\n            return (true, a - b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n            // benefit is lost if 'b' is also tested.\\n            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n            if (a == 0) return (true, 0);\\n            uint256 c = a * b;\\n            if (c / a != b) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the division of two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a / b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a % b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a + b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a - b;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a * b;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a / b;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a % b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {trySub}.\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b <= a, errorMessage);\\n            return a - b;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b > 0, errorMessage);\\n            return a / b;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting with custom message when dividing by zero.\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {tryMod}.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b > 0, errorMessage);\\n            return a % b;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xa2f576be637946f767aa56601c26d717f48a0aff44f82e46f13807eea1009a21\",\"license\":\"MIT\"},\"contracts/interfaces/IPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @title Common interface for Silo Price Providers\\ninterface IPriceProvider {\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset. Calculates TWAP price for quote/asset.\\n    /// It unifies all tokens decimal to 18, examples:\\n    /// - if asses == quote it returns 1e18\\n    /// - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price of asses with 18 decimals, throws when pool is not ready yet to provide price\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @dev Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away.\\n    /// Some providers implementations need time to \\\"build\\\" buffer for TWAP price,\\n    /// so price may not be available yet but this method will return true.\\n    /// @param _asset asset in question\\n    /// @return TRUE if asset has been setup, otherwise false\\n    function assetSupported(address _asset) external view returns (bool);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Helper method that allows easily detects, if contract is PriceProvider\\n    /// @dev this can save us from simple human errors, in case we use invalid address\\n    /// but this should NOT be treated as security check\\n    /// @return always true\\n    function priceProviderPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0xe25259fe540647dd3945dbc8eff5f7ec789c6708b42e1d82c456d3e8c9082147\",\"license\":\"BUSL-1.1\"},\"contracts/interfaces/IPriceProvidersRepository.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\nimport \\\"./IPriceProvider.sol\\\";\\n\\ninterface IPriceProvidersRepository {\\n    /// @notice Emitted when price provider is added\\n    /// @param newPriceProvider new price provider address\\n    event NewPriceProvider(IPriceProvider indexed newPriceProvider);\\n\\n    /// @notice Emitted when price provider is removed\\n    /// @param priceProvider removed price provider address\\n    event PriceProviderRemoved(IPriceProvider indexed priceProvider);\\n\\n    /// @notice Emitted when asset is assigned to price provider\\n    /// @param asset assigned asset   address\\n    /// @param priceProvider price provider address\\n    event PriceProviderForAsset(address indexed asset, IPriceProvider indexed priceProvider);\\n\\n    /// @notice Register new price provider\\n    /// @param _priceProvider address of price provider\\n    function addPriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Unregister price provider\\n    /// @param _priceProvider address of price provider to be removed\\n    function removePriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Sets price provider for asset\\n    /// @dev Request for asset price is forwarded to the price provider assigned to that asset\\n    /// @param _asset address of an asset for which price provider will be used\\n    /// @param _priceProvider address of price provider\\n    function setPriceProviderForAsset(address _asset, IPriceProvider _priceProvider) external;\\n\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price TWAP price of a token with 18 decimals\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @notice Gets price provider assigned to an asset\\n    /// @param _asset address of an asset for which to get price provider\\n    /// @return priceProvider address of price provider\\n    function priceProviders(address _asset) external view returns (IPriceProvider priceProvider);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Gets manager role address\\n    /// @return manager role address\\n    function manager() external view returns (address);\\n\\n    /// @notice Checks if providers are available for an asset\\n    /// @param _asset asset address to check\\n    /// @return returns TRUE if price feed is ready, otherwise false\\n    function providersReadyForAsset(address _asset) external view returns (bool);\\n\\n    /// @notice Returns true if address is a registered price provider\\n    /// @param _provider address of price provider to be removed\\n    /// @return true if address is a registered price provider, otherwise false\\n    function isPriceProvider(IPriceProvider _provider) external view returns (bool);\\n\\n    /// @notice Gets number of price providers registered\\n    /// @return number of price providers registered\\n    function providersCount() external view returns (uint256);\\n\\n    /// @notice Gets an array of price providers\\n    /// @return array of price providers\\n    function providerList() external view returns (address[] memory);\\n\\n    /// @notice Sanity check function\\n    /// @return returns always TRUE\\n    function priceProvidersRepositoryPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0x715cb0aa617134d1f4ebe427adb5899455114260c3d853732a6302fb5b5d6e53\",\"license\":\"BUSL-1.1\"},\"contracts/lib/Ping.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n\\nlibrary Ping {\\n    function pong(function() external pure returns(bytes4) pingFunction) internal pure returns (bool) {\\n        return pingFunction.address != address(0) && pingFunction.selector == pingFunction();\\n    }\\n}\\n\",\"keccak256\":\"0xc99622dfb46693aeb8a332ee0e124f54e12d5ed5e6b8f70a0c0e3678df35c8b1\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/IERC20LikeV2.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6;\\n\\n/// @dev This is only meant to be used by price providers, which use a different\\n/// Solidity version than the rest of the codebase. This way de won't need to include\\n/// an additional version of OpenZeppelin's library.\\ninterface IERC20LikeV2 {\\n    function decimals() external view returns (uint8);\\n    function balanceOf(address) external view returns(uint256);\\n}\\n\",\"keccak256\":\"0x55746da5754f7a613f86beaf934509a76f6d54372f6799defae4a5a3ab94afe2\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/PriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\nimport \\\"../lib/Ping.sol\\\";\\nimport \\\"../interfaces/IPriceProvider.sol\\\";\\nimport \\\"../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title PriceProvider\\n/// @notice Abstract PriceProvider contract, parent of all PriceProviders\\n/// @dev Price provider is a contract that directly integrates with a price source, ie. a DEX or alternative system\\n/// like Chainlink to calculate TWAP prices for assets. Each price provider should support a single price source\\n/// and multiple assets.\\nabstract contract PriceProvider is IPriceProvider {\\n    /// @notice PriceProvidersRepository address\\n    IPriceProvidersRepository public immutable priceProvidersRepository;\\n\\n    /// @notice Token address which prices are quoted in. Must be the same as PriceProvidersRepository.quoteToken\\n    address public immutable override quoteToken;\\n\\n    modifier onlyManager() {\\n        if (priceProvidersRepository.manager() != msg.sender) revert(\\\"OnlyManager\\\");\\n        _;\\n    }\\n\\n    /// @param _priceProvidersRepository address of PriceProvidersRepository\\n    constructor(IPriceProvidersRepository _priceProvidersRepository) {\\n        if (\\n            !Ping.pong(_priceProvidersRepository.priceProvidersRepositoryPing)            \\n        ) {\\n            revert(\\\"InvalidPriceProviderRepository\\\");\\n        }\\n\\n        priceProvidersRepository = _priceProvidersRepository;\\n        quoteToken = _priceProvidersRepository.quoteToken();\\n    }\\n\\n    /// @inheritdoc IPriceProvider\\n    function priceProviderPing() external pure override returns (bytes4) {\\n        return this.priceProviderPing.selector;\\n    }\\n\\n    function _revertBytes(bytes memory _errMsg, string memory _customErr) internal pure {\\n        if (_errMsg.length > 0) {\\n            assembly { // solhint-disable-line no-inline-assembly\\n                revert(add(32, _errMsg), mload(_errMsg))\\n            }\\n        }\\n\\n        revert(_customErr);\\n    }\\n}\\n\",\"keccak256\":\"0xd5d1739891a5639048bdf0c7c72838e848c3f381b56f978780d4d866535f30a5\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"@openzeppelin/contracts/utils/math/SafeMath.sol\\\";\\nimport \\\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\\\";\\n\\nimport \\\"../PriceProvider.sol\\\";\\nimport \\\"../IERC20LikeV2.sol\\\";\\n\\ncontract ChainlinkV3PriceProvider is PriceProvider {\\n    using SafeMath for uint256;\\n\\n    struct AssetData {\\n        // Time threshold to invalidate stale prices\\n        uint256 heartbeat;\\n        // If true, we bypass the aggregator and consult the fallback provider directly\\n        bool forceFallback;\\n        // If true, the aggregator returns price in USD, so we need to convert to QUOTE\\n        bool convertToQuote;\\n        // Chainlink aggregator proxy\\n        AggregatorV3Interface aggregator;\\n        // Provider used if the aggregator's price is invalid or if it became disabled\\n        IPriceProvider fallbackProvider;\\n    }\\n\\n    /// @dev Aggregator that converts from USD to quote token\\n    AggregatorV3Interface internal immutable _QUOTE_AGGREGATOR; // solhint-disable-line var-name-mixedcase\\n\\n    /// @dev Decimals used by the _QUOTE_AGGREGATOR\\n    uint8 internal immutable _QUOTE_AGGREGATOR_DECIMALS; // solhint-disable-line var-name-mixedcase\\n\\n    /// @dev Used to optimize calculations in emergency disable function\\n    // solhint-disable-next-line var-name-mixedcase\\n    uint256 internal immutable _MAX_PRICE_DIFF = type(uint256).max / (100 * EMERGENCY_PRECISION);\\n    \\n    // @dev Precision to use for the EMERGENCY_THRESHOLD\\n    uint256 public constant EMERGENCY_PRECISION = 1e6;\\n\\n    /// @dev Disable the aggregator if the difference with the fallback is higher than this percentage (10%)\\n    uint256 public constant EMERGENCY_THRESHOLD = 10 * EMERGENCY_PRECISION; // solhint-disable-line var-name-mixedcase\\n\\n    /// @dev this is basically `PriceProvider.quoteToken.decimals()`\\n    uint8 internal immutable _QUOTE_TOKEN_DECIMALS; // solhint-disable-line var-name-mixedcase\\n\\n    /// @dev Address allowed to call the emergencyDisable function, can be set by the owner\\n    address public emergencyManager;\\n\\n    /// @dev Threshold used to determine if the price returned by the _QUOTE_AGGREGATOR is valid\\n    uint256 public quoteAggregatorHeartbeat;\\n\\n    /// @dev Data used for each asset\\n    mapping(address => AssetData) public assetData;\\n\\n    event NewAggregator(address indexed asset, AggregatorV3Interface indexed aggregator, bool convertToQuote);\\n    event NewFallbackPriceProvider(address indexed asset, IPriceProvider indexed fallbackProvider);\\n    event NewHeartbeat(address indexed asset, uint256 heartbeat);\\n    event NewQuoteAggregatorHeartbeat(uint256 heartbeat);\\n    event NewEmergencyManager(address indexed emergencyManager);\\n    event AggregatorDisabled(address indexed asset, AggregatorV3Interface indexed aggregator);\\n\\n    error AggregatorDidNotChange();\\n    error AggregatorPriceNotAvailable();\\n    error AssetNotSupported();\\n    error EmergencyManagerDidNotChange();\\n    error EmergencyThresholdNotReached();\\n    error FallbackProviderAlreadySet();\\n    error FallbackProviderDidNotChange();\\n    error FallbackProviderNotSet();\\n    error HeartbeatDidNotChange();\\n    error InvalidAggregator();\\n    error InvalidAggregatorDecimals();\\n    error InvalidFallbackPriceProvider();\\n    error InvalidHeartbeat();\\n    error OnlyEmergencyManager();\\n    error QuoteAggregatorHeartbeatDidNotChange();\\n\\n    modifier onlyAssetSupported(address _asset) {\\n        if (!assetSupported(_asset)) {\\n            revert AssetNotSupported();\\n        }\\n\\n        _;\\n    }\\n\\n    constructor(\\n        IPriceProvidersRepository _priceProvidersRepository,\\n        address _emergencyManager,\\n        AggregatorV3Interface _quoteAggregator,\\n        uint256 _quoteAggregatorHeartbeat\\n    ) PriceProvider(_priceProvidersRepository) {\\n        _setEmergencyManager(_emergencyManager);\\n        _QUOTE_TOKEN_DECIMALS = IERC20LikeV2(quoteToken).decimals();\\n        _QUOTE_AGGREGATOR = _quoteAggregator;\\n        _QUOTE_AGGREGATOR_DECIMALS = _quoteAggregator.decimals();\\n        quoteAggregatorHeartbeat = _quoteAggregatorHeartbeat;\\n    }\\n\\n    /// @inheritdoc IPriceProvider\\n    function assetSupported(address _asset) public view virtual override returns (bool) {\\n        AssetData storage data = assetData[_asset];\\n\\n        // Asset is supported if:\\n        //     - the asset is the quote token\\n        //       OR\\n        //     - the aggregator address is defined AND\\n        //         - the aggregator is not disabled\\n        //           OR\\n        //         - the fallback is defined\\n\\n        if (_asset == quoteToken) {\\n            return true;\\n        }\\n\\n        if (address(data.aggregator) != address(0)) {\\n            return !data.forceFallback || address(data.fallbackProvider) != address(0);\\n        }\\n\\n        return false;\\n    }\\n\\n    /// @dev Returns price directly from aggregator using all internal settings except of fallback provider\\n    /// @param _asset Asset for which we want to get the price\\n    function getAggregatorPrice(address _asset) public view virtual returns (bool success, uint256 price) {\\n        (success, price) = _getAggregatorPrice(_asset);\\n    }\\n    \\n    /// @inheritdoc IPriceProvider\\n    function getPrice(address _asset) public view virtual override returns (uint256) {\\n        address quote = quoteToken;\\n\\n        if (_asset == quote) {\\n            return 10 ** _QUOTE_TOKEN_DECIMALS;\\n        }\\n\\n        (bool success, uint256 price) = _getAggregatorPrice(_asset);\\n\\n        return success ? price : _getFallbackPrice(_asset);\\n    }\\n\\n    /// @dev Sets the aggregator, fallbackProvider and heartbeat for an asset. Can only be called by the manager.\\n    /// @param _asset Asset to setup\\n    /// @param _aggregator Chainlink aggregator proxy\\n    /// @param _fallbackProvider Provider to use if the price is invalid or if the aggregator was disabled\\n    /// @param _heartbeat Threshold in seconds to invalidate a stale price\\n    function setupAsset(\\n        address _asset,\\n        AggregatorV3Interface _aggregator,\\n        IPriceProvider _fallbackProvider,\\n        uint256 _heartbeat,\\n        bool _convertToQuote\\n    ) external virtual onlyManager {\\n        // This has to be done first so that `_setAggregator` works\\n        _setHeartbeat(_asset, _heartbeat);\\n\\n        if (!_setAggregator(_asset, _aggregator, _convertToQuote)) revert AggregatorDidNotChange();\\n\\n        // We don't care if this doesn't change\\n        _setFallbackPriceProvider(_asset, _fallbackProvider);\\n    }\\n\\n    /// @dev Sets the aggregator for an asset. Can only be called by the manager.\\n    /// @param _asset Asset for which to set the aggregator\\n    /// @param _aggregator Aggregator to set\\n    function setAggregator(address _asset, AggregatorV3Interface _aggregator, bool _convertToQuote)\\n        external\\n        virtual\\n        onlyManager\\n        onlyAssetSupported(_asset)\\n    {\\n        if (!_setAggregator(_asset, _aggregator, _convertToQuote)) revert AggregatorDidNotChange();\\n    }\\n\\n    /// @dev Sets the fallback provider for an asset. Can only be called by the manager.\\n    /// @param _asset Asset for which to set the fallback provider\\n    /// @param _fallbackProvider Provider to set\\n    function setFallbackPriceProvider(address _asset, IPriceProvider _fallbackProvider)\\n        external\\n        virtual\\n        onlyManager\\n        onlyAssetSupported(_asset)\\n    {\\n        if (!_setFallbackPriceProvider(_asset, _fallbackProvider)) {\\n            revert FallbackProviderDidNotChange();\\n        }\\n    }\\n\\n    /// @dev Sets the heartbeat threshold for an asset. Can only be called by the manager.\\n    /// @param _asset Asset for which to set the heartbeat threshold\\n    /// @param _heartbeat Threshold to set\\n    function setHeartbeat(address _asset, uint256 _heartbeat)\\n        external\\n        virtual\\n        onlyManager\\n        onlyAssetSupported(_asset)\\n    {\\n        if (!_setHeartbeat(_asset, _heartbeat)) revert HeartbeatDidNotChange();\\n    }\\n\\n    /// @dev Sets the quote aggregator heartbeat threshold. Can only be called by the manager.\\n    /// @param _heartbeat Threshold to set\\n    function setQuoteAggregatorHeartbeat(uint256 _heartbeat)\\n        external\\n        virtual\\n        onlyManager\\n    {\\n        if (!_setQuoteAggregatorHeartbeat(_heartbeat)) revert QuoteAggregatorHeartbeatDidNotChange();\\n    }\\n\\n    /// @dev Sets the emergencyManager. Can only be called by the manager.\\n    /// @param _emergencyManager Emergency manager to set\\n    function setEmergencyManager(address _emergencyManager) external virtual onlyManager {\\n        if (!_setEmergencyManager(_emergencyManager)) revert EmergencyManagerDidNotChange();\\n    }\\n\\n    /// @dev Disables the aggregator for an asset if there is a big discrepancy between the aggregator and the\\n    /// fallback provider. The only way to reenable the asset is by calling setupAsset or setAggregator again.\\n    /// Can only be called by the emergencyManager.\\n    /// @param _asset Asset for which to disable the aggregator\\n    function emergencyDisable(address _asset) external virtual {\\n        if (msg.sender != emergencyManager) {\\n            revert OnlyEmergencyManager();\\n        }\\n\\n        (bool success, uint256 price) = _getAggregatorPrice(_asset);\\n\\n        if (!success) {\\n            revert AggregatorPriceNotAvailable();\\n        }\\n\\n        uint256 fallbackPrice = _getFallbackPrice(_asset);\\n\\n        uint256 diff;\\n\\n        unchecked {\\n            // It is ok to uncheck because of the initial fallbackPrice >= price check\\n            diff = fallbackPrice >= price ? fallbackPrice - price : price - fallbackPrice;\\n        }\\n\\n        if (diff > _MAX_PRICE_DIFF || (diff * 100 * EMERGENCY_PRECISION) / price < EMERGENCY_THRESHOLD) {\\n            revert EmergencyThresholdNotReached();\\n        }\\n\\n        // Disable main aggregator, fallback stays enabled\\n        assetData[_asset].forceFallback = true;\\n\\n        emit AggregatorDisabled(_asset, assetData[_asset].aggregator);\\n    }\\n\\n    function getFallbackProvider(address _asset) external view virtual returns (IPriceProvider) {\\n        return assetData[_asset].fallbackProvider;\\n    }\\n\\n    function _getAggregatorPrice(address _asset) internal view virtual returns (bool success, uint256 price) {\\n        AssetData storage data = assetData[_asset];\\n\\n        uint256 heartbeat = data.heartbeat;\\n        bool forceFallback = data.forceFallback;\\n        AggregatorV3Interface aggregator = data.aggregator;\\n\\n        if (address(aggregator) == address(0)) revert AssetNotSupported();\\n\\n        (\\n            /*uint80 roundID*/,\\n            int256 aggregatorPrice,\\n            /*uint256 startedAt*/,\\n            uint256 timestamp,\\n            /*uint80 answeredInRound*/\\n        ) = aggregator.latestRoundData();\\n\\n        // If a valid price is returned and it was updated recently\\n        if (!forceFallback && _isValidPrice(aggregatorPrice, timestamp, heartbeat)) {\\n            uint256 result;\\n\\n            if (data.convertToQuote) {\\n                // _toQuote performs decimal normalization internally\\n                result = _toQuote(uint256(aggregatorPrice));\\n            } else {\\n                uint8 aggregatorDecimals = aggregator.decimals();\\n                result = _normalizeWithDecimals(uint256(aggregatorPrice), aggregatorDecimals);\\n            }\\n\\n            return (true, result);\\n        }\\n\\n        return (false, 0);\\n    }\\n\\n    function _getFallbackPrice(address _asset) internal view virtual returns (uint256) {\\n        IPriceProvider fallbackProvider = assetData[_asset].fallbackProvider;\\n\\n        if (address(fallbackProvider) == address(0)) revert FallbackProviderNotSet();\\n\\n        return fallbackProvider.getPrice(_asset);\\n    }\\n\\n    function _setEmergencyManager(address _emergencyManager) internal virtual returns (bool changed) {\\n        if (_emergencyManager == emergencyManager) {\\n            return false;\\n        }\\n\\n        emergencyManager = _emergencyManager;\\n\\n        emit NewEmergencyManager(_emergencyManager);\\n\\n        return true;\\n    }\\n\\n    function _setAggregator(\\n        address _asset,\\n        AggregatorV3Interface _aggregator,\\n        bool _convertToQuote\\n    ) internal virtual returns (bool changed) {\\n        if (address(_aggregator) == address(0)) revert InvalidAggregator();\\n\\n        AssetData storage data = assetData[_asset];\\n\\n        if (data.aggregator == _aggregator && data.forceFallback == false) {\\n            return false;\\n        }\\n\\n        // There doesn't seem to be a way to verify if this is a \\\"valid\\\" aggregator (other than getting the price)\\n        data.forceFallback = false;\\n        data.aggregator = _aggregator;\\n\\n        (bool success,) = _getAggregatorPrice(_asset);\\n\\n        if (!success) revert AggregatorPriceNotAvailable();\\n\\n        if (_convertToQuote && _aggregator.decimals() != _QUOTE_AGGREGATOR_DECIMALS) {\\n            revert InvalidAggregatorDecimals();\\n        }\\n\\n        // We want to always update this\\n        assetData[_asset].convertToQuote = _convertToQuote;\\n\\n        emit NewAggregator(_asset, _aggregator, _convertToQuote);\\n\\n        return true;\\n    }\\n\\n    function _setFallbackPriceProvider(address _asset, IPriceProvider _fallbackProvider)\\n        internal\\n        virtual\\n        returns (bool changed)\\n    {\\n        if (_fallbackProvider == assetData[_asset].fallbackProvider) {\\n            return false;\\n        }\\n\\n        assetData[_asset].fallbackProvider = _fallbackProvider;\\n\\n        if (address(_fallbackProvider) != address(0)) {\\n            if (\\n                !priceProvidersRepository.isPriceProvider(_fallbackProvider) ||\\n                !_fallbackProvider.assetSupported(_asset) ||\\n                _fallbackProvider.quoteToken() != quoteToken\\n            ) {\\n                revert InvalidFallbackPriceProvider();\\n            }\\n\\n            // Make sure it doesn't revert\\n            _getFallbackPrice(_asset);\\n        }\\n\\n        emit NewFallbackPriceProvider(_asset, _fallbackProvider);\\n\\n        return true;\\n    }\\n\\n    function _setHeartbeat(address _asset, uint256 _heartbeat) internal virtual returns (bool changed) {\\n        // Arbitrary limit, Chainlink's threshold is always less than a day\\n        if (_heartbeat > 2 days) revert InvalidHeartbeat();\\n\\n        if (_heartbeat == assetData[_asset].heartbeat) {\\n            return false;\\n        }\\n\\n        assetData[_asset].heartbeat = _heartbeat;\\n\\n        emit NewHeartbeat(_asset, _heartbeat);\\n\\n        return true;\\n    }\\n\\n    function _setQuoteAggregatorHeartbeat(uint256 _heartbeat) internal virtual returns (bool changed) {\\n        // Arbitrary limit, Chainlink's threshold is always less than a day\\n        if (_heartbeat > 2 days) revert InvalidHeartbeat();\\n\\n        if (_heartbeat == quoteAggregatorHeartbeat) {\\n            return false;\\n        }\\n\\n        quoteAggregatorHeartbeat = _heartbeat;\\n\\n        emit NewQuoteAggregatorHeartbeat(_heartbeat);\\n\\n        return true;\\n    }\\n\\n    /// @dev Adjusts the given price to use the same decimals as the quote token.\\n    /// @param _price Price to adjust decimals\\n    /// @param _decimals Decimals considered in `_price`\\n    function _normalizeWithDecimals(uint256 _price, uint8 _decimals) internal view virtual returns (uint256) {\\n        // We want to return the price of 1 asset token, but with the decimals of the quote token\\n        if (_QUOTE_TOKEN_DECIMALS == _decimals) {\\n            return _price;\\n        } else if (_QUOTE_TOKEN_DECIMALS < _decimals) {\\n            return _price / 10 ** (_decimals - _QUOTE_TOKEN_DECIMALS);\\n        } else {\\n            return _price * 10 ** (_QUOTE_TOKEN_DECIMALS - _decimals);\\n        }\\n    }\\n\\n    /// @dev Converts a price returned by an aggregator to quote units\\n    function _toQuote(uint256 _price) internal view virtual returns (uint256) {\\n       (\\n            /*uint80 roundID*/,\\n            int256 aggregatorPrice,\\n            /*uint256 startedAt*/,\\n            uint256 timestamp,\\n            /*uint80 answeredInRound*/\\n        ) = _QUOTE_AGGREGATOR.latestRoundData();\\n\\n        // If an invalid price is returned\\n        if (!_isValidPrice(aggregatorPrice, timestamp, quoteAggregatorHeartbeat)) {\\n            revert AggregatorPriceNotAvailable();\\n        }\\n\\n        // _price and aggregatorPrice should both have the same decimals so we normalize here\\n        return _price * 10 ** _QUOTE_TOKEN_DECIMALS / uint256(aggregatorPrice);\\n    }\\n\\n    function _isValidPrice(int256 _price, uint256 _timestamp, uint256 _heartbeat) internal view virtual returns (bool) {\\n        return _price > 0 && block.timestamp - _timestamp < _heartbeat;\\n    }\\n}\\n\",\"keccak256\":\"0x215834b7c29259ea630b42241679d870f9cc2502137c7307431e020c469d3ee4\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x61014060405262000015620f4240606462000340565b62000023906000196200036e565b610100523480156200003457600080fd5b5060405162002031380380620020318339810160408190526200005791620003aa565b836200007c816001600160a01b031663eec3e6a76200024960201b62000bef1760201c565b620000cd5760405162461bcd60e51b815260206004820152601e60248201527f496e76616c6964507269636550726f76696465725265706f7369746f72790000604482015260640160405180910390fd5b6001600160a01b038116608081905260408051630217a4b760e41b8152905163217a4b70916004808201926020929091908290030181865afa15801562000118573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906200013e919062000404565b6001600160a01b031660a052506200015683620002d3565b5060a0516001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa15801562000198573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190620001be919062000424565b60ff16610120526001600160a01b03821660c08190526040805163313ce56760e01b8152905163313ce567916004808201926020929091908290030181865afa15801562000210573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019062000236919062000424565b60ff1660e0526001555062000475915050565b60006001600160a01b03831615801590620002cc575082826040518163ffffffff1660e01b8152600401602060405180830381865afa15801562000291573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190620002b7919062000449565b60e083901b6001600160e01b03199081169116145b9392505050565b600080546001600160a01b0390811690831603620002f357506000919050565b600080546001600160a01b0319166001600160a01b038416908117825560405190917fc9f3c0828967b8c34f2d6bbf6797c2965918320a1b0cd659293a94bff918fecd91a2506001919050565b60008160001904831182151516156200036957634e487b7160e01b600052601160045260246000fd5b500290565b6000826200038c57634e487b7160e01b600052601260045260246000fd5b500490565b6001600160a01b0381168114620003a757600080fd5b50565b60008060008060808587031215620003c157600080fd5b8451620003ce8162000391565b6020860151909450620003e18162000391565b6040860151909350620003f48162000391565b6060959095015193969295505050565b6000602082840312156200041757600080fd5b8151620002cc8162000391565b6000602082840312156200043757600080fd5b815160ff81168114620002cc57600080fd5b6000602082840312156200045c57600080fd5b81516001600160e01b031981168114620002cc57600080fd5b60805160a05160c05160e0516101005161012051611b036200052e600039600081816105f001528181611581015281816115c3015281816115f701528181611624015261166b015260006106cb0152600061129c015260006114ca01526000818161017a015281816105b901528181610aa00152610f73015260008181610290015281816103b3015281816104c1015281816107b4015281816108bb0152818161099601528181610b230152610e8d0152611b036000f3fe608060405234801561001057600080fd5b50600436106101215760003560e01c80635ddf2be3116100ad578063b31fb25611610071578063b31fb256146102fe578063d0532d9114610321578063d2c18f5914610334578063da31cf3c14610347578063db09c3fd1461035057600080fd5b80635ddf2be31461028b57806375435703146102b25780637f2141c8146102c55780638f001f59146102d85780639a2ca257146102eb57600080fd5b80632553b17f116100f45780632553b17f146101b45780632f1605fc146101c957806341976e09146101dc57806341fee44a146101ef57806357e0c50f1461027657600080fd5b8063087d31b7146101265780630f2a1632146101415780631d498ad31461014b578063217a4b7014610175575b600080fd5b61012e610380565b6040519081526020015b60405180910390f35b61012e620f424081565b61015e6101593660046116b9565b610391565b604080519215158352602083019190915201610138565b61019c7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b039091168152602001610138565b6101c76101c23660046116d6565b6103a7565b005b6101c76101d736600461170f565b6104b5565b61012e6101ea3660046116b9565b6105b5565b61023f6101fd3660046116b9565b600260208190526000918252604090912080546001820154919092015460ff808316926101008104909116916001600160a01b03620100009092048216911685565b604080519586529315156020860152911515928401929092526001600160a01b03918216606084015216608082015260a001610138565b6040516357e0c50f60e01b8152602001610138565b61019c7f000000000000000000000000000000000000000000000000000000000000000081565b6101c76102c03660046116b9565b61064b565b6101c76102d3366004611749565b6107a8565b6101c76102e6366004611794565b6108af565b6101c76102f93660046117ad565b61098a565b61031161030c3660046116b9565b610a81565b6040519015158152602001610138565b6101c761032f3660046116b9565b610b17565b60005461019c906001600160a01b031681565b61012e60015481565b61019c61035e3660046116b9565b6001600160a01b03908116600090815260026020819052604090912001541690565b61038e620f4240600a61182b565b81565b60008061039d83610c77565b9094909350915050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa15801561040f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610433919061184a565b6001600160a01b0316146104625760405162461bcd60e51b815260040161045990611867565b60405180910390fd5b8161046c81610a81565b6104895760405163981a2a2b60e01b815260040160405180910390fd5b6104938383610e06565b6104b057604051630d51b37960e21b815260040160405180910390fd5b505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa15801561051d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610541919061184a565b6001600160a01b0316146105675760405162461bcd60e51b815260040161045990611867565b8161057181610a81565b61058e5760405163981a2a2b60e01b815260040160405180910390fd5b610598838361107b565b6104b05760405163d0abfce560e01b815260040160405180910390fd5b60007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b038082169084160361061d576106167f0000000000000000000000000000000000000000000000000000000000000000600a611970565b9392505050565b60008061062985610c77565b91509150816106405761063b85611126565b610642565b805b95945050505050565b6000546001600160a01b0316331461067657604051633111da4560e21b815260040160405180910390fd5b60008061068283610c77565b91509150816106a457604051638a93c04960e01b815260040160405180910390fd5b60006106af84611126565b90506000828210156106c3578183036106c7565b8282035b90507f00000000000000000000000000000000000000000000000000000000000000008111806107265750610700620f4240600a61182b565b83620f424061071084606461182b565b61071a919061182b565b610724919061197f565b105b15610744576040516332d3273560e21b815260040160405180910390fd5b6001600160a01b038086166000818152600260205260408082206001908101805460ff191690911790819055905162010000909104909316927f19986ca6379d8de58c363928f6de20927669b98ab030c431c2f2fee2625961d59190a35050505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610810573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610834919061184a565b6001600160a01b03161461085a5760405162461bcd60e51b815260040161045990611867565b8261086481610a81565b6108815760405163981a2a2b60e01b815260040160405180910390fd5b61088c8484846111ce565b6108a957604051630fe8d77760e11b815260040160405180910390fd5b50505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610917573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061093b919061184a565b6001600160a01b0316146109615760405162461bcd60e51b815260040161045990611867565b61096a816113bf565b6109875760405163f620192160e01b815260040160405180910390fd5b50565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156109f2573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a16919061184a565b6001600160a01b031614610a3c5760405162461bcd60e51b815260040161045990611867565b610a46858361107b565b50610a528585836111ce565b610a6f57604051630fe8d77760e11b815260040160405180910390fd5b610a798584610e06565b505050505050565b6001600160a01b038082166000818152600260205260408120909290917f00000000000000000000000000000000000000000000000000000000000000009091169003610ad15750600192915050565b60018101546201000090046001600160a01b031615610b0e57600181015460ff1615806106165750600201546001600160a01b0316151592915050565b50600092915050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610b7f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ba3919061184a565b6001600160a01b031614610bc95760405162461bcd60e51b815260040161045990611867565b610bd281611436565b610987576040516393c3b9ab60e01b815260040160405180910390fd5b60006001600160a01b03831615801590610c6e575082826040518163ffffffff1660e01b8152600401602060405180830381865afa158015610c35573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c5991906119a1565b60e083901b6001600160e01b03199081169116145b90505b92915050565b6001600160a01b038082166000908152600260205260408120805460018201549293849360ff811691620100009091041680610cc65760405163981a2a2b60e01b815260040160405180910390fd5b600080826001600160a01b031663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa158015610d07573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610d2b91906119ea565b5093505092505083158015610d465750610d468282876114a2565b15610df5576001860154600090610100900460ff1615610d7057610d69836114c3565b9050610de4565b6000846001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa158015610db0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610dd49190611a3a565b9050610de084826115bb565b9150505b60019a909950975050505050505050565b506000988998509650505050505050565b6001600160a01b03808316600090815260026020819052604082200154909190811690831603610e3857506000610c71565b6001600160a01b0383811660009081526002602081905260409091200180546001600160a01b031916918416918217905515611032576040516312fd145b60e31b81526001600160a01b0383811660048301527f000000000000000000000000000000000000000000000000000000000000000016906397e8a2d890602401602060405180830381865afa158015610ed4573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ef89190611a5d565b1580610f6b575060405163598fd92b60e11b81526001600160a01b03848116600483015283169063b31fb25690602401602060405180830381865afa158015610f45573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610f699190611a5d565b155b8061100957507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316826001600160a01b031663217a4b706040518163ffffffff1660e01b8152600401602060405180830381865afa158015610fd9573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ffd919061184a565b6001600160a01b031614155b156110275760405163f7ebc71360e01b815260040160405180910390fd5b61103083611126565b505b816001600160a01b0316836001600160a01b03167f26f22f8c474f2065d47d555b7f96badf39d94093d6db814098680b098d96a27860405160405180910390a350600192915050565b60006202a3008211156110a157604051638f1825c960e01b815260040160405180910390fd5b6001600160a01b03831660009081526002602052604090205482036110c857506000610c71565b6001600160a01b03831660008181526002602052604090819020849055517f7892d1ac746d3db86c35b555e3c7ddbe78b1a209068eadaf1ad5bfe08a8653a9906111159085815260200190565b60405180910390a250600192915050565b6001600160a01b038082166000908152600260208190526040822001549091168061116457604051631c48ef1360e21b815260040160405180910390fd5b6040516341976e0960e01b81526001600160a01b0384811660048301528216906341976e0990602401602060405180830381865afa1580156111aa573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106169190611a7a565b60006001600160a01b0383166111f75760405163029a68ed60e41b815260040160405180910390fd5b6001600160a01b0384811660009081526002602052604090206001810154909185811662010000909204161480156112345750600181015460ff16155b15611243576000915050610616565b60018101805461ff01600160b01b031916620100006001600160a01b03871602179055600061127186610c77565b5090508061129257604051638a93c04960e01b815260040160405180910390fd5b83801561132657507f000000000000000000000000000000000000000000000000000000000000000060ff16856001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa1580156112fc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113209190611a3a565b60ff1614155b1561134457604051636322b92560e11b815260040160405180910390fd5b6001600160a01b038087166000818152600260205260409081902060010180548815156101000261ff001990911617905551918716917ffc4600a47c5e7ea766bb29e689a692a267b8549a1f07afa418b47bdd479e1817906113ab90881515815260200190565b60405180910390a350600195945050505050565b60006202a3008211156113e557604051638f1825c960e01b815260040160405180910390fd5b60015482036113f657506000919050565b60018290556040518281527fcc859b6b85e71cdf22c35275e400cbd6817f8bdfd829e0d386dbf3edc292ffcc9060200160405180910390a1506001919050565b600080546001600160a01b039081169083160361145557506000919050565b600080546001600160a01b0319166001600160a01b038416908117825560405190917fc9f3c0828967b8c34f2d6bbf6797c2965918320a1b0cd659293a94bff918fecd91a2506001919050565b600080841380156114bb5750816114b98442611a93565b105b949350505050565b60008060007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa158015611526573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061154a91906119ea565b5093505092505061155e82826001546114a2565b61157b57604051638a93c04960e01b815260040160405180910390fd5b816115a77f0000000000000000000000000000000000000000000000000000000000000000600a611970565b6115b1908661182b565b6114bb919061197f565b60008160ff167f000000000000000000000000000000000000000000000000000000000000000060ff16036115f1575081610c71565b8160ff167f000000000000000000000000000000000000000000000000000000000000000060ff161015611665576116497f000000000000000000000000000000000000000000000000000000000000000083611aaa565b61165490600a611970565b61165e908461197f565b9050610c71565b61168f827f0000000000000000000000000000000000000000000000000000000000000000611aaa565b61169a90600a611970565b61165e908461182b565b6001600160a01b038116811461098757600080fd5b6000602082840312156116cb57600080fd5b8135610616816116a4565b600080604083850312156116e957600080fd5b82356116f4816116a4565b91506020830135611704816116a4565b809150509250929050565b6000806040838503121561172257600080fd5b823561172d816116a4565b946020939093013593505050565b801515811461098757600080fd5b60008060006060848603121561175e57600080fd5b8335611769816116a4565b92506020840135611779816116a4565b915060408401356117898161173b565b809150509250925092565b6000602082840312156117a657600080fd5b5035919050565b600080600080600060a086880312156117c557600080fd5b85356117d0816116a4565b945060208601356117e0816116a4565b935060408601356117f0816116a4565b92506060860135915060808601356118078161173b565b809150509295509295909350565b634e487b7160e01b600052601160045260246000fd5b600081600019048311821515161561184557611845611815565b500290565b60006020828403121561185c57600080fd5b8151610616816116a4565b6020808252600b908201526a27b7363ca6b0b730b3b2b960a91b604082015260600190565b600181815b808511156118c75781600019048211156118ad576118ad611815565b808516156118ba57918102915b93841c9390800290611891565b509250929050565b6000826118de57506001610c71565b816118eb57506000610c71565b8160018114611901576002811461190b57611927565b6001915050610c71565b60ff84111561191c5761191c611815565b50506001821b610c71565b5060208310610133831016604e8410600b841016171561194a575081810a610c71565b611954838361188c565b806000190482111561196857611968611815565b029392505050565b6000610c6e60ff8416836118cf565b60008261199c57634e487b7160e01b600052601260045260246000fd5b500490565b6000602082840312156119b357600080fd5b81516001600160e01b03198116811461061657600080fd5b805169ffffffffffffffffffff811681146119e557600080fd5b919050565b600080600080600060a08688031215611a0257600080fd5b611a0b866119cb565b9450602086015193506040860151925060608601519150611a2e608087016119cb565b90509295509295909350565b600060208284031215611a4c57600080fd5b815160ff8116811461061657600080fd5b600060208284031215611a6f57600080fd5b81516106168161173b565b600060208284031215611a8c57600080fd5b5051919050565b600082821015611aa557611aa5611815565b500390565b600060ff821660ff841680821015611ac457611ac4611815565b9003939250505056fea2646970667358221220f1811bd1a10b772e2b6de72d32bafddadcbd7b8c591b434c2c71e28b2b64739464736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106101215760003560e01c80635ddf2be3116100ad578063b31fb25611610071578063b31fb256146102fe578063d0532d9114610321578063d2c18f5914610334578063da31cf3c14610347578063db09c3fd1461035057600080fd5b80635ddf2be31461028b57806375435703146102b25780637f2141c8146102c55780638f001f59146102d85780639a2ca257146102eb57600080fd5b80632553b17f116100f45780632553b17f146101b45780632f1605fc146101c957806341976e09146101dc57806341fee44a146101ef57806357e0c50f1461027657600080fd5b8063087d31b7146101265780630f2a1632146101415780631d498ad31461014b578063217a4b7014610175575b600080fd5b61012e610380565b6040519081526020015b60405180910390f35b61012e620f424081565b61015e6101593660046116b9565b610391565b604080519215158352602083019190915201610138565b61019c7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b039091168152602001610138565b6101c76101c23660046116d6565b6103a7565b005b6101c76101d736600461170f565b6104b5565b61012e6101ea3660046116b9565b6105b5565b61023f6101fd3660046116b9565b600260208190526000918252604090912080546001820154919092015460ff808316926101008104909116916001600160a01b03620100009092048216911685565b604080519586529315156020860152911515928401929092526001600160a01b03918216606084015216608082015260a001610138565b6040516357e0c50f60e01b8152602001610138565b61019c7f000000000000000000000000000000000000000000000000000000000000000081565b6101c76102c03660046116b9565b61064b565b6101c76102d3366004611749565b6107a8565b6101c76102e6366004611794565b6108af565b6101c76102f93660046117ad565b61098a565b61031161030c3660046116b9565b610a81565b6040519015158152602001610138565b6101c761032f3660046116b9565b610b17565b60005461019c906001600160a01b031681565b61012e60015481565b61019c61035e3660046116b9565b6001600160a01b03908116600090815260026020819052604090912001541690565b61038e620f4240600a61182b565b81565b60008061039d83610c77565b9094909350915050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa15801561040f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610433919061184a565b6001600160a01b0316146104625760405162461bcd60e51b815260040161045990611867565b60405180910390fd5b8161046c81610a81565b6104895760405163981a2a2b60e01b815260040160405180910390fd5b6104938383610e06565b6104b057604051630d51b37960e21b815260040160405180910390fd5b505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa15801561051d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610541919061184a565b6001600160a01b0316146105675760405162461bcd60e51b815260040161045990611867565b8161057181610a81565b61058e5760405163981a2a2b60e01b815260040160405180910390fd5b610598838361107b565b6104b05760405163d0abfce560e01b815260040160405180910390fd5b60007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b038082169084160361061d576106167f0000000000000000000000000000000000000000000000000000000000000000600a611970565b9392505050565b60008061062985610c77565b91509150816106405761063b85611126565b610642565b805b95945050505050565b6000546001600160a01b0316331461067657604051633111da4560e21b815260040160405180910390fd5b60008061068283610c77565b91509150816106a457604051638a93c04960e01b815260040160405180910390fd5b60006106af84611126565b90506000828210156106c3578183036106c7565b8282035b90507f00000000000000000000000000000000000000000000000000000000000000008111806107265750610700620f4240600a61182b565b83620f424061071084606461182b565b61071a919061182b565b610724919061197f565b105b15610744576040516332d3273560e21b815260040160405180910390fd5b6001600160a01b038086166000818152600260205260408082206001908101805460ff191690911790819055905162010000909104909316927f19986ca6379d8de58c363928f6de20927669b98ab030c431c2f2fee2625961d59190a35050505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610810573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610834919061184a565b6001600160a01b03161461085a5760405162461bcd60e51b815260040161045990611867565b8261086481610a81565b6108815760405163981a2a2b60e01b815260040160405180910390fd5b61088c8484846111ce565b6108a957604051630fe8d77760e11b815260040160405180910390fd5b50505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610917573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061093b919061184a565b6001600160a01b0316146109615760405162461bcd60e51b815260040161045990611867565b61096a816113bf565b6109875760405163f620192160e01b815260040160405180910390fd5b50565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156109f2573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a16919061184a565b6001600160a01b031614610a3c5760405162461bcd60e51b815260040161045990611867565b610a46858361107b565b50610a528585836111ce565b610a6f57604051630fe8d77760e11b815260040160405180910390fd5b610a798584610e06565b505050505050565b6001600160a01b038082166000818152600260205260408120909290917f00000000000000000000000000000000000000000000000000000000000000009091169003610ad15750600192915050565b60018101546201000090046001600160a01b031615610b0e57600181015460ff1615806106165750600201546001600160a01b0316151592915050565b50600092915050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa158015610b7f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ba3919061184a565b6001600160a01b031614610bc95760405162461bcd60e51b815260040161045990611867565b610bd281611436565b610987576040516393c3b9ab60e01b815260040160405180910390fd5b60006001600160a01b03831615801590610c6e575082826040518163ffffffff1660e01b8152600401602060405180830381865afa158015610c35573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c5991906119a1565b60e083901b6001600160e01b03199081169116145b90505b92915050565b6001600160a01b038082166000908152600260205260408120805460018201549293849360ff811691620100009091041680610cc65760405163981a2a2b60e01b815260040160405180910390fd5b600080826001600160a01b031663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa158015610d07573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610d2b91906119ea565b5093505092505083158015610d465750610d468282876114a2565b15610df5576001860154600090610100900460ff1615610d7057610d69836114c3565b9050610de4565b6000846001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa158015610db0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610dd49190611a3a565b9050610de084826115bb565b9150505b60019a909950975050505050505050565b506000988998509650505050505050565b6001600160a01b03808316600090815260026020819052604082200154909190811690831603610e3857506000610c71565b6001600160a01b0383811660009081526002602081905260409091200180546001600160a01b031916918416918217905515611032576040516312fd145b60e31b81526001600160a01b0383811660048301527f000000000000000000000000000000000000000000000000000000000000000016906397e8a2d890602401602060405180830381865afa158015610ed4573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ef89190611a5d565b1580610f6b575060405163598fd92b60e11b81526001600160a01b03848116600483015283169063b31fb25690602401602060405180830381865afa158015610f45573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610f699190611a5d565b155b8061100957507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316826001600160a01b031663217a4b706040518163ffffffff1660e01b8152600401602060405180830381865afa158015610fd9573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ffd919061184a565b6001600160a01b031614155b156110275760405163f7ebc71360e01b815260040160405180910390fd5b61103083611126565b505b816001600160a01b0316836001600160a01b03167f26f22f8c474f2065d47d555b7f96badf39d94093d6db814098680b098d96a27860405160405180910390a350600192915050565b60006202a3008211156110a157604051638f1825c960e01b815260040160405180910390fd5b6001600160a01b03831660009081526002602052604090205482036110c857506000610c71565b6001600160a01b03831660008181526002602052604090819020849055517f7892d1ac746d3db86c35b555e3c7ddbe78b1a209068eadaf1ad5bfe08a8653a9906111159085815260200190565b60405180910390a250600192915050565b6001600160a01b038082166000908152600260208190526040822001549091168061116457604051631c48ef1360e21b815260040160405180910390fd5b6040516341976e0960e01b81526001600160a01b0384811660048301528216906341976e0990602401602060405180830381865afa1580156111aa573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106169190611a7a565b60006001600160a01b0383166111f75760405163029a68ed60e41b815260040160405180910390fd5b6001600160a01b0384811660009081526002602052604090206001810154909185811662010000909204161480156112345750600181015460ff16155b15611243576000915050610616565b60018101805461ff01600160b01b031916620100006001600160a01b03871602179055600061127186610c77565b5090508061129257604051638a93c04960e01b815260040160405180910390fd5b83801561132657507f000000000000000000000000000000000000000000000000000000000000000060ff16856001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa1580156112fc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113209190611a3a565b60ff1614155b1561134457604051636322b92560e11b815260040160405180910390fd5b6001600160a01b038087166000818152600260205260409081902060010180548815156101000261ff001990911617905551918716917ffc4600a47c5e7ea766bb29e689a692a267b8549a1f07afa418b47bdd479e1817906113ab90881515815260200190565b60405180910390a350600195945050505050565b60006202a3008211156113e557604051638f1825c960e01b815260040160405180910390fd5b60015482036113f657506000919050565b60018290556040518281527fcc859b6b85e71cdf22c35275e400cbd6817f8bdfd829e0d386dbf3edc292ffcc9060200160405180910390a1506001919050565b600080546001600160a01b039081169083160361145557506000919050565b600080546001600160a01b0319166001600160a01b038416908117825560405190917fc9f3c0828967b8c34f2d6bbf6797c2965918320a1b0cd659293a94bff918fecd91a2506001919050565b600080841380156114bb5750816114b98442611a93565b105b949350505050565b60008060007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa158015611526573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061154a91906119ea565b5093505092505061155e82826001546114a2565b61157b57604051638a93c04960e01b815260040160405180910390fd5b816115a77f0000000000000000000000000000000000000000000000000000000000000000600a611970565b6115b1908661182b565b6114bb919061197f565b60008160ff167f000000000000000000000000000000000000000000000000000000000000000060ff16036115f1575081610c71565b8160ff167f000000000000000000000000000000000000000000000000000000000000000060ff161015611665576116497f000000000000000000000000000000000000000000000000000000000000000083611aaa565b61165490600a611970565b61165e908461197f565b9050610c71565b61168f827f0000000000000000000000000000000000000000000000000000000000000000611aaa565b61169a90600a611970565b61165e908461182b565b6001600160a01b038116811461098757600080fd5b6000602082840312156116cb57600080fd5b8135610616816116a4565b600080604083850312156116e957600080fd5b82356116f4816116a4565b91506020830135611704816116a4565b809150509250929050565b6000806040838503121561172257600080fd5b823561172d816116a4565b946020939093013593505050565b801515811461098757600080fd5b60008060006060848603121561175e57600080fd5b8335611769816116a4565b92506020840135611779816116a4565b915060408401356117898161173b565b809150509250925092565b6000602082840312156117a657600080fd5b5035919050565b600080600080600060a086880312156117c557600080fd5b85356117d0816116a4565b945060208601356117e0816116a4565b935060408601356117f0816116a4565b92506060860135915060808601356118078161173b565b809150509295509295909350565b634e487b7160e01b600052601160045260246000fd5b600081600019048311821515161561184557611845611815565b500290565b60006020828403121561185c57600080fd5b8151610616816116a4565b6020808252600b908201526a27b7363ca6b0b730b3b2b960a91b604082015260600190565b600181815b808511156118c75781600019048211156118ad576118ad611815565b808516156118ba57918102915b93841c9390800290611891565b509250929050565b6000826118de57506001610c71565b816118eb57506000610c71565b8160018114611901576002811461190b57611927565b6001915050610c71565b60ff84111561191c5761191c611815565b50506001821b610c71565b5060208310610133831016604e8410600b841016171561194a575081810a610c71565b611954838361188c565b806000190482111561196857611968611815565b029392505050565b6000610c6e60ff8416836118cf565b60008261199c57634e487b7160e01b600052601260045260246000fd5b500490565b6000602082840312156119b357600080fd5b81516001600160e01b03198116811461061657600080fd5b805169ffffffffffffffffffff811681146119e557600080fd5b919050565b600080600080600060a08688031215611a0257600080fd5b611a0b866119cb565b9450602086015193506040860151925060608601519150611a2e608087016119cb565b90509295509295909350565b600060208284031215611a4c57600080fd5b815160ff8116811461061657600080fd5b600060208284031215611a6f57600080fd5b81516106168161173b565b600060208284031215611a8c57600080fd5b5051919050565b600082821015611aa557611aa5611815565b500390565b600060ff821660ff841680821015611ac457611ac4611815565b9003939250505056fea2646970667358221220f1811bd1a10b772e2b6de72d32bafddadcbd7b8c591b434c2c71e28b2b64739464736f6c634300080d0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "assetSupported(address)": {
+        "details": "Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away. Some providers implementations need time to \"build\" buffer for TWAP price, so price may not be available yet but this method will return true.",
+        "params": {
+          "_asset": "asset in question"
+        },
+        "returns": {
+          "_0": "TRUE if asset has been setup, otherwise false"
+        }
+      },
+      "emergencyDisable(address)": {
+        "details": "Disables the aggregator for an asset if there is a big discrepancy between the aggregator and the fallback provider. The only way to reenable the asset is by calling setupAsset or setAggregator again. Can only be called by the emergencyManager.",
+        "params": {
+          "_asset": "Asset for which to disable the aggregator"
+        }
+      },
+      "getAggregatorPrice(address)": {
+        "details": "Returns price directly from aggregator using all internal settings except of fallback provider",
+        "params": {
+          "_asset": "Asset for which we want to get the price"
+        }
+      },
+      "getPrice(address)": {
+        "params": {
+          "_asset": "address of an asset for which to read price"
+        },
+        "returns": {
+          "_0": "of asses with 18 decimals, throws when pool is not ready yet to provide price"
+        }
+      },
+      "priceProviderPing()": {
+        "details": "this can save us from simple human errors, in case we use invalid address but this should NOT be treated as security check",
+        "returns": {
+          "_0": "always true"
+        }
+      },
+      "setAggregator(address,address,bool)": {
+        "details": "Sets the aggregator for an asset. Can only be called by the manager.",
+        "params": {
+          "_aggregator": "Aggregator to set",
+          "_asset": "Asset for which to set the aggregator"
+        }
+      },
+      "setEmergencyManager(address)": {
+        "details": "Sets the emergencyManager. Can only be called by the manager.",
+        "params": {
+          "_emergencyManager": "Emergency manager to set"
+        }
+      },
+      "setFallbackPriceProvider(address,address)": {
+        "details": "Sets the fallback provider for an asset. Can only be called by the manager.",
+        "params": {
+          "_asset": "Asset for which to set the fallback provider",
+          "_fallbackProvider": "Provider to set"
+        }
+      },
+      "setHeartbeat(address,uint256)": {
+        "details": "Sets the heartbeat threshold for an asset. Can only be called by the manager.",
+        "params": {
+          "_asset": "Asset for which to set the heartbeat threshold",
+          "_heartbeat": "Threshold to set"
+        }
+      },
+      "setQuoteAggregatorHeartbeat(uint256)": {
+        "details": "Sets the quote aggregator heartbeat threshold. Can only be called by the manager.",
+        "params": {
+          "_heartbeat": "Threshold to set"
+        }
+      },
+      "setupAsset(address,address,address,uint256,bool)": {
+        "details": "Sets the aggregator, fallbackProvider and heartbeat for an asset. Can only be called by the manager.",
+        "params": {
+          "_aggregator": "Chainlink aggregator proxy",
+          "_asset": "Asset to setup",
+          "_fallbackProvider": "Provider to use if the price is invalid or if the aggregator was disabled",
+          "_heartbeat": "Threshold in seconds to invalidate a stale price"
+        }
+      }
+    },
+    "stateVariables": {
+      "EMERGENCY_THRESHOLD": {
+        "details": "Disable the aggregator if the difference with the fallback is higher than this percentage (10%)"
+      },
+      "_MAX_PRICE_DIFF": {
+        "details": "Used to optimize calculations in emergency disable function"
+      },
+      "_QUOTE_AGGREGATOR": {
+        "details": "Aggregator that converts from USD to quote token"
+      },
+      "_QUOTE_AGGREGATOR_DECIMALS": {
+        "details": "Decimals used by the _QUOTE_AGGREGATOR"
+      },
+      "_QUOTE_TOKEN_DECIMALS": {
+        "details": "this is basically `PriceProvider.quoteToken.decimals()`"
+      },
+      "assetData": {
+        "details": "Data used for each asset"
+      },
+      "emergencyManager": {
+        "details": "Address allowed to call the emergencyDisable function, can be set by the owner"
+      },
+      "quoteAggregatorHeartbeat": {
+        "details": "Threshold used to determine if the price returned by the _QUOTE_AGGREGATOR is valid"
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "getPrice(address)": {
+        "notice": "Returns \"Time-Weighted Average Price\" for an asset. Calculates TWAP price for quote/asset. It unifies all tokens decimal to 18, examples: - if asses == quote it returns 1e18 - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC"
+      },
+      "priceProviderPing()": {
+        "notice": "Helper method that allows easily detects, if contract is PriceProvider"
+      },
+      "priceProvidersRepository()": {
+        "notice": "PriceProvidersRepository address"
+      },
+      "quoteToken()": {
+        "notice": "Token address which prices are quoted in. Must be the same as PriceProvidersRepository.quoteToken"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 41168,
+        "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+        "label": "emergencyManager",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 41171,
+        "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+        "label": "quoteAggregatorHeartbeat",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 41177,
+        "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+        "label": "assetData",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_struct(AssetData)41133_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(AggregatorV3Interface)45": {
+        "encoding": "inplace",
+        "label": "contract AggregatorV3Interface",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IPriceProvider)24571": {
+        "encoding": "inplace",
+        "label": "contract IPriceProvider",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_struct(AssetData)41133_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct ChainlinkV3PriceProvider.AssetData)",
+        "numberOfBytes": "32",
+        "value": "t_struct(AssetData)41133_storage"
+      },
+      "t_struct(AssetData)41133_storage": {
+        "encoding": "inplace",
+        "label": "struct ChainlinkV3PriceProvider.AssetData",
+        "members": [
+          {
+            "astId": 41122,
+            "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+            "label": "heartbeat",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 41124,
+            "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+            "label": "forceFallback",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_bool"
+          },
+          {
+            "astId": 41126,
+            "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+            "label": "convertToQuote",
+            "offset": 1,
+            "slot": "1",
+            "type": "t_bool"
+          },
+          {
+            "astId": 41129,
+            "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+            "label": "aggregator",
+            "offset": 2,
+            "slot": "1",
+            "type": "t_contract(AggregatorV3Interface)45"
+          },
+          {
+            "astId": 41132,
+            "contract": "contracts/priceProviders/chainlinkV3/ChainlinkV3PriceProvider.sol:ChainlinkV3PriceProvider",
+            "label": "fallbackProvider",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_contract(IPriceProvider)24571"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

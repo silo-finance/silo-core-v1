@@ -1,0 +1,349 @@
+{
+  "address": "0xb664Ca87Df549D110C59a96b10278439617D0813",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IPriceProvidersRepository",
+          "name": "_priceProvidersRepository",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AssetEqualToSource",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AssetNotSupported",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "DoubleForwardingIsNotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "PriceSourceIsNotReady",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RemovingAssetWhenRegisteredInRepository",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "priceSourceAsset",
+          "type": "address"
+        }
+      ],
+      "name": "AssetRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        }
+      ],
+      "name": "AssetRemoved",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "assetSupported",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "priceProviderPing",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "priceProvidersRepository",
+      "outputs": [
+        {
+          "internalType": "contract IPriceProvidersRepository",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "priceSourceAssets",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "quoteToken",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        }
+      ],
+      "name": "removeAsset",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_priceSourceAsset",
+          "type": "address"
+        }
+      ],
+      "name": "setupAsset",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xc6fbb3772e34eb0588bc6a263449e3ef3799d3d102fd513e6c3f4c5767c1b3bf",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0xb664Ca87Df549D110C59a96b10278439617D0813",
+    "transactionIndex": 91,
+    "gasUsed": "521729",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x747f7ca8943ba8d1138685b2242cdd66f638d0ba01ec401a4051f31daf5b1f1d",
+    "transactionHash": "0xc6fbb3772e34eb0588bc6a263449e3ef3799d3d102fd513e6c3f4c5767c1b3bf",
+    "logs": [],
+    "blockNumber": 17391881,
+    "cumulativeGasUsed": "6151094",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x7C2ca9D502f2409BeceAfa68E97a176Ff805029F"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "c9303397e20c2b4613b58e6ec221d180",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IPriceProvidersRepository\",\"name\":\"_priceProvidersRepository\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AssetEqualToSource\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AssetNotSupported\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DoubleForwardingIsNotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PriceSourceIsNotReady\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RemovingAssetWhenRegisteredInRepository\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"priceSourceAsset\",\"type\":\"address\"}],\"name\":\"AssetRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"}],\"name\":\"AssetRemoved\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"assetSupported\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceProviderPing\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceProvidersRepository\",\"outputs\":[{\"internalType\":\"contract IPriceProvidersRepository\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"priceSourceAssets\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quoteToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"removeAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_priceSourceAsset\",\"type\":\"address\"}],\"name\":\"setupAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"custom:security-contact\":\"security@silo.finance\",\"errors\":{\"AssetEqualToSource()\":[{\"details\":\"Asset can't be it's own price source asset.\"}],\"AssetNotSupported()\":[{\"details\":\"Revert when price source for an asset does not exist.\"}],\"DoubleForwardingIsNotAllowed()\":[{\"details\":\"Revert when price source is registered in `ForwarderPriceProvider` to prevent circular dependency.\"}],\"PriceSourceIsNotReady()\":[{\"details\":\"Revert when price source asset does not have price in `PriceProvidersRepository`.\"}],\"RemovingAssetWhenRegisteredInRepository()\":[{\"details\":\"Revert `removeAsset` when `ForwarderPriceProvider` is registered as the price provider for an asset.\"}]},\"kind\":\"dev\",\"methods\":{\"assetSupported(address)\":{\"params\":{\"_asset\":\"address\"}},\"getPrice(address)\":{\"params\":{\"_asset\":\"address of an asset for which to read price\"},\"returns\":{\"_0\":\"of asses with 18 decimals, throws when pool is not ready yet to provide price\"}},\"priceProviderPing()\":{\"details\":\"this can save us from simple human errors, in case we use invalid address but this should NOT be treated as security check\",\"returns\":{\"_0\":\"always true\"}},\"removeAsset(address)\":{\"params\":{\"_asset\":\"address\"}},\"setupAsset(address,address)\":{\"details\":\"We don't allow price source asset to be registered in `ForwarderPriceProvider` to     prevent circular dependency. If the price source asset has price forwarded too, use the     original source instead. Does not revert for duplicate calls with the same arguments.\",\"params\":{\"_asset\":\"address, can be already registered in `ForwarderPriceProvider`\",\"_priceSourceAsset\":\"address, it's price must be available in `PriceProvidersRepository`\"}}},\"stateVariables\":{\"priceSourceAssets\":{\"details\":\"Token to get price, does not have pool => token that has price provider, used as the price source.\"}},\"title\":\"ForwarderPriceProvider\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"assetSupported(address)\":{\"notice\":\"Returns true, if asset has other token price as the price source\"},\"getPrice(address)\":{\"notice\":\"Returns \\\"Time-Weighted Average Price\\\" for an asset. Calculates TWAP price for quote/asset. It unifies all tokens decimal to 18, examples: - if asses == quote it returns 1e18 - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC\"},\"priceProviderPing()\":{\"notice\":\"Helper method that allows easily detects, if contract is PriceProvider\"},\"priceProvidersRepository()\":{\"notice\":\"PriceProvidersRepository address\"},\"quoteToken()\":{\"notice\":\"Token address which prices are quoted in. Must be the same as PriceProvidersRepository.quoteToken\"},\"removeAsset(address)\":{\"notice\":\"Removes asset from this price provider. `ForwarderPriceProvider` must not be registered     as the price provider for an `_asset` in `PriceProvidersRepository`.\"},\"setupAsset(address,address)\":{\"notice\":\"Register `_asset` price as the price of `_priceSourceAsset`\"}},\"notice\":\"ForwarderPriceProvider is used to register the price of one token as the price source for another token.     For example, wrapped token price is equal to underlying token price, because it can be wrapped or     unwrapped with 1:1 ratio any time.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/priceProviders/forwarder/ForwarderPriceProvider.sol\":\"ForwarderPriceProvider\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @title Common interface for Silo Price Providers\\ninterface IPriceProvider {\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset. Calculates TWAP price for quote/asset.\\n    /// It unifies all tokens decimal to 18, examples:\\n    /// - if asses == quote it returns 1e18\\n    /// - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price of asses with 18 decimals, throws when pool is not ready yet to provide price\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @dev Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away.\\n    /// Some providers implementations need time to \\\"build\\\" buffer for TWAP price,\\n    /// so price may not be available yet but this method will return true.\\n    /// @param _asset asset in question\\n    /// @return TRUE if asset has been setup, otherwise false\\n    function assetSupported(address _asset) external view returns (bool);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Helper method that allows easily detects, if contract is PriceProvider\\n    /// @dev this can save us from simple human errors, in case we use invalid address\\n    /// but this should NOT be treated as security check\\n    /// @return always true\\n    function priceProviderPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0xe25259fe540647dd3945dbc8eff5f7ec789c6708b42e1d82c456d3e8c9082147\",\"license\":\"BUSL-1.1\"},\"contracts/interfaces/IPriceProvidersRepository.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\nimport \\\"./IPriceProvider.sol\\\";\\n\\ninterface IPriceProvidersRepository {\\n    /// @notice Emitted when price provider is added\\n    /// @param newPriceProvider new price provider address\\n    event NewPriceProvider(IPriceProvider indexed newPriceProvider);\\n\\n    /// @notice Emitted when price provider is removed\\n    /// @param priceProvider removed price provider address\\n    event PriceProviderRemoved(IPriceProvider indexed priceProvider);\\n\\n    /// @notice Emitted when asset is assigned to price provider\\n    /// @param asset assigned asset   address\\n    /// @param priceProvider price provider address\\n    event PriceProviderForAsset(address indexed asset, IPriceProvider indexed priceProvider);\\n\\n    /// @notice Register new price provider\\n    /// @param _priceProvider address of price provider\\n    function addPriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Unregister price provider\\n    /// @param _priceProvider address of price provider to be removed\\n    function removePriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Sets price provider for asset\\n    /// @dev Request for asset price is forwarded to the price provider assigned to that asset\\n    /// @param _asset address of an asset for which price provider will be used\\n    /// @param _priceProvider address of price provider\\n    function setPriceProviderForAsset(address _asset, IPriceProvider _priceProvider) external;\\n\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price TWAP price of a token with 18 decimals\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @notice Gets price provider assigned to an asset\\n    /// @param _asset address of an asset for which to get price provider\\n    /// @return priceProvider address of price provider\\n    function priceProviders(address _asset) external view returns (IPriceProvider priceProvider);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Gets manager role address\\n    /// @return manager role address\\n    function manager() external view returns (address);\\n\\n    /// @notice Checks if providers are available for an asset\\n    /// @param _asset asset address to check\\n    /// @return returns TRUE if price feed is ready, otherwise false\\n    function providersReadyForAsset(address _asset) external view returns (bool);\\n\\n    /// @notice Returns true if address is a registered price provider\\n    /// @param _provider address of price provider to be removed\\n    /// @return true if address is a registered price provider, otherwise false\\n    function isPriceProvider(IPriceProvider _provider) external view returns (bool);\\n\\n    /// @notice Gets number of price providers registered\\n    /// @return number of price providers registered\\n    function providersCount() external view returns (uint256);\\n\\n    /// @notice Gets an array of price providers\\n    /// @return array of price providers\\n    function providerList() external view returns (address[] memory);\\n\\n    /// @notice Sanity check function\\n    /// @return returns always TRUE\\n    function priceProvidersRepositoryPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0x715cb0aa617134d1f4ebe427adb5899455114260c3d853732a6302fb5b5d6e53\",\"license\":\"BUSL-1.1\"},\"contracts/lib/Ping.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n\\nlibrary Ping {\\n    function pong(function() external pure returns(bytes4) pingFunction) internal pure returns (bool) {\\n        return pingFunction.address != address(0) && pingFunction.selector == pingFunction();\\n    }\\n}\\n\",\"keccak256\":\"0xc99622dfb46693aeb8a332ee0e124f54e12d5ed5e6b8f70a0c0e3678df35c8b1\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/PriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\nimport \\\"../lib/Ping.sol\\\";\\nimport \\\"../interfaces/IPriceProvider.sol\\\";\\nimport \\\"../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title PriceProvider\\n/// @notice Abstract PriceProvider contract, parent of all PriceProviders\\n/// @dev Price provider is a contract that directly integrates with a price source, ie. a DEX or alternative system\\n/// like Chainlink to calculate TWAP prices for assets. Each price provider should support a single price source\\n/// and multiple assets.\\nabstract contract PriceProvider is IPriceProvider {\\n    /// @notice PriceProvidersRepository address\\n    IPriceProvidersRepository public immutable priceProvidersRepository;\\n\\n    /// @notice Token address which prices are quoted in. Must be the same as PriceProvidersRepository.quoteToken\\n    address public immutable override quoteToken;\\n\\n    modifier onlyManager() {\\n        if (priceProvidersRepository.manager() != msg.sender) revert(\\\"OnlyManager\\\");\\n        _;\\n    }\\n\\n    /// @param _priceProvidersRepository address of PriceProvidersRepository\\n    constructor(IPriceProvidersRepository _priceProvidersRepository) {\\n        if (\\n            !Ping.pong(_priceProvidersRepository.priceProvidersRepositoryPing)            \\n        ) {\\n            revert(\\\"InvalidPriceProviderRepository\\\");\\n        }\\n\\n        priceProvidersRepository = _priceProvidersRepository;\\n        quoteToken = _priceProvidersRepository.quoteToken();\\n    }\\n\\n    /// @inheritdoc IPriceProvider\\n    function priceProviderPing() external pure override returns (bytes4) {\\n        return this.priceProviderPing.selector;\\n    }\\n\\n    function _revertBytes(bytes memory _errMsg, string memory _customErr) internal pure {\\n        if (_errMsg.length > 0) {\\n            assembly { // solhint-disable-line no-inline-assembly\\n                revert(add(32, _errMsg), mload(_errMsg))\\n            }\\n        }\\n\\n        revert(_customErr);\\n    }\\n}\\n\",\"keccak256\":\"0xd5d1739891a5639048bdf0c7c72838e848c3f381b56f978780d4d866535f30a5\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/forwarder/ForwarderPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../PriceProvider.sol\\\";\\nimport \\\"../../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title ForwarderPriceProvider\\n/// @notice ForwarderPriceProvider is used to register the price of one token as the price source for another token.\\n///     For example, wrapped token price is equal to underlying token price, because it can be wrapped or\\n///     unwrapped with 1:1 ratio any time.\\n/// @custom:security-contact security@silo.finance\\ncontract ForwarderPriceProvider is PriceProvider {\\n    /// @dev Token to get price, does not have pool => token that has price provider, used as the price source.\\n    mapping(address => address) public priceSourceAssets;\\n\\n    event AssetRegistered(address indexed asset, address indexed priceSourceAsset);\\n    event AssetRemoved(address indexed asset);\\n\\n    /// @dev Revert when price source for an asset does not exist.\\n    error AssetNotSupported();\\n\\n    /// @dev Asset can't be it's own price source asset.\\n    error AssetEqualToSource();\\n\\n    /// @dev Revert when price source is registered in `ForwarderPriceProvider` to prevent circular dependency.\\n    error DoubleForwardingIsNotAllowed();\\n\\n    /// @dev Revert when price source asset does not have price in `PriceProvidersRepository`.\\n    error PriceSourceIsNotReady();\\n\\n    /// @dev Revert `removeAsset` when `ForwarderPriceProvider` is registered as the price provider for an asset.\\n    error RemovingAssetWhenRegisteredInRepository();\\n\\n    constructor(IPriceProvidersRepository _priceProvidersRepository) PriceProvider(_priceProvidersRepository) {}\\n\\n    /// @inheritdoc IPriceProvider\\n    function getPrice(address _asset) public view virtual override returns (uint256) {\\n        address priceSourceAsset = priceSourceAssets[_asset];\\n\\n        if (priceSourceAsset == address(0)) revert AssetNotSupported();\\n\\n        return priceProvidersRepository.getPrice(priceSourceAsset);\\n    }\\n\\n    /// @notice Register `_asset` price as the price of `_priceSourceAsset`\\n    /// @dev We don't allow price source asset to be registered in `ForwarderPriceProvider` to\\n    ///     prevent circular dependency. If the price source asset has price forwarded too, use the\\n    ///     original source instead. Does not revert for duplicate calls with the same arguments.\\n    /// @param _asset address, can be already registered in `ForwarderPriceProvider`\\n    /// @param _priceSourceAsset address, it's price must be available in `PriceProvidersRepository`\\n    function setupAsset(address _asset, address _priceSourceAsset) external virtual onlyManager {\\n        if (_asset == _priceSourceAsset) revert AssetEqualToSource();\\n        if (priceSourceAssets[_priceSourceAsset] != address(0)) revert DoubleForwardingIsNotAllowed();\\n        if (!priceProvidersRepository.providersReadyForAsset(_priceSourceAsset)) revert PriceSourceIsNotReady();\\n\\n        priceSourceAssets[_asset] = _priceSourceAsset;\\n\\n        emit AssetRegistered(_asset, _priceSourceAsset);\\n    }\\n\\n    /// @notice Removes asset from this price provider. `ForwarderPriceProvider` must not be registered\\n    ///     as the price provider for an `_asset` in `PriceProvidersRepository`.\\n    /// @param _asset address\\n    function removeAsset(address _asset) external virtual onlyManager {\\n        if (address(priceProvidersRepository.priceProviders(_asset)) == address(this)) {\\n            revert RemovingAssetWhenRegisteredInRepository();\\n        }\\n\\n        priceSourceAssets[_asset] = address(0);\\n        emit AssetRemoved(_asset);\\n    }\\n\\n    /// @notice Returns true, if asset has other token price as the price source\\n    /// @param _asset address\\n    function assetSupported(address _asset) public view virtual override returns (bool) {\\n        return priceSourceAssets[_asset] != address(0);\\n    }\\n}\\n\",\"keccak256\":\"0xa497352001aa1569448c8d43a53d35bbdc8e8895cb41378ddf529e2adace257a\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x60c060405234801561001057600080fd5b50604051610a95380380610a9583398101604081905261002f916101c1565b80610051816001600160a01b031663eec3e6a761012360201b61069b1760201c565b6100a15760405162461bcd60e51b815260206004820152601e60248201527f496e76616c6964507269636550726f76696465725265706f7369746f72790000604482015260640160405180910390fd5b6001600160a01b038116608081905260408051630217a4b760e41b8152905163217a4b70916004808201926020929091908290030181865afa1580156100eb573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061010f91906101c1565b6001600160a01b031660a052506102089050565b60006001600160a01b038316158015906101a2575082826040518163ffffffff1660e01b8152600401602060405180830381865afa158015610169573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061018d91906101de565b60e083901b6001600160e01b03199081169116145b9392505050565b6001600160a01b03811681146101be57600080fd5b50565b6000602082840312156101d357600080fd5b81516101a2816101a9565b6000602082840312156101f057600080fd5b81516001600160e01b0319811681146101a257600080fd5b60805160a05161084661024f6000396000609201526000818161012101528181610217015281816102950152818161037f0152818161046e01526105bc01526108466000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c80635ddf2be31161005b5780635ddf2be31461011c5780637a7e26ab14610143578063b31fb2561461016c578063f0cf207f146101aa57600080fd5b8063217a4b701461008d57806341976e09146100d15780634a5e42b1146100f257806357e0c50f14610107575b600080fd5b6100b47f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100e46100df366004610738565b6101bd565b6040519081526020016100c8565b610105610100366004610738565b610289565b005b6040516357e0c50f60e01b81526020016100c8565b6100b47f000000000000000000000000000000000000000000000000000000000000000081565b6100b4610151366004610738565b6000602081905290815260409020546001600160a01b031681565b61019a61017a366004610738565b6001600160a01b0390811660009081526020819052604090205416151590565b60405190151581526020016100c8565b6101056101b8366004610755565b610462565b6001600160a01b03808216600090815260208190526040812054909116806101f85760405163981a2a2b60e01b815260040160405180910390fd5b6040516341976e0960e01b81526001600160a01b0382811660048301527f000000000000000000000000000000000000000000000000000000000000000016906341976e0990602401602060405180830381865afa15801561025e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610282919061078e565b9392505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156102f1573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061031591906107a7565b6001600160a01b03161461035e5760405162461bcd60e51b815260206004820152600b60248201526a27b7363ca6b0b730b3b2b960a91b60448201526064015b60405180910390fd5b604051635d54e39560e01b81526001600160a01b03828116600483015230917f000000000000000000000000000000000000000000000000000000000000000090911690635d54e39590602401602060405180830381865afa1580156103c8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103ec91906107a7565b6001600160a01b0316036104135760405163b205b59b60e01b815260040160405180910390fd5b6001600160a01b03811660008181526020819052604080822080546001600160a01b0319169055517f37803e2125c48ee96c38ddf04e826daf335b0e1603579040fd275aba6d06b6fc9190a250565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156104ca573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104ee91906107a7565b6001600160a01b0316146105325760405162461bcd60e51b815260206004820152600b60248201526a27b7363ca6b0b730b3b2b960a91b6044820152606401610355565b806001600160a01b0316826001600160a01b031603610564576040516304b9b67b60e31b815260040160405180910390fd5b6001600160a01b03818116600090815260208190526040902054161561059d576040516349f1a98360e11b815260040160405180910390fd5b6040516350ebbcc160e01b81526001600160a01b0382811660048301527f000000000000000000000000000000000000000000000000000000000000000016906350ebbcc190602401602060405180830381865afa158015610603573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061062791906107c4565b61064457604051633628244d60e21b815260040160405180910390fd5b6001600160a01b0382811660008181526020819052604080822080546001600160a01b0319169486169485179055517f7beb5803e95d997a3a41bdd114aad49420e9b4ee9fd80c96b9acb7a8bf9ee0779190a35050565b60006001600160a01b03831615801590610282575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106e1573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061070591906107e6565b60e083901b6001600160e01b03199081169116149392505050565b6001600160a01b038116811461073557600080fd5b50565b60006020828403121561074a57600080fd5b813561028281610720565b6000806040838503121561076857600080fd5b823561077381610720565b9150602083013561078381610720565b809150509250929050565b6000602082840312156107a057600080fd5b5051919050565b6000602082840312156107b957600080fd5b815161028281610720565b6000602082840312156107d657600080fd5b8151801515811461028257600080fd5b6000602082840312156107f857600080fd5b81516001600160e01b03198116811461028257600080fdfea264697066735822122093b820e79c449a6ec752091aa707532d5c98083de51bce9ece156228a2cfb9ad64736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100885760003560e01c80635ddf2be31161005b5780635ddf2be31461011c5780637a7e26ab14610143578063b31fb2561461016c578063f0cf207f146101aa57600080fd5b8063217a4b701461008d57806341976e09146100d15780634a5e42b1146100f257806357e0c50f14610107575b600080fd5b6100b47f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100e46100df366004610738565b6101bd565b6040519081526020016100c8565b610105610100366004610738565b610289565b005b6040516357e0c50f60e01b81526020016100c8565b6100b47f000000000000000000000000000000000000000000000000000000000000000081565b6100b4610151366004610738565b6000602081905290815260409020546001600160a01b031681565b61019a61017a366004610738565b6001600160a01b0390811660009081526020819052604090205416151590565b60405190151581526020016100c8565b6101056101b8366004610755565b610462565b6001600160a01b03808216600090815260208190526040812054909116806101f85760405163981a2a2b60e01b815260040160405180910390fd5b6040516341976e0960e01b81526001600160a01b0382811660048301527f000000000000000000000000000000000000000000000000000000000000000016906341976e0990602401602060405180830381865afa15801561025e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610282919061078e565b9392505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156102f1573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061031591906107a7565b6001600160a01b03161461035e5760405162461bcd60e51b815260206004820152600b60248201526a27b7363ca6b0b730b3b2b960a91b60448201526064015b60405180910390fd5b604051635d54e39560e01b81526001600160a01b03828116600483015230917f000000000000000000000000000000000000000000000000000000000000000090911690635d54e39590602401602060405180830381865afa1580156103c8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103ec91906107a7565b6001600160a01b0316036104135760405163b205b59b60e01b815260040160405180910390fd5b6001600160a01b03811660008181526020819052604080822080546001600160a01b0319169055517f37803e2125c48ee96c38ddf04e826daf335b0e1603579040fd275aba6d06b6fc9190a250565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156104ca573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104ee91906107a7565b6001600160a01b0316146105325760405162461bcd60e51b815260206004820152600b60248201526a27b7363ca6b0b730b3b2b960a91b6044820152606401610355565b806001600160a01b0316826001600160a01b031603610564576040516304b9b67b60e31b815260040160405180910390fd5b6001600160a01b03818116600090815260208190526040902054161561059d576040516349f1a98360e11b815260040160405180910390fd5b6040516350ebbcc160e01b81526001600160a01b0382811660048301527f000000000000000000000000000000000000000000000000000000000000000016906350ebbcc190602401602060405180830381865afa158015610603573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061062791906107c4565b61064457604051633628244d60e21b815260040160405180910390fd5b6001600160a01b0382811660008181526020819052604080822080546001600160a01b0319169486169485179055517f7beb5803e95d997a3a41bdd114aad49420e9b4ee9fd80c96b9acb7a8bf9ee0779190a35050565b60006001600160a01b03831615801590610282575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106e1573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061070591906107e6565b60e083901b6001600160e01b03199081169116149392505050565b6001600160a01b038116811461073557600080fd5b50565b60006020828403121561074a57600080fd5b813561028281610720565b6000806040838503121561076857600080fd5b823561077381610720565b9150602083013561078381610720565b809150509250929050565b6000602082840312156107a057600080fd5b5051919050565b6000602082840312156107b957600080fd5b815161028281610720565b6000602082840312156107d657600080fd5b8151801515811461028257600080fd5b6000602082840312156107f857600080fd5b81516001600160e01b03198116811461028257600080fdfea264697066735822122093b820e79c449a6ec752091aa707532d5c98083de51bce9ece156228a2cfb9ad64736f6c634300080d0033",
+  "devdoc": {
+    "custom:security-contact": "security@silo.finance",
+    "errors": {
+      "AssetEqualToSource()": [
+        {
+          "details": "Asset can't be it's own price source asset."
+        }
+      ],
+      "AssetNotSupported()": [
+        {
+          "details": "Revert when price source for an asset does not exist."
+        }
+      ],
+      "DoubleForwardingIsNotAllowed()": [
+        {
+          "details": "Revert when price source is registered in `ForwarderPriceProvider` to prevent circular dependency."
+        }
+      ],
+      "PriceSourceIsNotReady()": [
+        {
+          "details": "Revert when price source asset does not have price in `PriceProvidersRepository`."
+        }
+      ],
+      "RemovingAssetWhenRegisteredInRepository()": [
+        {
+          "details": "Revert `removeAsset` when `ForwarderPriceProvider` is registered as the price provider for an asset."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "assetSupported(address)": {
+        "params": {
+          "_asset": "address"
+        }
+      },
+      "getPrice(address)": {
+        "params": {
+          "_asset": "address of an asset for which to read price"
+        },
+        "returns": {
+          "_0": "of asses with 18 decimals, throws when pool is not ready yet to provide price"
+        }
+      },
+      "priceProviderPing()": {
+        "details": "this can save us from simple human errors, in case we use invalid address but this should NOT be treated as security check",
+        "returns": {
+          "_0": "always true"
+        }
+      },
+      "removeAsset(address)": {
+        "params": {
+          "_asset": "address"
+        }
+      },
+      "setupAsset(address,address)": {
+        "details": "We don't allow price source asset to be registered in `ForwarderPriceProvider` to     prevent circular dependency. If the price source asset has price forwarded too, use the     original source instead. Does not revert for duplicate calls with the same arguments.",
+        "params": {
+          "_asset": "address, can be already registered in `ForwarderPriceProvider`",
+          "_priceSourceAsset": "address, it's price must be available in `PriceProvidersRepository`"
+        }
+      }
+    },
+    "stateVariables": {
+      "priceSourceAssets": {
+        "details": "Token to get price, does not have pool => token that has price provider, used as the price source."
+      }
+    },
+    "title": "ForwarderPriceProvider",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "assetSupported(address)": {
+        "notice": "Returns true, if asset has other token price as the price source"
+      },
+      "getPrice(address)": {
+        "notice": "Returns \"Time-Weighted Average Price\" for an asset. Calculates TWAP price for quote/asset. It unifies all tokens decimal to 18, examples: - if asses == quote it returns 1e18 - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC"
+      },
+      "priceProviderPing()": {
+        "notice": "Helper method that allows easily detects, if contract is PriceProvider"
+      },
+      "priceProvidersRepository()": {
+        "notice": "PriceProvidersRepository address"
+      },
+      "quoteToken()": {
+        "notice": "Token address which prices are quoted in. Must be the same as PriceProvidersRepository.quoteToken"
+      },
+      "removeAsset(address)": {
+        "notice": "Removes asset from this price provider. `ForwarderPriceProvider` must not be registered     as the price provider for an `_asset` in `PriceProvidersRepository`."
+      },
+      "setupAsset(address,address)": {
+        "notice": "Register `_asset` price as the price of `_priceSourceAsset`"
+      }
+    },
+    "notice": "ForwarderPriceProvider is used to register the price of one token as the price source for another token.     For example, wrapped token price is equal to underlying token price, because it can be wrapped or     unwrapped with 1:1 ratio any time.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 44273,
+        "contract": "contracts/priceProviders/forwarder/ForwarderPriceProvider.sol:ForwarderPriceProvider",
+        "label": "priceSourceAssets",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_address)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_address)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      }
+    }
+  }
+}

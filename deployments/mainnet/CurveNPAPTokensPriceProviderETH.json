@@ -1,0 +1,529 @@
+{
+  "address": "0xA2f8aaA6c4a7a4CD82D8F829D4D257b9C4f49715",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IPriceProvidersRepository",
+          "name": "_providersRepository",
+          "type": "address"
+        },
+        {
+          "internalType": "contract ICurveLPTokensDetailsFetchersRepository",
+          "name": "_fetchersRepository",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_nullAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_nativeWrappedAddr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "CryptoPoolCantBeMetaPool",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyWETHAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidFetchersRepository",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidNumberOfCoinsInPool",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidPriceProviderRepository",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotSupported",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyManager",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "PoolForLPTokenNotFound",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TokenAlreadyInitialized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroPrice",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "pool",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "LPTokenEnabled",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "TRICRYPTO2_LP_PRICE",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "TRICRYPTO2_LP_TOKEN",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_lpToken",
+          "type": "address"
+        }
+      ],
+      "name": "assetSupported",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "coins",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "isLPToken",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_lpToken",
+          "type": "address"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "lpTokenPool",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "isMeta",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "priceProviderPing",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "quoteToken",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_lpToken",
+          "type": "address"
+        }
+      ],
+      "name": "setupAsset",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_lpTokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "setupAssets",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xd1da47c41f97a1c085067a9abd65eafc022ffb3cc7d75e5a9234df39cafb3cee",
+  "receipt": {
+    "to": null,
+    "from": "0x9c3832dB9F3c1375aA3542C55F6EE9B54F38D944",
+    "contractAddress": "0xA2f8aaA6c4a7a4CD82D8F829D4D257b9C4f49715",
+    "transactionIndex": 117,
+    "gasUsed": "913672",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x92613fc20074c5d1656fe5c140960a3a238d502b003d45630b9588f7839e538c",
+    "transactionHash": "0xd1da47c41f97a1c085067a9abd65eafc022ffb3cc7d75e5a9234df39cafb3cee",
+    "logs": [],
+    "blockNumber": 17391879,
+    "cumulativeGasUsed": "7365834",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x7C2ca9D502f2409BeceAfa68E97a176Ff805029F",
+    "0xeaC05930c685A168c40C3aA9D017691a88e31fE9",
+    "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "c9303397e20c2b4613b58e6ec221d180",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IPriceProvidersRepository\",\"name\":\"_providersRepository\",\"type\":\"address\"},{\"internalType\":\"contract ICurveLPTokensDetailsFetchersRepository\",\"name\":\"_fetchersRepository\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nullAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nativeWrappedAddr\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"CryptoPoolCantBeMetaPool\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyWETHAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidFetchersRepository\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidNumberOfCoinsInPool\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidPriceProviderRepository\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotSupported\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyManager\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PoolForLPTokenNotFound\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TokenAlreadyInitialized\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroPrice\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"LPTokenEnabled\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"TRICRYPTO2_LP_PRICE\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"TRICRYPTO2_LP_TOKEN\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_lpToken\",\"type\":\"address\"}],\"name\":\"assetSupported\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"coins\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isLPToken\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_lpToken\",\"type\":\"address\"}],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"lpTokenPool\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isMeta\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceProviderPing\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quoteToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_lpToken\",\"type\":\"address\"}],\"name\":\"setupAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_lpTokens\",\"type\":\"address[]\"}],\"name\":\"setupAssets\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"NPAP - non-pegged assets pools\",\"errors\":{\"CryptoPoolCantBeMetaPool()\":[{\"details\":\"Revert if the Curve LP tokens detail fetchers repository returned details with an `isMeta` flag equal to `true` for the pool with non-pegged assets.\"}],\"InvalidPriceProviderRepository()\":[{\"details\":\"Revert on a false sanity check with `Ping` library\"}],\"OnlyManager()\":[{\"details\":\"Revert if `msg.sender` is not Price Providers Repository manager\"}],\"ZeroPrice()\":[{\"details\":\"Revert if a `getPrice` function ended-up with a zero price\"}]},\"kind\":\"dev\",\"methods\":{\"assetSupported(address)\":{\"details\":\"Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away. Some providers implementations need time to \\\"build\\\" buffer for TWAP price, so price may not be available yet but this method will return true.\",\"params\":{\"_asset\":\"asset in question\"},\"returns\":{\"_0\":\"TRUE if asset has been setup, otherwise false\"}},\"constructor\":{\"details\":\"Constructor is required for indirect CurveLPTokensPriceProvider initialization. Arguments for CurveLPTokensPriceProvider initialization are given in the modifier-style in the derived constructor. There are no requirements during CurveNPAPTokensPriceProviderETH deployment, so the constructor body should be empty.\"},\"getPrice(address)\":{\"params\":{\"_lpToken\":\"Curve LP Token address for which a price to be calculated\"},\"returns\":{\"_0\":\"Price of the `_lpToken` denominated in the price providers repository quote token\"}},\"priceProviderPing()\":{\"details\":\"this can save us from simple human errors, in case we use invalid address but this should NOT be treated as security check\",\"returns\":{\"_0\":\"always true\"}},\"quoteToken()\":{\"returns\":{\"_0\":\"quoteToken address\"}},\"setupAsset(address)\":{\"params\":{\"_lpToken\":\"Curve LP Token address that will be enabled in the price provider\"}},\"setupAssets(address[])\":{\"params\":{\"_lpTokens\":\"List of Curve LP Tokens addresses that will be enabled in the price provider\"}}},\"stateVariables\":{\"TRICRYPTO2_LP_PRICE\":{\"details\":\"tricrypto2 smart contract to provide LP token price (Ethereum network)\"},\"TRICRYPTO2_LP_TOKEN\":{\"details\":\"tricrypto2 (USDT/wBTC/ETH) LP Token (Ethereum network)\"}},\"title\":\"Curve non-pegged pools tokens price provider for ethereum network\",\"version\":1},\"userdoc\":{\"errors\":{\"EmptyWETHAddress()\":[{\"notice\":\"Revert if wETH address is empty\"}],\"InvalidFetchersRepository()\":[{\"notice\":\"Revert on a false sanity check with `Ping` library\"}],\"InvalidNumberOfCoinsInPool()\":[{\"notice\":\"Revert if a number of coins in the initialized pool < `_MIN_COINS`\"}],\"NotSupported()\":[{\"notice\":\"Revert if this price provider does not support an asset\"}],\"PoolForLPTokenNotFound()\":[{\"notice\":\"Revert if a pool is not found for provided Curve LP Token\"}],\"TokenAlreadyInitialized()\":[{\"notice\":\"Revert if Curve LP Token is already initialized in the price provider\"}]},\"events\":{\"LPTokenEnabled(address,address)\":{\"notice\":\"Emitted when Curve LP token was enabled in the price provider\"}},\"kind\":\"user\",\"methods\":{\"priceProviderPing()\":{\"notice\":\"Helper method that allows easily detects, if contract is PriceProvider\"},\"quoteToken()\":{\"notice\":\"Gets token address in which prices are quoted\"},\"setupAsset(address)\":{\"notice\":\"Enable Curve LP token in the price provider\"},\"setupAssets(address[])\":{\"notice\":\"Enable a list of Curve LP tokens in the price provider\"}},\"notice\":\"We have a particular case with the tricrypto2 pool in the Ethereum network, as it is without the lp_rice() function, and it is implemented in the separate smart contract.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol\":\"CurveNPAPTokensPriceProviderETH\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @title Common interface for Silo Price Providers\\ninterface IPriceProvider {\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset. Calculates TWAP price for quote/asset.\\n    /// It unifies all tokens decimal to 18, examples:\\n    /// - if asses == quote it returns 1e18\\n    /// - if asset is USDC and quote is ETH and ETH costs ~$3300 then it returns ~0.0003e18 WETH per 1 USDC\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price of asses with 18 decimals, throws when pool is not ready yet to provide price\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @dev Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away.\\n    /// Some providers implementations need time to \\\"build\\\" buffer for TWAP price,\\n    /// so price may not be available yet but this method will return true.\\n    /// @param _asset asset in question\\n    /// @return TRUE if asset has been setup, otherwise false\\n    function assetSupported(address _asset) external view returns (bool);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Helper method that allows easily detects, if contract is PriceProvider\\n    /// @dev this can save us from simple human errors, in case we use invalid address\\n    /// but this should NOT be treated as security check\\n    /// @return always true\\n    function priceProviderPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0xe25259fe540647dd3945dbc8eff5f7ec789c6708b42e1d82c456d3e8c9082147\",\"license\":\"BUSL-1.1\"},\"contracts/interfaces/IPriceProvidersRepository.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\nimport \\\"./IPriceProvider.sol\\\";\\n\\ninterface IPriceProvidersRepository {\\n    /// @notice Emitted when price provider is added\\n    /// @param newPriceProvider new price provider address\\n    event NewPriceProvider(IPriceProvider indexed newPriceProvider);\\n\\n    /// @notice Emitted when price provider is removed\\n    /// @param priceProvider removed price provider address\\n    event PriceProviderRemoved(IPriceProvider indexed priceProvider);\\n\\n    /// @notice Emitted when asset is assigned to price provider\\n    /// @param asset assigned asset   address\\n    /// @param priceProvider price provider address\\n    event PriceProviderForAsset(address indexed asset, IPriceProvider indexed priceProvider);\\n\\n    /// @notice Register new price provider\\n    /// @param _priceProvider address of price provider\\n    function addPriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Unregister price provider\\n    /// @param _priceProvider address of price provider to be removed\\n    function removePriceProvider(IPriceProvider _priceProvider) external;\\n\\n    /// @notice Sets price provider for asset\\n    /// @dev Request for asset price is forwarded to the price provider assigned to that asset\\n    /// @param _asset address of an asset for which price provider will be used\\n    /// @param _priceProvider address of price provider\\n    function setPriceProviderForAsset(address _asset, IPriceProvider _priceProvider) external;\\n\\n    /// @notice Returns \\\"Time-Weighted Average Price\\\" for an asset\\n    /// @param _asset address of an asset for which to read price\\n    /// @return price TWAP price of a token with 18 decimals\\n    function getPrice(address _asset) external view returns (uint256 price);\\n\\n    /// @notice Gets price provider assigned to an asset\\n    /// @param _asset address of an asset for which to get price provider\\n    /// @return priceProvider address of price provider\\n    function priceProviders(address _asset) external view returns (IPriceProvider priceProvider);\\n\\n    /// @notice Gets token address in which prices are quoted\\n    /// @return quoteToken address\\n    function quoteToken() external view returns (address);\\n\\n    /// @notice Gets manager role address\\n    /// @return manager role address\\n    function manager() external view returns (address);\\n\\n    /// @notice Checks if providers are available for an asset\\n    /// @param _asset asset address to check\\n    /// @return returns TRUE if price feed is ready, otherwise false\\n    function providersReadyForAsset(address _asset) external view returns (bool);\\n\\n    /// @notice Returns true if address is a registered price provider\\n    /// @param _provider address of price provider to be removed\\n    /// @return true if address is a registered price provider, otherwise false\\n    function isPriceProvider(IPriceProvider _provider) external view returns (bool);\\n\\n    /// @notice Gets number of price providers registered\\n    /// @return number of price providers registered\\n    function providersCount() external view returns (uint256);\\n\\n    /// @notice Gets an array of price providers\\n    /// @return array of price providers\\n    function providerList() external view returns (address[] memory);\\n\\n    /// @notice Sanity check function\\n    /// @return returns always TRUE\\n    function priceProvidersRepositoryPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0x715cb0aa617134d1f4ebe427adb5899455114260c3d853732a6302fb5b5d6e53\",\"license\":\"BUSL-1.1\"},\"contracts/lib/Ping.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity >=0.7.6 <0.9.0;\\n\\n\\nlibrary Ping {\\n    function pong(function() external pure returns(bytes4) pingFunction) internal pure returns (bool) {\\n        return pingFunction.address != address(0) && pingFunction.selector == pingFunction();\\n    }\\n}\\n\",\"keccak256\":\"0xc99622dfb46693aeb8a332ee0e124f54e12d5ed5e6b8f70a0c0e3678df35c8b1\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/_common/PriceProviderPing.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../../interfaces/IPriceProvider.sol\\\";\\n\\n/// @title Price Provider ping feature\\nabstract contract PriceProviderPing is IPriceProvider {\\n    /// @inheritdoc IPriceProvider\\n    function priceProviderPing() external pure returns (bytes4) {\\n        return this.priceProviderPing.selector;\\n    }\\n}\\n\",\"keccak256\":\"0x9fa9a4c29de455a559c00f5c44e9f7ddc31db496927ca590fe7366281a9a863a\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/_common/PriceProvidersRepositoryManager.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../../lib/Ping.sol\\\";\\nimport \\\"../../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title Price Providers Repository manager\\nabstract contract PriceProvidersRepositoryManager  {\\n    /// @dev Price Providers Repository\\n    IPriceProvidersRepository internal immutable _priceProvidersRepository;\\n\\n    /// @dev Revert if `msg.sender` is not Price Providers Repository manager\\n    error OnlyManager();\\n    /// @dev Revert on a false sanity check with `Ping` library\\n    error InvalidPriceProviderRepository();\\n\\n    /// @dev Permissions verification modifier.\\n    /// Functions execution with this modifier will be allowed only for the Price Providers Repository manager\\n    modifier onlyManager() {\\n        if (_priceProvidersRepository.manager() != msg.sender) revert OnlyManager();\\n        _;\\n    }\\n\\n    /// @param _repository address of the Price Providers Repository\\n    constructor(IPriceProvidersRepository _repository) {\\n        if (!Ping.pong(_repository.priceProvidersRepositoryPing)) {\\n            revert InvalidPriceProviderRepository();\\n        }\\n\\n        _priceProvidersRepository = _repository;\\n    }\\n}\\n\",\"keccak256\":\"0xd56090bcd216381415fc0f05f19c6fd5e3920cf4df9590eb530675d343bed925\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/_common/PriceProvidersRepositoryQuoteToken.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./PriceProvidersRepositoryManager.sol\\\";\\nimport \\\"../../interfaces/IPriceProvider.sol\\\";\\n\\n/// @title Price providers repository quote token\\nabstract contract PriceProvidersRepositoryQuoteToken is PriceProvidersRepositoryManager, IPriceProvider {\\n    /// @inheritdoc IPriceProvider\\n    function quoteToken() external view returns (address) {\\n        return _priceProvidersRepository.quoteToken();\\n    }\\n}\\n\",\"keccak256\":\"0xf6a530e06a57ea07a191d89cb46d838940f6bc3b03b9a860bc28ab08d6d2c438\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/_common/CurveLPTokenDetailsBaseCache.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../../../lib/Ping.sol\\\";\\nimport \\\"../../_common/PriceProvidersRepositoryManager.sol\\\";\\nimport \\\"../../../interfaces/IPriceProvider.sol\\\";\\nimport \\\"../interfaces/ICurveRegistryLike.sol\\\";\\nimport \\\"../interfaces/ICurveLPTokensDetailsFetchersRepository.sol\\\";\\nimport \\\"./CurveLPTokensDataTypes.sol\\\";\\n\\nabstract contract CurveLPTokenDetailsBaseCache {\\n    /// @notice Curve LP Tokens details fetchers repository\\n    // solhint-disable-next-line var-name-mixedcase\\n    ICurveLPTokensDetailsFetchersRepository internal immutable _FETCHERS_REPO;\\n    /// @notice A null address that the Curve pool use to describe ether coin\\n    // solhint-disable-next-line var-name-mixedcase\\n    address internal immutable _NULL_ADDRESS;\\n    /// @notice wETH address\\n    // solhint-disable-next-line var-name-mixedcase\\n    address internal immutable _NATIVE_WRAPPED_ADDRESS;\\n    /// @notice Minimal number of coins in the valid pool\\n    uint8 internal constant _MIN_COINS = 2;\\n\\n    /// @dev LP Token address => pool coins\\n    mapping(address => PoolCoin[]) public coins;\\n    /// @dev LP Token address => pool details\\n    mapping(address => Pool) public lpTokenPool;\\n\\n    /// Revert if this price provider does not support an asset\\n    error NotSupported();\\n    /// Revert on a false sanity check with `Ping` library\\n    error InvalidFetchersRepository();\\n    /// Revert if a pool is not found for provided Curve LP Token\\n    error PoolForLPTokenNotFound();\\n    /// Revert if a number of coins in the initialized pool < `_MIN_COINS`\\n    error InvalidNumberOfCoinsInPool();\\n    /// Revert if Curve LP Token is already initialized in the price provider\\n    error TokenAlreadyInitialized();\\n    /// Revert if wETH address is empty\\n    error EmptyWETHAddress();\\n    /// @dev Revert if a `getPrice` function ended-up with a zero price\\n    error ZeroPrice();\\n\\n    /// @param _repository Curve LP Tokens details fetchers repository\\n    /// @param _nullAddr Null address that Curve use for a native token\\n    /// @param _nativeWrappedAddr Address of the wrapped native token\\n    constructor(\\n        ICurveLPTokensDetailsFetchersRepository _repository,\\n        address _nullAddr,\\n        address _nativeWrappedAddr\\n    ) {\\n        if (address(_nativeWrappedAddr) == address(0)) revert EmptyWETHAddress();\\n\\n        if (!Ping.pong(_repository.curveLPTokensFetchersRepositoryPing)) {\\n            revert InvalidFetchersRepository();\\n        }\\n\\n        _FETCHERS_REPO = _repository;\\n        _NULL_ADDRESS = _nullAddr;\\n        _NATIVE_WRAPPED_ADDRESS = _nativeWrappedAddr;\\n    }\\n}\\n\",\"keccak256\":\"0x169076fb4c61a6040a8ad64bebf32e750cef1f53648ddf16e03963940613a46a\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/_common/CurveLPTokensDataTypes.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @dev Identifiers of the Curve protocol components in the Curve address provider\\nenum RegistryId {\\n    MAIN_REGISTRY_0,\\n    POOL_INFO_GETTER_1,\\n    EXCHANGES_2,\\n    META_POOL_FACTORY_3,\\n    FEE_DISTRIBUTOR_4,\\n    CRYPTO_SWAP_REGISTRY_5,\\n    CRYPTO_POOL_FACTORY_6\\n}\\n\\n/// @dev Storage struct that holds Curve pool coin details\\nstruct PoolCoin {\\n    /// @dev Coin address\\n    address addr;\\n    /// @dev `true` if a coin is Curve LP Token (used in the meta pools)\\n    bool isLPToken;\\n}\\n\\n/// @dev Storage struct that holds Curve pool details\\nstruct Pool {\\n    /// @dev Pool address\\n    address addr;\\n    /// @dev `true` if a pool is the meta pool (the pool that contains other Curve LP Tokens)\\n    bool isMeta;\\n}\\n\\n/// @dev Describes an LP Token with all the details required for the price calculation\\nstruct LPTokenDetails {\\n    /// @dev A pool of the LP Token. See a Pool struct\\n    Pool pool;\\n    /// @dev A list of the LP token pool coins\\n    address[] coins;\\n}\\n\",\"keccak256\":\"0x1ac2f9680532ec19462b5d3a9dbc5081bac531c93e938bcbb25c72d200563b76\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveLPTokensDetailsFetcher.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\n\\n/// @title Curve LP Tokens details fetcher\\n/// @dev Designed to unify an interface of the Curve pool tokens details getter,\\n/// such registries as Main Registry, CryptoSwap Registry,  Metapool Factory, and Cryptopool Factory\\n/// have different interfaces.\\ninterface ICurveLPTokensDetailsFetcher {\\n    /// @notice Emitted when Curve LP registry address has been updated\\n    /// @param registry The configured registry address\\n    event RegistryUpdated(address indexed registry);\\n\\n    /// @notice Pulls a registry address from the Curve address provider\\n    function updateRegistry() external;\\n\\n    /// @notice Curve LP Token details getter\\n    /// @param _lpToken Curve LP token address\\n    /// @param _data Any additional data that can be required\\n    /// @dev This method should not revert. If the data is not found or provided an invalid LP token address,\\n    /// it should return an empty data structure.\\n    /// @return details LP token details. See CurveLPTokensDataTypes.LPTokenDetails\\n    /// @return data Any additional data to return\\n    function getLPTokenDetails(\\n        address _lpToken,\\n        bytes memory _data\\n    )\\n      external\\n      view\\n      returns (\\n        LPTokenDetails memory details,\\n        bytes memory data\\n      );\\n\\n    /// @notice Helper method that allows easily detects, if contract is Curve Registry Fatcher\\n    /// @return always curveLPTokensDetailsFetcherPing.selector\\n    function curveLPTokensDetailsFetcherPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0xf16275af21fc6262495a13f19596467df8bda0999044bae0ed941d8e24bd14c0\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveLPTokensDetailsFetchersRepository.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./ICurveLPTokensDetailsFetcher.sol\\\";\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\n\\n/// @title Curve LP Tokens details fetchers repository\\n/// @dev Designed to unify an interface of the Curve pool tokens details getter,\\n/// such registries as Main Registry, CryptoSwap Registry,  Metapool Factory, and Cryptopool Factory\\n/// have different interfaces.\\ninterface ICurveLPTokensDetailsFetchersRepository {\\n    /// @notice Emitted when Curve LP token fetcher added to the repository\\n    /// @param fetcher Added fetcher address\\n    event FetcherAdded(ICurveLPTokensDetailsFetcher indexed fetcher);\\n\\n    /// @notice Emitted when Curve LP token fetcher removed from the repository\\n    /// @param fetcher Removed fetcher address\\n    event FetcherRemoved(ICurveLPTokensDetailsFetcher indexed fetcher);\\n\\n    /// @notice Add Curve LP token details fetcher to the repository\\n    /// @param _fetcher A Curve LP token details fetcher to be added to the repository\\n    function addFetcher(ICurveLPTokensDetailsFetcher _fetcher) external;\\n\\n    /// @notice Remove Curve LP token details fetcher from the repository\\n    /// @param _fetcher A Curve LP token details fetcher to be removed from the repository\\n    function removeFetcher(ICurveLPTokensDetailsFetcher _fetcher) external;\\n\\n    /// @notice Curve LP Token details getter\\n    /// @param _lpToken Curve LP token address\\n    /// @param _data Any additional data that can be required\\n    /// @return details LP token details. See CurveLPTokensDataTypes.LPTokenDetails\\n    /// @return data Any additional data to return\\n    function getLPTokenDetails(\\n        address _lpToken,\\n        bytes memory _data\\n    )\\n        external\\n        view\\n        returns (\\n            LPTokenDetails memory details,\\n            bytes memory data\\n        );\\n\\n    /// @return pool of the `_lpToken`\\n    function getLPTokenPool(address _lpToken) external view returns (address pool);\\n\\n    /// @dev Returns a list of the registered fetchers\\n    function getFetchers() external view returns (address[] memory);\\n\\n    /// @notice Helper method that allows easily detects, if contract is Curve Repository fetcher\\n    /// @return always curveLPTokensFetchersRepositoryPing.selector\\n    function curveLPTokensFetchersRepositoryPing() external pure returns (bytes4);\\n}\\n\",\"keccak256\":\"0x442748d5327968d3430e35c35f792b7dccb46f9d2e5836564f598b2fde35621e\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveLPTokensPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../_common/CurveLPTokensDataTypes.sol\\\";\\nimport \\\"../../../interfaces/IPriceProvider.sol\\\";\\n\\n/// @notice A price provider for Curve LP Tokens\\ninterface ICurveLPTokensPriceProvider is IPriceProvider {\\n    /// @notice Enable Curve LP token in the price provider\\n    /// @param _lpToken Curve LP Token address that will be enabled in the price provider\\n    function setupAsset(address _lpToken) external;\\n\\n    /// @notice Enable a list of Curve LP tokens in the price provider\\n    /// @param _lpTokens List of Curve LP Tokens addresses that will be enabled in the price provider\\n    function setupAssets(address[] memory _lpTokens) external;\\n}\\n\",\"keccak256\":\"0x59d1a9f5327ad26c572d980ebcecc320efb02289b20284aab8837700500f6b97\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurvePoolNonPeggedAssetsLike.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @notice A simplified interface of the Curve pool.\\n/// @dev Includes only methods for CurveLPTokensPriceProviders.\\ninterface ICurvePoolNonPeggedAssetsLike {\\n    /// Description from Curve docs:\\n    /// @notice Approximate LP token price\\n    /// @dev n * self.virtual_price * self.sqrt_int(self.internal_price_oracle()) / 10**18\\n    /// where n is a number of coins in the pool\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function lp_price() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x8cd861a718d9737679fb74640405f6abd011941ab1d9c042528a77ec1b110be8\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/interfaces/ICurveRegistryLike.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\n/// @notice A simplified interface of the Curve registry.\\n/// @dev Includes only methods for CurveLPTokensPriceProvider.\\ninterface ICurveRegistryLike {\\n    /// @param _lpToken LP Token address to fetch a pool address for\\n    /// @return Pool address associated with `_lpToken`\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function get_pool_from_lp_token(address _lpToken) external view returns (address);\\n\\n    /// @notice Verifies whether a pool is meta pool\\n    /// @param _pool Pool address to be verified\\n    /// @return Boolean value that shows if a pool is a meta pool or not\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function is_meta(address _pool) external view returns (bool);\\n\\n    /// @param _pool Pool address to fetch coins for\\n    /// @return A list of coins in the pool\\n    //  solhint-disable-next-line func-name-mixedcase\\n    function get_coins(address _pool) external view returns (address[8] memory);\\n}\\n\",\"keccak256\":\"0xff78ca24d67fdac580cb4838c7f0e54c13214641784820a969964a86f2104005\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveLPTokensNPAPBaseCache.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"../_common/CurveLPTokenDetailsBaseCache.sol\\\";\\n\\n/// @dev NPAP - non-pegged assets pools\\nabstract contract CurveLPTokensNPAPBaseCache is CurveLPTokenDetailsBaseCache {\\n    /// @notice Emitted when Curve LP token was enabled in the price provider\\n    /// @param pool Pool address of the Curve LP token\\n    /// @param token Curve LP token address that has been enabled in the price provider\\n    event LPTokenEnabled(address indexed pool, address indexed token);\\n\\n    /// @dev Revert if the Curve LP tokens detail fetchers repository returned details\\n    /// with an `isMeta` flag equal to `true` for the pool with non-pegged assets.\\n    error CryptoPoolCantBeMetaPool();\\n\\n    /// @notice Enable Curve LP token in the price provider\\n    /// @dev Reverts if the token is already initialized\\n    /// @param _lpToken Curve LP Token address that will be enabled in the price provider\\n    function _setupAsset(address _lpToken) internal virtual {\\n        if (coins[_lpToken].length != 0) revert TokenAlreadyInitialized();\\n\\n        bytes memory data; // We'll use it as an `input` and `return` data\\n        LPTokenDetails memory details;\\n\\n        (details, data) = _FETCHERS_REPO.getLPTokenDetails(_lpToken, data);\\n\\n        if (details.pool.addr == address(0) || details.coins[0] == address(0)) {\\n            revert PoolForLPTokenNotFound();\\n        }\\n\\n        if (details.coins.length < _MIN_COINS) revert InvalidNumberOfCoinsInPool();\\n\\n        // Sanity check to ensure a data validity.\\n        // Crypto pools are not meta pools.\\n        if (details.pool.isMeta) revert CryptoPoolCantBeMetaPool();\\n\\n        // For the pools with non-pegged asset we don't need to store all coins\\n        // as a price that pool will return will be denominated in the coins[0]\\n        PoolCoin memory coin = PoolCoin({ addr: details.coins[0], isLPToken: false });\\n\\n        // Some of the Curve pools for ether use 'Null Address' which we are not\\n        // able to use for the price calculation. To be able to calculate an LP Token\\n        // price for this kind of pools we will use wETH address instead.\\n        if (coin.addr == _NULL_ADDRESS) {\\n            coin.addr = _NATIVE_WRAPPED_ADDRESS;\\n        }\\n\\n        coins[_lpToken].push(coin);\\n\\n        lpTokenPool[_lpToken] = details.pool;\\n\\n        emit LPTokenEnabled(lpTokenPool[_lpToken].addr, _lpToken);\\n    }\\n}\\n\",\"keccak256\":\"0x0421fda17c822dbf410cfa4567f2a2eea3d3c05a4a535dcbe2fef27cfeb289c1\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProvider.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./CurveLPTokensNPAPBaseCache.sol\\\";\\nimport \\\"../interfaces/ICurvePoolNonPeggedAssetsLike.sol\\\";\\nimport \\\"../interfaces/ICurveLPTokensDetailsFetchersRepository.sol\\\";\\nimport \\\"../interfaces/ICurveLPTokensPriceProvider.sol\\\";\\nimport \\\"../../_common/PriceProviderPing.sol\\\";\\nimport \\\"../../_common/PriceProvidersRepositoryQuoteToken.sol\\\";\\nimport \\\"../../../interfaces/IPriceProvidersRepository.sol\\\";\\n\\n/// @title Curve non-pegged pools tokens price provider\\n/// @dev NPAP - non-pegged assets pools\\ncontract CurveNPAPTokensPriceProvider is\\n    CurveLPTokensNPAPBaseCache,\\n    PriceProvidersRepositoryQuoteToken,\\n    PriceProviderPing,\\n    ICurveLPTokensPriceProvider\\n{\\n    /// @dev Constructor is required for indirect CurveLPTokensPriceProvider initialization.\\n    /// Arguments for CurveLPTokensPriceProvider initialization are given in the\\n    /// modifier-style in the derived constructor. There are no requirements during\\n    /// CurveNPAPTokensPriceProvider deployment, so the constructor body should be empty.\\n    constructor(\\n        IPriceProvidersRepository _providersRepository,\\n        ICurveLPTokensDetailsFetchersRepository _fetchersRepository,\\n        address _nullAddr,\\n        address _nativeWrappedAddr\\n    )\\n        PriceProvidersRepositoryManager(_providersRepository)\\n        CurveLPTokenDetailsBaseCache(_fetchersRepository, _nullAddr, _nativeWrappedAddr)\\n    {\\n        // The code will not compile without it. So, we need to keep an empty constructor.\\n    }\\n\\n    /// @inheritdoc ICurveLPTokensPriceProvider\\n    function setupAsset(address _lpToken) external virtual onlyManager {\\n        _setUpAssetAndEnsureItIsSupported(_lpToken);\\n    }\\n\\n    /// @inheritdoc ICurveLPTokensPriceProvider\\n    function setupAssets(address[] calldata _lpTokens) external virtual onlyManager {\\n        uint256 i = 0;\\n\\n        while(i < _lpTokens.length) {\\n            _setUpAssetAndEnsureItIsSupported(_lpTokens[i]);\\n\\n            // Ignoring overflow check as it is impossible\\n            // to have more than 2 ** 256 - 1 LP Tokens for initialization.\\n            unchecked { i++; }\\n        }\\n    }\\n\\n    /// @inheritdoc IPriceProvider\\n    function assetSupported(address _lpToken) external virtual view returns (bool) {\\n        return lpTokenPool[_lpToken].addr != address(0);\\n    }\\n\\n    /// @param _lpToken Curve LP Token address for which a price to be calculated\\n    /// @return Price of the `_lpToken` denominated in the price providers repository quote token\\n    function getPrice(address _lpToken) external virtual view returns (uint256) {\\n        address pool = lpTokenPool[_lpToken].addr;\\n\\n        if (pool == address(0)) revert NotSupported();\\n        \\n        uint256 lpPrice = ICurvePoolNonPeggedAssetsLike(pool).lp_price();\\n\\n        return _getPrice(_lpToken, lpPrice);\\n    }\\n\\n    /// @notice Enable Curve LP token in the price provider\\n    /// @param _lpToken Curve LP Token address that will be enabled in the price provider\\n    function _setUpAssetAndEnsureItIsSupported(address _lpToken) internal virtual {\\n        _setupAsset(_lpToken);\\n        \\n        // Ensure that the get price function does not revert for initialized coins\\n        // The price providers repository should revert if the provided coin is not supported\\n        _priceProvidersRepository.getPrice(coins[_lpToken][0].addr);\\n    }\\n\\n    /// @param _lpToken Curve LP Token address for which a price to be calculated\\n    /// @param _lpPrice Curve LP Token price received from the pool's `lp_price` function\\n    /// @return price of the `_lpToken` denominated in the price providers repository quote token\\n    function _getPrice(address _lpToken, uint256 _lpPrice) internal virtual view returns (uint256 price) {\\n        uint256 coinPrice = _priceProvidersRepository.getPrice(coins[_lpToken][0].addr);\\n\\n        // `_lpToken` price calculation\\n        price = coinPrice * _lpPrice;\\n\\n        // It doesn't make sense to do any math check here because if a `price` < 1e18,\\n        // in any case, it will return 0. Otherwise, we are fine.\\n        unchecked { price = price / 1e18; }\\n\\n        // Zero price is unacceptable\\n        if (price == 0) revert ZeroPrice();\\n    }\\n}\\n\",\"keccak256\":\"0xee44131e5ef1b720bfd93e76cfffa9310658216fb923ab355785da38672d44f7\",\"license\":\"BUSL-1.1\"},\"contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.13;\\n\\nimport \\\"./CurveLPTokensNPAPBaseCache.sol\\\";\\nimport \\\"../interfaces/ICurvePoolNonPeggedAssetsLike.sol\\\";\\nimport \\\"../interfaces/ICurveLPTokensDetailsFetchersRepository.sol\\\";\\nimport \\\"../interfaces/ICurveLPTokensPriceProvider.sol\\\";\\nimport \\\"../../_common/PriceProviderPing.sol\\\";\\nimport \\\"../../_common/PriceProvidersRepositoryQuoteToken.sol\\\";\\nimport \\\"../../../interfaces/IPriceProvidersRepository.sol\\\";\\nimport \\\"./CurveNPAPTokensPriceProvider.sol\\\";\\n\\n/// @title Curve non-pegged pools tokens price provider for ethereum network\\n/// @notice We have a particular case with the tricrypto2 pool in the Ethereum network,\\n/// as it is without the lp_rice() function, and it is implemented in the separate smart contract.\\n/// @dev NPAP - non-pegged assets pools\\ncontract CurveNPAPTokensPriceProviderETH is CurveNPAPTokensPriceProvider {\\n    /// @dev tricrypto2 (USDT/wBTC/ETH) LP Token (Ethereum network)\\n    address constant public TRICRYPTO2_LP_TOKEN = 0xc4AD29ba4B3c580e6D59105FFf484999997675Ff;\\n    /// @dev tricrypto2 smart contract to provide LP token price (Ethereum network)\\n    address constant public TRICRYPTO2_LP_PRICE = 0xE8b2989276E2Ca8FDEA2268E3551b2b4B2418950;\\n\\n    /// @dev Constructor is required for indirect CurveLPTokensPriceProvider initialization.\\n    /// Arguments for CurveLPTokensPriceProvider initialization are given in the\\n    /// modifier-style in the derived constructor. There are no requirements during\\n    /// CurveNPAPTokensPriceProviderETH deployment, so the constructor body should be empty.\\n    constructor(\\n        IPriceProvidersRepository _providersRepository,\\n        ICurveLPTokensDetailsFetchersRepository _fetchersRepository,\\n        address _nullAddr,\\n        address _nativeWrappedAddr\\n    )\\n        CurveNPAPTokensPriceProvider(\\n            _providersRepository,\\n            _fetchersRepository,\\n            _nullAddr,\\n            _nativeWrappedAddr\\n        )\\n    {\\n        // The code will not compile without it. So, we need to keep an empty constructor.\\n    }\\n\\n    /// @param _lpToken Curve LP Token address for which a price to be calculated\\n    /// @return Price of the `_lpToken` denominated in the price providers repository quote token\\n    function getPrice(address _lpToken) external override view returns (uint256) {\\n        address pool = lpTokenPool[_lpToken].addr;\\n\\n        if (pool == address(0)) revert NotSupported();\\n\\n        // We have a particular case for the tricrypto2 pool, as originally, it didn't support\\n        // the `lp_price` function. Because of it, function was implemented in a separate smart contract.\\n        address provider = _lpToken == TRICRYPTO2_LP_TOKEN ? TRICRYPTO2_LP_PRICE : pool;\\n        uint256 lpPrice = ICurvePoolNonPeggedAssetsLike(provider).lp_price();\\n\\n        return _getPrice(_lpToken, lpPrice);\\n    }\\n}\\n\",\"keccak256\":\"0x2c81ad96716867ef82c5aa62d9c303233f3a48da129db64dd479ab1713a9373a\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x6101006040523480156200001257600080fd5b50604051620011ec380380620011ec8339810160408190526200003591620001ba565b83838383838383836001600160a01b0381166200006557604051634812bd0f60e01b815260040160405180910390fd5b62000089836001600160a01b0316630956403e6200011760201b6200057e1760201c565b620000a75760405163011848e160e11b815260040160405180910390fd5b6001600160a01b0392831660805290821660a052811660c052620000de90821663eec3e6a762000117602090811b6200057e17901c565b620000fc5760405163352cccdf60e01b815260040160405180910390fd5b6001600160a01b031660e052506200024e9650505050505050565b60006001600160a01b038316158015906200019a575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156200015f573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019062000185919062000222565b60e083901b6001600160e01b03199081169116145b9392505050565b6001600160a01b0381168114620001b757600080fd5b50565b60008060008060808587031215620001d157600080fd5b8451620001de81620001a1565b6020860151909450620001f181620001a1565b60408601519093506200020481620001a1565b60608601519092506200021781620001a1565b939692955090935050565b6000602082840312156200023557600080fd5b81516001600160e01b0319811681146200019a57600080fd5b60805160a05160c05160e051610f48620002a4600039600081816102050152818161038e0152818161044d01528181610609015261072d01526000610a37015260006109f20152600061087a0152610f486000f3fe608060405234801561001057600080fd5b506004361061009e5760003560e01c80636a40a889116100665780636a40a8891461016d5780638590af15146101825780638d5121a514610195578063b31fb256146101b0578063c42fa7f4146101ee57600080fd5b8063217a4b70146100a35780632fe828c6146100c857806341976e091461011c57806357e0c50f1461013d578063681ed21514610152575b600080fd5b6100ab610201565b6040516001600160a01b0390911681526020015b60405180910390f35b6100fd6100d6366004610b1a565b6001602052600090815260409020546001600160a01b03811690600160a01b900460ff1682565b604080516001600160a01b0390931683529015156020830152016100bf565b61012f61012a366004610b1a565b61028a565b6040519081526020016100bf565b6040516357e0c50f60e01b81526020016100bf565b6100ab73c4ad29ba4b3c580e6d59105fff484999997675ff81565b61018061017b366004610b1a565b610382565b005b610180610190366004610b37565b610441565b6100ab73e8b2989276e2ca8fdea2268e3551b2b4b241895081565b6101de6101be366004610b1a565b6001600160a01b0390811660009081526001602052604090205416151590565b60405190151581526020016100bf565b6100fd6101fc366004610bac565b61053b565b60007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663217a4b706040518163ffffffff1660e01b8152600401602060405180830381865afa158015610261573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102859190610bd8565b905090565b6001600160a01b03808216600090815260016020526040812054909116806102c557604051630280e1e560e61b815260040160405180910390fd5b60006001600160a01b03841673c4ad29ba4b3c580e6d59105fff484999997675ff146102f15781610307565b73e8b2989276e2ca8fdea2268e3551b2b4b24189505b90506000816001600160a01b03166354f0f7d56040518163ffffffff1660e01b8152600401602060405180830381865afa158015610349573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061036d9190610bf5565b90506103798582610604565b95945050505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156103ea573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061040e9190610bd8565b6001600160a01b0316146104355760405163605919ad60e11b815260040160405180910390fd5b61043e81610722565b50565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156104a9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104cd9190610bd8565b6001600160a01b0316146104f45760405163605919ad60e11b815260040160405180910390fd5b60005b818110156105365761052e83838381811061051457610514610c0e565b90506020020160208101906105299190610b1a565b610722565b6001016104f7565b505050565b6000602052816000526040600020818154811061055757600080fd5b6000918252602090912001546001600160a01b0381169250600160a01b900460ff16905082565b60006001600160a01b038316158015906105fd575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156105c4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105e89190610c24565b60e083901b6001600160e01b03199081169116145b9392505050565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166341976e09600080876001600160a01b03166001600160a01b0316815260200190815260200160002060008154811061066c5761066c610c0e565b60009182526020909120015460405160e083901b6001600160e01b03191681526001600160a01b039091166004820152602401602060405180830381865afa1580156106bc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106e09190610bf5565b90506106ec8382610c4e565b670de0b6b3a764000090049150600082900361071b57604051634dfba02360e01b815260040160405180910390fd5b5092915050565b61072b81610808565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166341976e09600080846001600160a01b03166001600160a01b0316815260200190815260200160002060008154811061079057610790610c0e565b60009182526020909120015460405160e083901b6001600160e01b03191681526001600160a01b039091166004820152602401602060405180830381865afa1580156107e0573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108049190610bf5565b5050565b6001600160a01b0381166000908152602081905260409020541561083f5760405163185add2960e11b815260040160405180910390fd5b604080516080810182526000918101828152606082810193909352815260208101829052604051633afc259d60e01b81526001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690633afc259d906108b19086908690600401610cab565b600060405180830381865afa1580156108ce573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526108f69190810190610dc9565b8151519093509091506001600160a01b03161580610944575060006001600160a01b0316816020015160008151811061093157610931610c0e565b60200260200101516001600160a01b0316145b156109625760405163136306a360e31b815260040160405180910390fd5b6020810151516002111561098957604051630c9e948d60e21b815260040160405180910390fd5b805160200151156109ad576040516372775d0f60e01b815260040160405180910390fd5b6000604051806040016040528083602001516000815181106109d1576109d1610c0e565b60200260200101516001600160a01b031681526020016000151581525090507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031681600001516001600160a01b031603610a5a576001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001681525b6001600160a01b03848116600081815260208181526040808320805460018082018355918552838520885191018054898601519289166001600160a81b031991821617600160a01b9315158402179091558951878752928552838620835181549490960151958916939091169290921793151502929092179182905551929316917f1c6312856df22d497cfb4f299f8cfcba47e075c8578286a8ad07568d8457a3fd9190a350505050565b6001600160a01b038116811461043e57600080fd5b600060208284031215610b2c57600080fd5b81356105fd81610b05565b60008060208385031215610b4a57600080fd5b823567ffffffffffffffff80821115610b6257600080fd5b818501915085601f830112610b7657600080fd5b813581811115610b8557600080fd5b8660208260051b8501011115610b9a57600080fd5b60209290920196919550909350505050565b60008060408385031215610bbf57600080fd5b8235610bca81610b05565b946020939093013593505050565b600060208284031215610bea57600080fd5b81516105fd81610b05565b600060208284031215610c0757600080fd5b5051919050565b634e487b7160e01b600052603260045260246000fd5b600060208284031215610c3657600080fd5b81516001600160e01b0319811681146105fd57600080fd5b6000816000190483118215151615610c7657634e487b7160e01b600052601160045260246000fd5b500290565b60005b83811015610c96578181015183820152602001610c7e565b83811115610ca5576000848401525b50505050565b60018060a01b03831681526040602082015260008251806040840152610cd8816060850160208701610c7b565b601f01601f1916919091016060019392505050565b634e487b7160e01b600052604160045260246000fd5b6040805190810167ffffffffffffffff81118282101715610d2657610d26610ced565b60405290565b604051601f8201601f1916810167ffffffffffffffff81118282101715610d5557610d55610ced565b604052919050565b600082601f830112610d6e57600080fd5b815167ffffffffffffffff811115610d8857610d88610ced565b610d9b601f8201601f1916602001610d2c565b818152846020838601011115610db057600080fd5b610dc1826020830160208701610c7b565b949350505050565b60008060408385031215610ddc57600080fd5b825167ffffffffffffffff80821115610df457600080fd5b908401908186036060811215610e0957600080fd5b610e11610d03565b6040821215610e1f57600080fd5b610e27610d03565b91508351610e3481610b05565b82526020848101518015158114610e4a57600080fd5b8382015291815260408401519183831115610e6457600080fd5b828501945088601f860112610e7857600080fd5b8451925083831115610e8c57610e8c610ced565b8260051b610e9b828201610d2c565b938452858101820193828101908b861115610eb557600080fd5b968301965b85881015610edf5787519250610ecf83610b05565b8282529683019690830190610eba565b84840152505087015190955092505080821115610efb57600080fd5b50610f0885828601610d5d565b915050925092905056fea26469706673582212201568cbe5d07c919c87203138ab6de284b73aedd2c9187c5d6b734ac7b7d766d464736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061009e5760003560e01c80636a40a889116100665780636a40a8891461016d5780638590af15146101825780638d5121a514610195578063b31fb256146101b0578063c42fa7f4146101ee57600080fd5b8063217a4b70146100a35780632fe828c6146100c857806341976e091461011c57806357e0c50f1461013d578063681ed21514610152575b600080fd5b6100ab610201565b6040516001600160a01b0390911681526020015b60405180910390f35b6100fd6100d6366004610b1a565b6001602052600090815260409020546001600160a01b03811690600160a01b900460ff1682565b604080516001600160a01b0390931683529015156020830152016100bf565b61012f61012a366004610b1a565b61028a565b6040519081526020016100bf565b6040516357e0c50f60e01b81526020016100bf565b6100ab73c4ad29ba4b3c580e6d59105fff484999997675ff81565b61018061017b366004610b1a565b610382565b005b610180610190366004610b37565b610441565b6100ab73e8b2989276e2ca8fdea2268e3551b2b4b241895081565b6101de6101be366004610b1a565b6001600160a01b0390811660009081526001602052604090205416151590565b60405190151581526020016100bf565b6100fd6101fc366004610bac565b61053b565b60007f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663217a4b706040518163ffffffff1660e01b8152600401602060405180830381865afa158015610261573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102859190610bd8565b905090565b6001600160a01b03808216600090815260016020526040812054909116806102c557604051630280e1e560e61b815260040160405180910390fd5b60006001600160a01b03841673c4ad29ba4b3c580e6d59105fff484999997675ff146102f15781610307565b73e8b2989276e2ca8fdea2268e3551b2b4b24189505b90506000816001600160a01b03166354f0f7d56040518163ffffffff1660e01b8152600401602060405180830381865afa158015610349573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061036d9190610bf5565b90506103798582610604565b95945050505050565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156103ea573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061040e9190610bd8565b6001600160a01b0316146104355760405163605919ad60e11b815260040160405180910390fd5b61043e81610722565b50565b336001600160a01b03167f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663481c6a756040518163ffffffff1660e01b8152600401602060405180830381865afa1580156104a9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104cd9190610bd8565b6001600160a01b0316146104f45760405163605919ad60e11b815260040160405180910390fd5b60005b818110156105365761052e83838381811061051457610514610c0e565b90506020020160208101906105299190610b1a565b610722565b6001016104f7565b505050565b6000602052816000526040600020818154811061055757600080fd5b6000918252602090912001546001600160a01b0381169250600160a01b900460ff16905082565b60006001600160a01b038316158015906105fd575082826040518163ffffffff1660e01b8152600401602060405180830381865afa1580156105c4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105e89190610c24565b60e083901b6001600160e01b03199081169116145b9392505050565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166341976e09600080876001600160a01b03166001600160a01b0316815260200190815260200160002060008154811061066c5761066c610c0e565b60009182526020909120015460405160e083901b6001600160e01b03191681526001600160a01b039091166004820152602401602060405180830381865afa1580156106bc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106e09190610bf5565b90506106ec8382610c4e565b670de0b6b3a764000090049150600082900361071b57604051634dfba02360e01b815260040160405180910390fd5b5092915050565b61072b81610808565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166341976e09600080846001600160a01b03166001600160a01b0316815260200190815260200160002060008154811061079057610790610c0e565b60009182526020909120015460405160e083901b6001600160e01b03191681526001600160a01b039091166004820152602401602060405180830381865afa1580156107e0573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108049190610bf5565b5050565b6001600160a01b0381166000908152602081905260409020541561083f5760405163185add2960e11b815260040160405180910390fd5b604080516080810182526000918101828152606082810193909352815260208101829052604051633afc259d60e01b81526001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690633afc259d906108b19086908690600401610cab565b600060405180830381865afa1580156108ce573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526108f69190810190610dc9565b8151519093509091506001600160a01b03161580610944575060006001600160a01b0316816020015160008151811061093157610931610c0e565b60200260200101516001600160a01b0316145b156109625760405163136306a360e31b815260040160405180910390fd5b6020810151516002111561098957604051630c9e948d60e21b815260040160405180910390fd5b805160200151156109ad576040516372775d0f60e01b815260040160405180910390fd5b6000604051806040016040528083602001516000815181106109d1576109d1610c0e565b60200260200101516001600160a01b031681526020016000151581525090507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031681600001516001600160a01b031603610a5a576001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001681525b6001600160a01b03848116600081815260208181526040808320805460018082018355918552838520885191018054898601519289166001600160a81b031991821617600160a01b9315158402179091558951878752928552838620835181549490960151958916939091169290921793151502929092179182905551929316917f1c6312856df22d497cfb4f299f8cfcba47e075c8578286a8ad07568d8457a3fd9190a350505050565b6001600160a01b038116811461043e57600080fd5b600060208284031215610b2c57600080fd5b81356105fd81610b05565b60008060208385031215610b4a57600080fd5b823567ffffffffffffffff80821115610b6257600080fd5b818501915085601f830112610b7657600080fd5b813581811115610b8557600080fd5b8660208260051b8501011115610b9a57600080fd5b60209290920196919550909350505050565b60008060408385031215610bbf57600080fd5b8235610bca81610b05565b946020939093013593505050565b600060208284031215610bea57600080fd5b81516105fd81610b05565b600060208284031215610c0757600080fd5b5051919050565b634e487b7160e01b600052603260045260246000fd5b600060208284031215610c3657600080fd5b81516001600160e01b0319811681146105fd57600080fd5b6000816000190483118215151615610c7657634e487b7160e01b600052601160045260246000fd5b500290565b60005b83811015610c96578181015183820152602001610c7e565b83811115610ca5576000848401525b50505050565b60018060a01b03831681526040602082015260008251806040840152610cd8816060850160208701610c7b565b601f01601f1916919091016060019392505050565b634e487b7160e01b600052604160045260246000fd5b6040805190810167ffffffffffffffff81118282101715610d2657610d26610ced565b60405290565b604051601f8201601f1916810167ffffffffffffffff81118282101715610d5557610d55610ced565b604052919050565b600082601f830112610d6e57600080fd5b815167ffffffffffffffff811115610d8857610d88610ced565b610d9b601f8201601f1916602001610d2c565b818152846020838601011115610db057600080fd5b610dc1826020830160208701610c7b565b949350505050565b60008060408385031215610ddc57600080fd5b825167ffffffffffffffff80821115610df457600080fd5b908401908186036060811215610e0957600080fd5b610e11610d03565b6040821215610e1f57600080fd5b610e27610d03565b91508351610e3481610b05565b82526020848101518015158114610e4a57600080fd5b8382015291815260408401519183831115610e6457600080fd5b828501945088601f860112610e7857600080fd5b8451925083831115610e8c57610e8c610ced565b8260051b610e9b828201610d2c565b938452858101820193828101908b861115610eb557600080fd5b968301965b85881015610edf5787519250610ecf83610b05565b8282529683019690830190610eba565b84840152505087015190955092505080821115610efb57600080fd5b50610f0885828601610d5d565b915050925092905056fea26469706673582212201568cbe5d07c919c87203138ab6de284b73aedd2c9187c5d6b734ac7b7d766d464736f6c634300080d0033",
+  "devdoc": {
+    "details": "NPAP - non-pegged assets pools",
+    "errors": {
+      "CryptoPoolCantBeMetaPool()": [
+        {
+          "details": "Revert if the Curve LP tokens detail fetchers repository returned details with an `isMeta` flag equal to `true` for the pool with non-pegged assets."
+        }
+      ],
+      "InvalidPriceProviderRepository()": [
+        {
+          "details": "Revert on a false sanity check with `Ping` library"
+        }
+      ],
+      "OnlyManager()": [
+        {
+          "details": "Revert if `msg.sender` is not Price Providers Repository manager"
+        }
+      ],
+      "ZeroPrice()": [
+        {
+          "details": "Revert if a `getPrice` function ended-up with a zero price"
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "assetSupported(address)": {
+        "details": "Informs if PriceProvider is setup for asset. It does not means PriceProvider can provide price right away. Some providers implementations need time to \"build\" buffer for TWAP price, so price may not be available yet but this method will return true.",
+        "params": {
+          "_asset": "asset in question"
+        },
+        "returns": {
+          "_0": "TRUE if asset has been setup, otherwise false"
+        }
+      },
+      "constructor": {
+        "details": "Constructor is required for indirect CurveLPTokensPriceProvider initialization. Arguments for CurveLPTokensPriceProvider initialization are given in the modifier-style in the derived constructor. There are no requirements during CurveNPAPTokensPriceProviderETH deployment, so the constructor body should be empty."
+      },
+      "getPrice(address)": {
+        "params": {
+          "_lpToken": "Curve LP Token address for which a price to be calculated"
+        },
+        "returns": {
+          "_0": "Price of the `_lpToken` denominated in the price providers repository quote token"
+        }
+      },
+      "priceProviderPing()": {
+        "details": "this can save us from simple human errors, in case we use invalid address but this should NOT be treated as security check",
+        "returns": {
+          "_0": "always true"
+        }
+      },
+      "quoteToken()": {
+        "returns": {
+          "_0": "quoteToken address"
+        }
+      },
+      "setupAsset(address)": {
+        "params": {
+          "_lpToken": "Curve LP Token address that will be enabled in the price provider"
+        }
+      },
+      "setupAssets(address[])": {
+        "params": {
+          "_lpTokens": "List of Curve LP Tokens addresses that will be enabled in the price provider"
+        }
+      }
+    },
+    "stateVariables": {
+      "TRICRYPTO2_LP_PRICE": {
+        "details": "tricrypto2 smart contract to provide LP token price (Ethereum network)"
+      },
+      "TRICRYPTO2_LP_TOKEN": {
+        "details": "tricrypto2 (USDT/wBTC/ETH) LP Token (Ethereum network)"
+      }
+    },
+    "title": "Curve non-pegged pools tokens price provider for ethereum network",
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "EmptyWETHAddress()": [
+        {
+          "notice": "Revert if wETH address is empty"
+        }
+      ],
+      "InvalidFetchersRepository()": [
+        {
+          "notice": "Revert on a false sanity check with `Ping` library"
+        }
+      ],
+      "InvalidNumberOfCoinsInPool()": [
+        {
+          "notice": "Revert if a number of coins in the initialized pool < `_MIN_COINS`"
+        }
+      ],
+      "NotSupported()": [
+        {
+          "notice": "Revert if this price provider does not support an asset"
+        }
+      ],
+      "PoolForLPTokenNotFound()": [
+        {
+          "notice": "Revert if a pool is not found for provided Curve LP Token"
+        }
+      ],
+      "TokenAlreadyInitialized()": [
+        {
+          "notice": "Revert if Curve LP Token is already initialized in the price provider"
+        }
+      ]
+    },
+    "events": {
+      "LPTokenEnabled(address,address)": {
+        "notice": "Emitted when Curve LP token was enabled in the price provider"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "priceProviderPing()": {
+        "notice": "Helper method that allows easily detects, if contract is PriceProvider"
+      },
+      "quoteToken()": {
+        "notice": "Gets token address in which prices are quoted"
+      },
+      "setupAsset(address)": {
+        "notice": "Enable Curve LP token in the price provider"
+      },
+      "setupAssets(address[])": {
+        "notice": "Enable a list of Curve LP tokens in the price provider"
+      }
+    },
+    "notice": "We have a particular case with the tricrypto2 pool in the Ethereum network, as it is without the lp_rice() function, and it is implemented in the separate smart contract.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 41554,
+        "contract": "contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol:CurveNPAPTokensPriceProviderETH",
+        "label": "coins",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_array(t_struct(PoolCoin)41647_storage)dyn_storage)"
+      },
+      {
+        "astId": 41560,
+        "contract": "contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol:CurveNPAPTokensPriceProviderETH",
+        "label": "lpTokenPool",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_struct(Pool)41654_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_struct(PoolCoin)41647_storage)dyn_storage": {
+        "base": "t_struct(PoolCoin)41647_storage",
+        "encoding": "dynamic_array",
+        "label": "struct PoolCoin[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_array(t_struct(PoolCoin)41647_storage)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct PoolCoin[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_struct(PoolCoin)41647_storage)dyn_storage"
+      },
+      "t_mapping(t_address,t_struct(Pool)41654_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct Pool)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Pool)41654_storage"
+      },
+      "t_struct(Pool)41654_storage": {
+        "encoding": "inplace",
+        "label": "struct Pool",
+        "members": [
+          {
+            "astId": 41650,
+            "contract": "contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol:CurveNPAPTokensPriceProviderETH",
+            "label": "addr",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 41653,
+            "contract": "contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol:CurveNPAPTokensPriceProviderETH",
+            "label": "isMeta",
+            "offset": 20,
+            "slot": "0",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(PoolCoin)41647_storage": {
+        "encoding": "inplace",
+        "label": "struct PoolCoin",
+        "members": [
+          {
+            "astId": 41643,
+            "contract": "contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol:CurveNPAPTokensPriceProviderETH",
+            "label": "addr",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 41646,
+            "contract": "contracts/priceProviders/curveLPTokens/nonPeggedAssetsPools/CurveNPAPTokensPriceProviderETH.sol:CurveNPAPTokensPriceProviderETH",
+            "label": "isLPToken",
+            "offset": 20,
+            "slot": "0",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

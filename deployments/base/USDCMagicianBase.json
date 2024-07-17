@@ -1,0 +1,189 @@
+{
+  "address": "0x29752e1bbD2d67992a4A28900B4122FF99Ad4FCa",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAsset",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ASSET",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "POOL_FEE",
+      "outputs": [
+        {
+          "internalType": "uint24",
+          "name": "",
+          "type": "uint24"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ROUTER",
+      "outputs": [
+        {
+          "internalType": "contract IV3SwapRouter",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "WETH",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsAsset",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "towardsNative",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x5b0079be6f77df2b772197c09ee3ed23ffee766e402fc508a57cd8d824836b92",
+  "receipt": {
+    "to": null,
+    "from": "0x6d228Fa4daD2163056A48Fc2186d716f5c65E89A",
+    "contractAddress": "0x29752e1bbD2d67992a4A28900B4122FF99Ad4FCa",
+    "transactionIndex": 61,
+    "gasUsed": "412676",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x27fab72f0f3a88f137fbc6ccdb9020450f2ab059259d6b8950fac4b9f8bb637d",
+    "transactionHash": "0x5b0079be6f77df2b772197c09ee3ed23ffee766e402fc508a57cd8d824836b92",
+    "logs": [],
+    "blockNumber": 16392514,
+    "cumulativeGasUsed": "8574550",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "6dd8d59ce7142a809d67b95b15fd089c",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidAsset\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ASSET\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"POOL_FEE\",\"outputs\":[{\"internalType\":\"uint24\",\"name\":\"\",\"type\":\"uint24\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ROUTER\",\"outputs\":[{\"internalType\":\"contract IV3SwapRouter\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"WETH\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsAsset\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"towardsNative\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"towardsAsset(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be wrapped\"},\"returns\":{\"amount\":\"Amount of the quote token that we spent to get `_amoun` of the `_asset`\",\"asset\":\"A token that the `_asset` has been converted to\"}},\"towardsNative(address,uint256)\":{\"params\":{\"_amount\":\"Amount of the `_asset`\",\"_asset\":\"Asset to be unwrapped\"},\"returns\":{\"_0\":\"A token that the `_asset` has been converted to\",\"_1\":\"Amount of the `tokenOut` that we received\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"towardsAsset(address,uint256)\":{\"notice\":\"Performs operation opposit to `towardsNative`\"},\"towardsNative(address,uint256)\":{\"notice\":\"Operates to unwrap an `_asset`\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/liquidation/magicians/USDCMagicianBase.sol\":\"USDCMagicianBase\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address sender,\\n        address recipient,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0x61437cb513a887a1bbad006e7b1c8b414478427d33de47c5600af3c748f108da\",\"license\":\"MIT\"},\"@uniswap/swap-router-contracts/contracts/interfaces/IV3SwapRouter.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-2.0-or-later\\npragma solidity >=0.7.5;\\npragma abicoder v2;\\n\\nimport '@uniswap/v3-core/contracts/interfaces/callback/IUniswapV3SwapCallback.sol';\\n\\n/// @title Router token swapping functionality\\n/// @notice Functions for swapping tokens via Uniswap V3\\ninterface IV3SwapRouter is IUniswapV3SwapCallback {\\n    struct ExactInputSingleParams {\\n        address tokenIn;\\n        address tokenOut;\\n        uint24 fee;\\n        address recipient;\\n        uint256 amountIn;\\n        uint256 amountOutMinimum;\\n        uint160 sqrtPriceLimitX96;\\n    }\\n\\n    /// @notice Swaps `amountIn` of one token for as much as possible of another token\\n    /// @dev Setting `amountIn` to 0 will cause the contract to look up its own balance,\\n    /// and swap the entire amount, enabling contracts to send tokens before calling this function.\\n    /// @param params The parameters necessary for the swap, encoded as `ExactInputSingleParams` in calldata\\n    /// @return amountOut The amount of the received token\\n    function exactInputSingle(ExactInputSingleParams calldata params) external payable returns (uint256 amountOut);\\n\\n    struct ExactInputParams {\\n        bytes path;\\n        address recipient;\\n        uint256 amountIn;\\n        uint256 amountOutMinimum;\\n    }\\n\\n    /// @notice Swaps `amountIn` of one token for as much as possible of another along the specified path\\n    /// @dev Setting `amountIn` to 0 will cause the contract to look up its own balance,\\n    /// and swap the entire amount, enabling contracts to send tokens before calling this function.\\n    /// @param params The parameters necessary for the multi-hop swap, encoded as `ExactInputParams` in calldata\\n    /// @return amountOut The amount of the received token\\n    function exactInput(ExactInputParams calldata params) external payable returns (uint256 amountOut);\\n\\n    struct ExactOutputSingleParams {\\n        address tokenIn;\\n        address tokenOut;\\n        uint24 fee;\\n        address recipient;\\n        uint256 amountOut;\\n        uint256 amountInMaximum;\\n        uint160 sqrtPriceLimitX96;\\n    }\\n\\n    /// @notice Swaps as little as possible of one token for `amountOut` of another token\\n    /// that may remain in the router after the swap.\\n    /// @param params The parameters necessary for the swap, encoded as `ExactOutputSingleParams` in calldata\\n    /// @return amountIn The amount of the input token\\n    function exactOutputSingle(ExactOutputSingleParams calldata params) external payable returns (uint256 amountIn);\\n\\n    struct ExactOutputParams {\\n        bytes path;\\n        address recipient;\\n        uint256 amountOut;\\n        uint256 amountInMaximum;\\n    }\\n\\n    /// @notice Swaps as little as possible of one token for `amountOut` of another along the specified path (reversed)\\n    /// that may remain in the router after the swap.\\n    /// @param params The parameters necessary for the multi-hop swap, encoded as `ExactOutputParams` in calldata\\n    /// @return amountIn The amount of the input token\\n    function exactOutput(ExactOutputParams calldata params) external payable returns (uint256 amountIn);\\n}\\n\",\"keccak256\":\"0xa2300af2b82af292216a8f3f301a86e65463655fff9fb791515e3fd2ccf4a14c\",\"license\":\"GPL-2.0-or-later\"},\"@uniswap/v3-core/contracts/interfaces/callback/IUniswapV3SwapCallback.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-2.0-or-later\\npragma solidity >=0.5.0;\\n\\n/// @title Callback for IUniswapV3PoolActions#swap\\n/// @notice Any contract that calls IUniswapV3PoolActions#swap must implement this interface\\ninterface IUniswapV3SwapCallback {\\n    /// @notice Called to `msg.sender` after executing a swap via IUniswapV3Pool#swap.\\n    /// @dev In the implementation you must pay the pool tokens owed for the swap.\\n    /// The caller of this method must be checked to be a UniswapV3Pool deployed by the canonical UniswapV3Factory.\\n    /// amount0Delta and amount1Delta can both be 0 if no tokens were swapped.\\n    /// @param amount0Delta The amount of token0 that was sent (negative) or must be received (positive) by the pool by\\n    /// the end of the swap. If positive, the callback must send that amount of token0 to the pool.\\n    /// @param amount1Delta The amount of token1 that was sent (negative) or must be received (positive) by the pool by\\n    /// the end of the swap. If positive, the callback must send that amount of token1 to the pool.\\n    /// @param data Any data passed through by the caller via the IUniswapV3PoolActions#swap call\\n    function uniswapV3SwapCallback(\\n        int256 amount0Delta,\\n        int256 amount1Delta,\\n        bytes calldata data\\n    ) external;\\n}\\n\",\"keccak256\":\"0x3f485fb1a44e8fbeadefb5da07d66edab3cfe809f0ac4074b1e54e3eb3c4cf69\",\"license\":\"GPL-2.0-or-later\"},\"contracts/liquidation/magicians/USDCMagicianBase.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"./_common/UniswapBaseMagicianBase.sol\\\";\\n\\ncontract USDCMagicianBase is UniswapBaseMagicianBase {\\n    constructor() UniswapBaseMagicianBase(\\n        0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, // USDC\\n        500 // FEE\\n    ) {}\\n}\\n\",\"keccak256\":\"0xf9980dd61146232b0d1c9e8c5994395f64741ae3099ddf74346dd81da285e17d\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/_common/UniswapBaseMagicianBase.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.13;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\nimport \\\"@uniswap/swap-router-contracts/contracts/interfaces/IV3SwapRouter.sol\\\";\\nimport \\\"../interfaces/IMagician.sol\\\";\\n\\nabstract contract UniswapBaseMagicianBase is IMagician {\\n    // solhint-disable\\n    IV3SwapRouter public constant ROUTER = IV3SwapRouter(0x2626664c2603336E57B271c5C0b26F421741e481);\\n    address public constant WETH = 0x4200000000000000000000000000000000000006;\\n    address public immutable ASSET;\\n    uint24 public immutable POOL_FEE;\\n    // solhint-enable\\n\\n    error InvalidAsset();\\n\\n    constructor(address _asset, uint24 _fee) {\\n        ASSET = _asset;\\n        POOL_FEE = _fee;\\n    }\\n\\n    /// @inheritdoc IMagician\\n    // solhint-disable-next-line named-return-values\\n    function towardsNative(address _asset, uint256 _amount) external returns (address, uint256) {\\n        if (_asset != address(ASSET)) revert InvalidAsset();\\n\\n        IERC20(_asset).approve(address(ROUTER), _amount);\\n\\n        IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter.ExactInputSingleParams({\\n            tokenIn: _asset,\\n            tokenOut: WETH,\\n            fee: POOL_FEE,\\n            recipient: address(this),\\n            amountIn: _amount,\\n            amountOutMinimum: 1,\\n            sqrtPriceLimitX96: 0\\n        });\\n\\n        return (WETH, ROUTER.exactInputSingle(params));\\n    }\\n\\n    /// @inheritdoc IMagician\\n    function towardsAsset(\\n        address _asset,\\n        uint256 _amount\\n    ) external returns (address asset, uint256 amount) {\\n        if (_asset != address(ASSET)) revert InvalidAsset();\\n\\n        IERC20(WETH).approve(address(ROUTER), type(uint256).max);\\n\\n        IV3SwapRouter.ExactOutputSingleParams memory params = IV3SwapRouter.ExactOutputSingleParams({\\n            tokenIn: WETH,\\n            tokenOut: _asset,\\n            fee: POOL_FEE,\\n            recipient: address(this),\\n            amountOut: _amount,\\n            amountInMaximum: type(uint256).max,\\n            sqrtPriceLimitX96: 0\\n        });\\n\\n        asset = _asset;\\n        amount = ROUTER.exactOutputSingle(params);\\n        IERC20(WETH).approve(address(ROUTER), 0);\\n    }\\n}\\n\",\"keccak256\":\"0x168e9cea8f0433e1184e48f5b61c8a10f4bf2bc86b8faf2a5afefad9d95a6d32\",\"license\":\"MIT\"},\"contracts/liquidation/magicians/interfaces/IMagician.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9.0;\\n\\n/// @notice Extension for the Liquidation helper to support such operations as unwrapping\\ninterface IMagician {\\n    /// @notice Operates to unwrap an `_asset`\\n    /// @param _asset Asset to be unwrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the `tokenOut` that we received\\n    function towardsNative(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n\\n    /// @notice Performs operation opposit to `towardsNative`\\n    /// @param _asset Asset to be wrapped\\n    /// @param _amount Amount of the `_asset`\\n    /// @return tokenOut A token that the `_asset` has been converted to\\n    /// @return amountOut Amount of the quote token that we spent to get `_amoun` of the `_asset`\\n    function towardsAsset(address _asset, uint256 _amount) external returns (address tokenOut, uint256 amountOut);\\n}\\n\",\"keccak256\":\"0xb48290785d1be3d5b1ed767ee628faa69ee7ded238de776d66b9e0795536ff50\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60c060405234801561001057600080fd5b5073833589fcd6edb6e08f4c7c32d4f71b54bda029136080526101f460a05260805160a05161068461006f6000396000818161011e0152818161025a015261042401526000818160d601528181610159015261032601526106846000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806321ebbf011461006757806332fe7b261461009e5780634800d97f146100d15780636ea477da146100f8578063ad5c46481461010b578063dd1b9c4a14610119575b600080fd5b61007a61007536600461056f565b610154565b604080516001600160a01b0390931683526020830191909152015b60405180910390f35b6100b9732626664c2603336e57b271c5c0b26f421741e48181565b6040516001600160a01b039091168152602001610095565b6100b97f000000000000000000000000000000000000000000000000000000000000000081565b61007a61010636600461056f565b610321565b6100b96006602160991b0181565b6101407f000000000000000000000000000000000000000000000000000000000000000081565b60405162ffffff9091168152602001610095565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b0316146101a957604051636448d6e960e11b815260040160405180910390fd5b60405163095ea7b360e01b8152732626664c2603336e57b271c5c0b26f421741e4816004820152602481018490526001600160a01b0385169063095ea7b3906044016020604051808303816000875af115801561020a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061022e91906105a7565b506040805160e0810182526001600160a01b03861681526006602160991b016020820181905262ffffff7f0000000000000000000000000000000000000000000000000000000000000000168284015230606083015260808201869052600160a0830152600060c083015291516304e45aaf60e01b8152909190732626664c2603336e57b271c5c0b26f421741e481906304e45aaf906102d29085906004016105d0565b6020604051808303816000875af11580156102f1573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103159190610635565b92509250509250929050565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161461037657604051636448d6e960e11b815260040160405180910390fd5b60405163095ea7b360e01b8152732626664c2603336e57b271c5c0b26f421741e481600482015260001960248201526006602160991b019063095ea7b3906044016020604051808303816000875af11580156103d6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103fa91906105a7565b506040805160e0810182526006602160991b0181526001600160a01b038616602082015262ffffff7f000000000000000000000000000000000000000000000000000000000000000016818301523060608201526080810185905260001960a0820152600060c08201529051635023b4df60e01b8152859350732626664c2603336e57b271c5c0b26f421741e48190635023b4df9061049d9084906004016105d0565b6020604051808303816000875af11580156104bc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104e09190610635565b60405163095ea7b360e01b8152732626664c2603336e57b271c5c0b26f421741e4816004820152600060248201529092506006602160991b019063095ea7b3906044016020604051808303816000875af1158015610542573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061056691906105a7565b50509250929050565b6000806040838503121561058257600080fd5b82356001600160a01b038116811461059957600080fd5b946020939093013593505050565b6000602082840312156105b957600080fd5b815180151581146105c957600080fd5b9392505050565b60e0810161062f828480516001600160a01b03908116835260208083015182169084015260408083015162ffffff16908401526060808301518216908401526080808301519084015260a0828101519084015260c09182015116910152565b92915050565b60006020828403121561064757600080fd5b505191905056fea2646970667358221220226549a291aafd51dc7dc9099e1cb0dfa9d886589228c3ec257565996c80bf2764736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c806321ebbf011461006757806332fe7b261461009e5780634800d97f146100d15780636ea477da146100f8578063ad5c46481461010b578063dd1b9c4a14610119575b600080fd5b61007a61007536600461056f565b610154565b604080516001600160a01b0390931683526020830191909152015b60405180910390f35b6100b9732626664c2603336e57b271c5c0b26f421741e48181565b6040516001600160a01b039091168152602001610095565b6100b97f000000000000000000000000000000000000000000000000000000000000000081565b61007a61010636600461056f565b610321565b6100b96006602160991b0181565b6101407f000000000000000000000000000000000000000000000000000000000000000081565b60405162ffffff9091168152602001610095565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b0316146101a957604051636448d6e960e11b815260040160405180910390fd5b60405163095ea7b360e01b8152732626664c2603336e57b271c5c0b26f421741e4816004820152602481018490526001600160a01b0385169063095ea7b3906044016020604051808303816000875af115801561020a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061022e91906105a7565b506040805160e0810182526001600160a01b03861681526006602160991b016020820181905262ffffff7f0000000000000000000000000000000000000000000000000000000000000000168284015230606083015260808201869052600160a0830152600060c083015291516304e45aaf60e01b8152909190732626664c2603336e57b271c5c0b26f421741e481906304e45aaf906102d29085906004016105d0565b6020604051808303816000875af11580156102f1573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103159190610635565b92509250509250929050565b6000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161461037657604051636448d6e960e11b815260040160405180910390fd5b60405163095ea7b360e01b8152732626664c2603336e57b271c5c0b26f421741e481600482015260001960248201526006602160991b019063095ea7b3906044016020604051808303816000875af11580156103d6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103fa91906105a7565b506040805160e0810182526006602160991b0181526001600160a01b038616602082015262ffffff7f000000000000000000000000000000000000000000000000000000000000000016818301523060608201526080810185905260001960a0820152600060c08201529051635023b4df60e01b8152859350732626664c2603336e57b271c5c0b26f421741e48190635023b4df9061049d9084906004016105d0565b6020604051808303816000875af11580156104bc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104e09190610635565b60405163095ea7b360e01b8152732626664c2603336e57b271c5c0b26f421741e4816004820152600060248201529092506006602160991b019063095ea7b3906044016020604051808303816000875af1158015610542573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061056691906105a7565b50509250929050565b6000806040838503121561058257600080fd5b82356001600160a01b038116811461059957600080fd5b946020939093013593505050565b6000602082840312156105b957600080fd5b815180151581146105c957600080fd5b9392505050565b60e0810161062f828480516001600160a01b03908116835260208083015182169084015260408083015162ffffff16908401526060808301518216908401526080808301519084015260a0828101519084015260c09182015116910152565b92915050565b60006020828403121561064757600080fd5b505191905056fea2646970667358221220226549a291aafd51dc7dc9099e1cb0dfa9d886589228c3ec257565996c80bf2764736f6c634300080d0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be wrapped"
+        },
+        "returns": {
+          "amount": "Amount of the quote token that we spent to get `_amoun` of the `_asset`",
+          "asset": "A token that the `_asset` has been converted to"
+        }
+      },
+      "towardsNative(address,uint256)": {
+        "params": {
+          "_amount": "Amount of the `_asset`",
+          "_asset": "Asset to be unwrapped"
+        },
+        "returns": {
+          "_0": "A token that the `_asset` has been converted to",
+          "_1": "Amount of the `tokenOut` that we received"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "towardsAsset(address,uint256)": {
+        "notice": "Performs operation opposit to `towardsNative`"
+      },
+      "towardsNative(address,uint256)": {
+        "notice": "Operates to unwrap an `_asset`"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
