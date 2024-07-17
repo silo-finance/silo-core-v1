@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "../lib/RevertBytes.sol";
 
 /// @dev Based on demo contract that swaps its ERC20 balance for another ERC20.
 /// demo source: https://github.com/0xProject/0x-api-starter-guide-code/blob/master/contracts/SimpleTokenSwap.sol
-contract ZeroExSwap is Ownable {
+contract ZeroExSwap {
     using RevertBytes for bytes;
 
     /// @param sellToken The `sellTokenAddress` field from the API response.

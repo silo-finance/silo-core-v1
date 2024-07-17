@@ -14,6 +14,9 @@ import "./interfaces/ICurvePoolLike256.sol";
 contract XAICurveMagicianETH is IMagician {
     using SafeERC20 for IERC20;
 
+    uint256 public constant BASE_AMOUNT = 20_000e18; // 20k XAI
+    uint256 public constant SCALE_FACTOR = 0.5e18; // 0.5e18 for 20k
+
     // XAI/FRAXBP(FRAX/USDC)
     ICurveMetaPoolLike public constant XAI_FRAXBP_POOL = ICurveMetaPoolLike(0x326290A1B0004eeE78fa6ED4F1d8f4b2523ab669);
     // DAI/USDC/USDT
@@ -94,7 +97,10 @@ contract XAICurveMagicianETH is IMagician {
         // on the last step of the exchange without it.
         // Math is unchecked as we do not expect to work with large numbers during the liquidation
         // to catch an overflow here.
-        unchecked { increasedRequiredAmount = _amount + 1e17; }
+        unchecked {
+            uint256 increase = _amount > BASE_AMOUNT ? _amount * SCALE_FACTOR / BASE_AMOUNT : SCALE_FACTOR;
+            increasedRequiredAmount = _amount + increase;
+        }
 
         // calculate a price
         (uint256 usdcIn, uint256 xaiOut) = _calcRequiredUSDC(increasedRequiredAmount);
@@ -104,17 +110,41 @@ contract XAICurveMagicianETH is IMagician {
         (uint256 usdtIn, uint256 usdcOut) = _calcRequiredUSDT(usdcIn);
         (uint256 wethIn, uint256 usdtOut) = _calcRequiredWETH(usdtIn);
 
-        // WETH -> USDT
-        WETH.approve(address(TRICRYPTO2_POOL), wethIn);
-        TRICRYPTO2_POOL.exchange(WETH_INDEX_TRICRYPTO, USDT_INDEX_TRICRYPTO, wethIn, usdtOut);
-        // USDT -> USDC
-        USDT.safeApprove(address(CRV3_POOL), usdtOut);
-        CRV3_POOL.exchange(USDT_INDEX_3CRV, USDC_INDEX_3CRV, usdtOut, usdcOut);
-        // USDC -> XAI
-        USDC.approve(address(XAI_FRAXBP_POOL), usdcOut);
-        XAI_FRAXBP_POOL.exchange_underlying(USDC_INDEX_XAIPOOL, XAI_INDEX_XAIPOOL, usdcOut, _amount);
+        _exchangeWethToUsdt(wethIn, usdtOut);
+        _exchangeUsdtToUsdc(usdcOut);
+        _exchangeUsdcToXai(_amount);
 
         return (address(XAI), wethIn);
+    }
+
+    /// @notice Exchage WETH -> USDT
+    /// @param _wethIn Precalculated WETH amout to sell
+    /// @param _usdtOut Expected amount of USDT to receive (it can be lower)
+    function _exchangeWethToUsdt(uint256 _wethIn, uint256 _usdtOut) internal {
+        uint256 expectedOut;
+        // reducing expected USDT out by 1%
+        unchecked { expectedOut = _usdtOut - _usdtOut / 100; }
+        WETH.approve(address(TRICRYPTO2_POOL), _wethIn);
+        TRICRYPTO2_POOL.exchange(WETH_INDEX_TRICRYPTO, USDT_INDEX_TRICRYPTO, _wethIn, expectedOut);
+    }
+
+    /// @notice Exchage USDT -> USDC (all USDT that we have on a balance)
+    /// @param _usdcOut Expected amount of USDC to receive (it can be lower)
+    function _exchangeUsdtToUsdc(uint256 _usdcOut) internal {
+        uint256 expectedOut;
+        uint256 workingBalance = USDT.balanceOf(address(this));
+        // reducing expected USDC out by 1%
+        unchecked { expectedOut = _usdcOut - _usdcOut / 100; }
+        USDT.safeApprove(address(CRV3_POOL), workingBalance);
+        CRV3_POOL.exchange(USDT_INDEX_3CRV, USDC_INDEX_3CRV, workingBalance, expectedOut);
+    }
+
+    /// @notice Exchage USDC -> XAI (all USDC that we have on a balance)
+    /// @param _xaiOut Expected amount of XAI to receive (it can be higher but not less)
+    function _exchangeUsdcToXai(uint256 _xaiOut) internal {
+        uint256 workingBalance = USDC.balanceOf(address(this));
+        USDC.approve(address(XAI_FRAXBP_POOL), workingBalance);
+        XAI_FRAXBP_POOL.exchange_underlying(USDC_INDEX_XAIPOOL, XAI_INDEX_XAIPOOL, workingBalance, _xaiOut);
     }
 
     /// @param _requiredAmountOut Expected amount of XAI to receive after exhange

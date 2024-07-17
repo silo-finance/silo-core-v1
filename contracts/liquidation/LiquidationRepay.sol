@@ -9,6 +9,7 @@ import "../interfaces/ISilo.sol";
 abstract contract LiquidationRepay {
 
     error RepayFailed();
+    error RepayApprovalFailed();
 
     function _repay(
         ISilo _silo,
@@ -34,7 +35,9 @@ abstract contract LiquidationRepay {
     ) internal virtual {
         // Low level call needed to support non-standard `ERC20.approve` eg like `USDT.approve`
         // solhint-disable-next-line avoid-low-level-calls
-        _asset.call(abi.encodeCall(IERC20.approve, (address(_silo), _shareAmountToRepaid)));
+        (bool success,) = _asset.call(abi.encodeCall(IERC20.approve, (address(_silo), _shareAmountToRepaid)));
+        if (!success) revert RepayApprovalFailed();
+
         _silo.repayFor(_asset, _user, _shareAmountToRepaid);
 
         // DEFLATIONARY TOKENS ARE NOT SUPPORTED

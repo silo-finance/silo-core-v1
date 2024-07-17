@@ -38,13 +38,37 @@ contract SiloLiquidationLens {
             uint256[][] memory shareAmountsToRepay
         )
     {
+        return flashLiquidateView(_silo, _users, 0);
+    }
+
+    /// @dev view method of ISilo.flashLiquidate
+    /// @param _silo Silo address from which to read data
+    /// @param _users array of users for witch we want to get liquidation data
+    /// @param _timestampOffset offset to reduce current timestamp while doing calculation for interest
+    /// @return assets array of all processed assets (collateral + debt, including removed)
+    /// @return receivedCollaterals receivedCollaterals[userId][assetId] => amount
+    /// amounts of collaterals send to `_flashReceiver`
+    /// @return shareAmountsToRepay shareAmountsToRepaid[userId][assetId] => amount
+    /// required amounts of debt to be repaid
+    function flashLiquidateView(ISilo _silo, address[] memory _users, uint64 _timestampOffset)
+        public
+        view
+        returns (
+            address[] memory assets,
+            uint256[][] memory receivedCollaterals,
+            uint256[][] memory shareAmountsToRepay
+        )
+    {
         assets = _silo.getAssets();
         uint256 usersLength = _users.length;
         receivedCollaterals = new uint256[][](usersLength);
         shareAmountsToRepay = new uint256[][](usersLength);
 
         for (uint256 i = 0; i < usersLength; i++) {
-            (receivedCollaterals[i], shareAmountsToRepay[i]) = _userLiquidationView(_silo, assets, _users[i]);
+            (
+                receivedCollaterals[i],
+                shareAmountsToRepay[i]
+            ) = _userLiquidationView(_silo, assets, _users[i], _timestampOffset);
         }
     }
 
@@ -56,7 +80,7 @@ contract SiloLiquidationLens {
         return IInterestRateModel(siloRepository.getInterestRateModel(address(_silo), _asset));
     }
 
-    function _userLiquidationView(ISilo _silo, address[] memory _assets, address _user)
+    function _userLiquidationView(ISilo _silo, address[] memory _assets, address _user, uint64 _timestampOffset)
         internal
         view
         returns (uint256[] memory receivedCollaterals, uint256[] memory shareAmountsToRepay)
@@ -67,10 +91,15 @@ contract SiloLiquidationLens {
             return (empty, empty);
         }
 
-        (receivedCollaterals, shareAmountsToRepay) = _flashUserLiquidationView(_silo, _assets, _user);
+        (receivedCollaterals, shareAmountsToRepay) = _flashUserLiquidationView(_silo, _assets, _user, _timestampOffset);
     }
 
-    function _flashUserLiquidationView(ISilo _silo, address[] memory _allSiloAssets, address _borrower)
+    function _flashUserLiquidationView(
+        ISilo _silo,
+        address[] memory _allSiloAssets,
+        address _borrower,
+        uint64 _timestampOffset
+    )
         internal
         view
         returns (uint256[] memory receivedCollaterals, uint256[] memory amountsToRepay)
@@ -80,12 +109,13 @@ contract SiloLiquidationLens {
         amountsToRepay = new uint256[](assetsLength);
 
         uint256 protocolLiquidationFee = siloRepository.protocolLiquidationFee();
+        uint64 blockTimestamp = uint64(block.timestamp) - _timestampOffset;
 
         for (uint256 i = 0; i < assetsLength; i++) {
             ISilo.AssetStorage memory _state = _silo.assetStorage(_allSiloAssets[i]);
             ISilo.AssetInterestData memory _assetInterestData = _silo.interestData(_allSiloAssets[i]);
 
-            _accrueInterestView(_silo, _state, _assetInterestData, _allSiloAssets[i]);
+            _accrueInterestView(_silo, _state, _assetInterestData, _allSiloAssets[i], blockTimestamp);
             // we do not allow for partial repayment on liquidation, that's why max
             (amountsToRepay[i],) = _calculateDebtAmountAndShare(_state, _borrower);
 
@@ -113,7 +143,8 @@ contract SiloLiquidationLens {
         ISilo _silo,
         ISilo.AssetStorage memory _state,
         ISilo.AssetInterestData memory _assetInterestData,
-        address _asset
+        address _asset,
+        uint64 _blockTimestamp
     )
         internal
         view
@@ -122,16 +153,16 @@ contract SiloLiquidationLens {
 
         // This is the first time, so we can return early and save some gas
         if (lastTimestamp == 0) {
-            _assetInterestData.interestRateTimestamp = uint64(block.timestamp);
+            _assetInterestData.interestRateTimestamp = _blockTimestamp;
             return;
         }
 
         // Interest has already been accrued this block
-        if (lastTimestamp == block.timestamp) {
+        if (lastTimestamp == _blockTimestamp) {
             return;
         }
 
-        uint256 rcomp = getModel(_silo, _asset).getCompoundInterestRate(address(_silo), _asset, block.timestamp);
+        uint256 rcomp = getModel(_silo, _asset).getCompoundInterestRate(address(_silo), _asset, _blockTimestamp);
         uint256 protocolShareFee = siloRepository.protocolShareFee();
 
         uint256 totalBorrowAmountCached = _state.totalBorrowAmount;
@@ -144,7 +175,7 @@ contract SiloLiquidationLens {
         _state.totalBorrowAmount = totalBorrowAmountCached + totalInterest;
         _state.totalDeposits = _state.totalDeposits + depositorsShare;
         _assetInterestData.protocolFees = _assetInterestData.protocolFees + protocolShare;
-        _assetInterestData.interestRateTimestamp = uint64(block.timestamp);
+        _assetInterestData.interestRateTimestamp = _blockTimestamp;
     }
 
     function _calculateDebtAmountAndShare(ISilo.AssetStorage memory _assetStorage, address _borrower)

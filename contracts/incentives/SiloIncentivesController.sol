@@ -23,7 +23,7 @@ contract SiloIncentivesController is BaseIncentivesController, INotificationRece
      * @dev Silo share token event handler
      */
     function onAfterTransfer(address /* _token */, address _from, address _to, uint256 _amount) external {
-        if (assets[msg.sender].lastUpdateTimestamp == 0) {
+        if (assets[msg.sender].lastUpdateTimestamp == 0 || _from == _to) {
             // optimisation check, if we never configured rewards distribution, then no need for updating any data
             return;
         }
